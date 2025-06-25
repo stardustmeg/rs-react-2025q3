@@ -15,13 +15,11 @@ import { myEslintRules } from './eslint-rules/my-eslint-rules.js';
 export default tseslint.config(
   {
     languageOptions: {
-      ecmaVersion: 'latest',
-      globals: globals.browser,
       sourceType: 'module',
       parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname },
     },
   },
-  { ignores: ['dist', '**/*.js', '**/*.d.ts', '**/*.config.js', '**/*.config.ts'] },
+  { ignores: ['dist', '**/*.js', '**/*.d.ts', '**/*.config.ts'] },
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -35,7 +33,7 @@ export default tseslint.config(
       eslintPluginPrettier,
     ],
     languageOptions: {
-      ecmaVersion: 2020,
+      ecmaVersion: 'latest',
       globals: globals.browser,
     },
     plugins: {

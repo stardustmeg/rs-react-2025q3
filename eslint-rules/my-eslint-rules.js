@@ -2,7 +2,6 @@
 export const myEslintRules = {
   '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
   '@typescript-eslint/explicit-function-return-type': 'error',
-  '@typescript-eslint/no-extraneous-class': 'off',
   '@typescript-eslint/explicit-member-accessibility': [
     'error',
     {
@@ -64,7 +63,7 @@ export const myEslintRules = {
   ],
   'max-len': ['error', { code: 120, ignoreComments: true }],
   'max-lines-per-function': ['error', { max: 40, skipBlankLines: true, skipComments: true }],
-  'no-console': ['error', { allow: ['warn', 'error'] }],
+  'no-console': ['error'],
   'no-empty-function': 'error',
   'no-relative-import-paths/no-relative-import-paths': [
     'error',
@@ -72,7 +71,6 @@ export const myEslintRules = {
   ],
   'object-curly-newline': 'off',
   'unused-imports/no-unused-imports': 'error',
-  '@angular-eslint/no-input-rename': 'off',
   '@typescript-eslint/no-magic-numbers': [
     'error',
     {
@@ -85,29 +83,4 @@ export const myEslintRules = {
     },
   ],
   '@typescript-eslint/restrict-template-expressions': 'off',
-  'perfectionist/sort-imports': 'off',
-  'perfectionist/sort-classes': [
-    'error',
-    {
-      groups: [
-        'index-signature',
-        'static-property',
-        'static-block',
-        'private-readonly-property',
-        'private-property',
-        'protected-readonly-property',
-        'protected-property',
-        'decorated-property',
-        'public-readonly-property',
-        'public-property',
-        'constructor',
-        'private-method',
-        'decorated-get-method',
-        'decorated-method',
-        'protected-method',
-        'public-method',
-        'unknown',
-      ],
-    },
-  ],
 };
