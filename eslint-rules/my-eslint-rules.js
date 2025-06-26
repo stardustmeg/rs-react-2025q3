@@ -67,7 +67,7 @@ export const myEslintRules = {
   'no-empty-function': 'error',
   'no-relative-import-paths/no-relative-import-paths': [
     'error',
-    { allowSameFolder: true, rootDir: 'src', prefix: '@' },
+    { allowSameFolder: false, rootDir: 'src', prefix: '@' },
   ],
   'object-curly-newline': 'off',
   'unused-imports/no-unused-imports': 'error',
