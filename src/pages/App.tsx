@@ -1,7 +1,6 @@
-import reactLogo from '@assets/react.svg';
-
-import '@/App.css';
 import { type JSX, useState } from 'react';
+
+import reactLogo from '@/assets/react.svg';
 
 const logoUrl = '/vite.svg';
 
