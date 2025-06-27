@@ -11,6 +11,7 @@ import eslint from '@eslint/js';
 import eslintPluginNoRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
 import unusedImports from 'eslint-plugin-unused-imports';
 import { myEslintRules } from './eslint-rules/my-eslint-rules.js';
+import unicorn from 'eslint-plugin-unicorn';
 
 export default tseslint.config(
   {
@@ -30,6 +31,7 @@ export default tseslint.config(
       ...tseslint.configs.stylistic,
       ...tseslint.configs.stylisticTypeChecked,
       ...tseslint.configs.strictTypeChecked,
+      unicorn.configs.recommended,
       eslintPluginPrettier,
     ],
     languageOptions: {

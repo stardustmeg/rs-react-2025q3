@@ -4,12 +4,7 @@ export const myEslintRules = {
   '@typescript-eslint/explicit-function-return-type': 'error',
   '@typescript-eslint/explicit-member-accessibility': [
     'error',
-    {
-      accessibility: 'explicit',
-      overrides: {
-        constructors: 'off',
-      },
-    },
+    { accessibility: 'explicit', overrides: { constructors: 'off' } },
   ],
   '@typescript-eslint/explicit-module-boundary-types': 'error',
   '@typescript-eslint/method-signature-style': 'error',
@@ -41,16 +36,7 @@ export const myEslintRules = {
   'function-paren-newline': 'off',
   'operator-linebreak': 'off',
   'import/no-cycle': 'error',
-  'import/extensions': [
-    'error',
-    'ignorePackages',
-    {
-      js: 'never',
-      jsx: 'never',
-      ts: 'never',
-      tsx: 'never',
-    },
-  ],
+  'import/extensions': ['error', 'ignorePackages', { js: 'never', jsx: 'never', ts: 'never', tsx: 'never' }],
   'import/prefer-default-export': 'off',
   'lines-between-class-members': [
     'error',
@@ -83,4 +69,9 @@ export const myEslintRules = {
     },
   ],
   '@typescript-eslint/restrict-template-expressions': 'off',
+  'unicorn/no-null': 'off',
+  'unicorn/prefer-global-this': 'off',
+  'unicorn/prefer-query-selector': 'off',
+  'unicorn/filename-case': ['error', { cases: { camelCase: true, pascalCase: true } }],
+  'unicorn/prevent-abbreviations': ['error', { allowList: { props: true, Props: true } }],
 };
