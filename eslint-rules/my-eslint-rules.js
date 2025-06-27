@@ -49,7 +49,7 @@ export const myEslintRules = {
   ],
   'max-len': ['error', { code: 120, ignoreComments: true }],
   'max-lines-per-function': ['error', { max: 40, skipBlankLines: true, skipComments: true }],
-  'no-console': ['error'],
+  'no-console': ['error', { allow: ['warn'] }],
   'no-empty-function': 'error',
   'no-relative-import-paths/no-relative-import-paths': [
     'error',
