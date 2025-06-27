@@ -1,5 +1,7 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 
+import errorImage from '@/assets/png/rick_and_morty.png';
+
 interface State {
   hasError: boolean;
 }
@@ -25,6 +27,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, State> {
     if (this.state.hasError) {
       return (
         <>
+          <img alt="Error illustration" className="mx-auto mb-4 w-64" src={errorImage} />
           <div className="text-red-600">Something went wrong!</div>
           <button className="mt-4 rounded bg-red-600 px-4 py-2 text-white" onClick={this.handleClick}>
             Repair the site
