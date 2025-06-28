@@ -1,5 +1,13 @@
 @import 'tailwindcss';
 
+@config "../../tailwind.config.js";
+
+@utility btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background-color: ButtonFace;
+}
+
 body {
   display: flex;
   place-items: center;
@@ -10,9 +18,9 @@ body {
 }
 
 #root {
-  max-width: 1280px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 2rem;
+  padding-top: 4rem;
   text-align: center;
 }
 
@@ -25,7 +33,7 @@ body {
   color: #213547;
   text-rendering: optimizelegibility;
 
-  background-color: #fff;
+  background-color: #c2e0bc;
 
   font-synthesis: none;
 }
