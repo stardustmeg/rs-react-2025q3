@@ -14,12 +14,18 @@ class Search extends Component<Props, State> {
   };
 
   public handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    this.setState({ query: event.target.value });
+    this.setState({ query: event.target.value.trimStart() });
   };
 
   public handleSubmit = (event: React.FormEvent): void => {
     event.preventDefault();
-    this.props.onSubmit(this.state.query);
+
+    this.setState((previousState) => {
+      const trimmed = previousState.query.trim();
+      this.saveQuery(trimmed);
+      this.props.onSubmit(trimmed);
+      return { query: trimmed };
+    });
   };
 
   public override render(): React.ReactNode {
@@ -30,6 +36,10 @@ class Search extends Component<Props, State> {
       </form>
     );
   }
+
+  private readonly saveQuery = (query: string): void => {
+    localStorage.setItem('search', query);
+  };
 }
 
 export default Search;

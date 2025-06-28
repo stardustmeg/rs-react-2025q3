@@ -41,21 +41,24 @@ class App extends Component<object, State> {
         this.setState({ characters: data.results ?? [], loading: false });
       })
       .catch((error: unknown) => {
+        this.setState({ characters: [] });
         this.setState({ error: error instanceof Error ? error.message : 'Unknown error', loading: false });
       });
   };
 
   public handleSearchSubmit = (query: string): void => {
-    localStorage.setItem('search', query);
     this.fetchCharacters(query);
   };
 
   public override render(): React.ReactNode {
-    const { characters } = this.state;
+    const { characters, loading } = this.state;
     return (
       <div className="app px-6 pt-20">
         <Header onSearch={this.handleSearchSubmit} />
-        <CardList characters={characters} />
+        {loading && <p>Loading...</p>}
+        {this.state.error && <p className="text-red-500">{this.state.error}</p>}
+        {!loading && characters.length === 0 && <p>No characters found.</p>}
+        {!loading && characters.length > 0 && <CardList characters={characters} />}
       </div>
     );
   }
