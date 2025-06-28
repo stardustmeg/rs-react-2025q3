@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import type { Character, Info } from '@/types';
 
 import CardList from '@/components/CardList';
-import ErrorButton from '@/components/ErrorButton';
 import Header from '@/components/Header';
 
 interface State {
@@ -46,14 +45,16 @@ class App extends Component<object, State> {
       });
   };
 
+  public handleSearchSubmit = (query: string): void => {
+    localStorage.setItem('search', query);
+    this.fetchCharacters(query);
+  };
+
   public override render(): React.ReactNode {
     const { characters } = this.state;
     return (
       <div className="app px-6 pt-20">
-        <Header />
-        <h1 className="mb-4 text-2xl font-bold">Welcome to my React App</h1>
-        <p>This is a simple React application</p>
-        <ErrorButton />
+        <Header onSearch={this.handleSearchSubmit} />
         <CardList characters={characters} />
       </div>
     );
