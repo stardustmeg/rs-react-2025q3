@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import type { Character, Info } from '@/types';
 
+import CardList from '@/components/CardList';
 import ErrorButton from '@/components/ErrorButton';
 import Header from '@/components/Header';
 
@@ -39,8 +40,6 @@ class App extends Component<object, State> {
       })
       .then((data: Info<Character[]>) => {
         this.setState({ characters: data.results ?? [], loading: false });
-        // TBD: remove later
-        // console.log('Characters fetched:', data.results);
       })
       .catch((error: unknown) => {
         this.setState({ error: error instanceof Error ? error.message : 'Unknown error', loading: false });
@@ -48,12 +47,14 @@ class App extends Component<object, State> {
   };
 
   public override render(): React.ReactNode {
+    const { characters } = this.state;
     return (
       <div className="app px-6 pt-20">
         <Header />
         <h1 className="mb-4 text-2xl font-bold">Welcome to my React App</h1>
         <p>This is a simple React application</p>
         <ErrorButton />
+        <CardList characters={characters} />
       </div>
     );
   }
