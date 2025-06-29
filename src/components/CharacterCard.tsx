@@ -4,16 +4,24 @@ import type { Character } from '@/types';
 
 import CharacterImage from '@/components/CharacterImage';
 
-class CharacterCard extends Component<{ character: Character }> {
+const LABELS = { gender: 'Gender', origin: 'Origin', species: 'Species', status: 'Status' } as const;
+
+type LabelsType = (typeof LABELS)[keyof typeof LABELS];
+
+interface Props {
+  character: Character;
+}
+
+class CharacterCard extends Component<Props> {
   public override render(): React.ReactNode {
     const { character } = this.props;
     const { gender, image, name, origin, species, status } = character;
 
-    const info: [label: string, value: string][] = [
-      ['Origin', origin.name],
-      ['Species', species],
-      ['Gender', gender],
-      ['Status', status],
+    const info: [label: LabelsType, value: string][] = [
+      [LABELS.origin, origin.name],
+      [LABELS.species, species],
+      [LABELS.gender, gender],
+      [LABELS.status, status],
     ];
 
     return (

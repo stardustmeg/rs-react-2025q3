@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 
-import { LOADER_SIZE, type LoaderSize } from '@/components/constants';
+const LOADER_SIZE = { lg: 'lg', md: 'md', sm: 'sm' } as const;
 
-interface LoaderProps {
-  size?: LoaderSize;
+type LoaderSizeType = (typeof LOADER_SIZE)[keyof typeof LOADER_SIZE];
+
+interface Props {
+  size?: LoaderSizeType;
 }
 
-class Loader extends Component<LoaderProps> {
-  public static readonly defaultProps = { size: LOADER_SIZE.LG };
+class Loader extends Component<Props> {
+  public static readonly defaultProps = { size: LOADER_SIZE.lg };
 
   public override render(): React.ReactNode {
     return (
@@ -22,10 +24,10 @@ class Loader extends Component<LoaderProps> {
   private getSizeClasses(): string {
     const { size } = this.props;
     switch (size) {
-      case LOADER_SIZE.LG: {
+      case LOADER_SIZE.lg: {
         return 'w-24 h-24 border-6';
       }
-      case LOADER_SIZE.SM: {
+      case LOADER_SIZE.sm: {
         return 'w-8 h-8 border-2';
       }
       default: {

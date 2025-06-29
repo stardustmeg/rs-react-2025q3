@@ -1,38 +1,21 @@
-export interface ApiResponse<T> {
-  data: T;
-  status: number;
-  statusMessage: string;
-}
-
 export interface Character extends ResourceBase {
   episode: string[];
-  gender: 'Female' | 'Genderless' | 'Male' | 'unknown';
+  gender: CharacterGender;
   image: string;
   location: CharacterLocation;
   origin: CharacterLocation;
   species: string;
-  status: 'Alive' | 'Dead' | 'unknown';
+  status: CharacterStatus;
   type: string;
 }
 
 export interface CharacterFilter {
-  /**
-   * 'Female' | 'Male' | 'Genderless' | 'unknown'
-   */
-  gender?: string;
+  gender?: CharacterGender;
   name?: string;
   page?: number;
   species?: string;
-  /**
-   * 'Dead' | 'Alive' | 'unknown'
-   */
-  status?: string;
+  status?: CharacterStatus;
   type?: string;
-}
-
-export interface CharacterLocation {
-  name: string;
-  url: string;
 }
 
 export interface Info<T> {
@@ -45,7 +28,16 @@ export interface Info<T> {
   results?: T;
 }
 
-export interface ResourceBase {
+type CharacterGender = 'Female' | 'Genderless' | 'Male' | 'unknown';
+
+interface CharacterLocation {
+  name: string;
+  url: string;
+}
+
+type CharacterStatus = 'Alive' | 'Dead' | 'unknown';
+
+interface ResourceBase {
   created: string;
   id: number;
   name: string;

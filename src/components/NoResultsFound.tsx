@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import portal from '@/assets/gif/portal-rick-and-morty.gif';
+import portalImage from '@/assets/gif/portal-rick-and-morty.gif';
 
 class NoResultsFound extends Component {
   public override render(): React.ReactNode {
@@ -11,7 +11,7 @@ class NoResultsFound extends Component {
           <br />
           Try a different one.
         </p>
-        <img alt="No results found" className="h-auto w-64" src={portal} />
+        <img alt="No results found" className="h-auto w-64" src={portalImage} />
       </div>
     );
   }

@@ -2,19 +2,25 @@ import { Component, type ErrorInfo, type ReactNode } from 'react';
 
 import errorImage from '@/assets/png/rick_and_morty.png';
 
+const CONSOLE_MESSAGE = 'ErrorBoundary caught an error: ';
+
+interface Props {
+  children: ReactNode;
+}
+
 interface State {
   hasError: boolean;
 }
 
-class ErrorBoundary extends Component<{ children: ReactNode }, State> {
-  public override state: State = { hasError: false };
+class ErrorBoundary extends Component<Props, State> {
+  public override state = { hasError: false };
 
   public static getDerivedStateFromError(): State {
     return { hasError: true };
   }
 
   public override componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    console.warn('ErrorBoundary caught an error:', error, errorInfo);
+    console.warn(CONSOLE_MESSAGE, error, errorInfo);
   }
 
   public handleClick = (): void => {

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-interface SkeletonProps {
+interface Props {
   className?: string;
   colorClass?: string;
 }
 
-class Skeleton extends Component<SkeletonProps> {
+class Skeleton extends Component<Props> {
   public static readonly defaultProps = { className: '', colorClass: 'bg-custom-gray' };
 
   public override render(): React.ReactNode {

@@ -18,7 +18,7 @@ interface State {
 }
 
 class App extends Component<object, State> {
-  public override state: State = { characters: [], error: null, loading: false };
+  public override state = { characters: [], error: null, loading: false };
 
   public override componentDidMount(): void {
     const search = getTrimmedSearchQuery();
@@ -40,7 +40,7 @@ class App extends Component<object, State> {
   private readonly loadCharacters = (query: string): void => {
     this.setState({ error: null, loading: true });
 
-    fetchCharacters({ query })
+    fetchCharacters({ name: query })
       .then((data) => {
         this.setState({ characters: data.results ?? [], loading: false });
       })

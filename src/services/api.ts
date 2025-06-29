@@ -1,4 +1,4 @@
-import type { Character, Info } from '@/types';
+import type { Character, CharacterFilter, Info } from '@/types';
 
 import { isCharacterInfo } from '@/types/helpers';
 
@@ -14,7 +14,8 @@ class ApiService {
     const data: unknown = await response.json();
 
     if (!validate(data)) {
-      throw new Error('Response structure is invalid');
+      const errorMessage = `Response structure is invalid`;
+      throw new Error(errorMessage);
     }
 
     return data;
@@ -23,18 +24,8 @@ class ApiService {
 
 const apiService = new ApiService();
 
-interface FetchCharactersParameters {
-  pageNumber?: number;
-  perPage?: number;
-  query?: string;
-}
-
-export const fetchCharacters = ({
-  pageNumber = 1,
-  perPage = 20,
-  query,
-}: FetchCharactersParameters): Promise<Info<Character[]>> => {
-  const BASE = 'https://rickandmortyapi.com/api/character';
-  const url = query ? `${BASE}/?name=${encodeURIComponent(query)}&page=${pageNumber}&count=${perPage}` : BASE;
+export const fetchCharacters = ({ name, page = 1 }: CharacterFilter): Promise<Info<Character[]>> => {
+  const base = 'https://rickandmortyapi.com/api/character';
+  const url = name ? `${base}/?name=${encodeURIComponent(name)}&page=${page}` : base;
   return apiService.get<Info<Character[]>>(url, isCharacterInfo);
 };

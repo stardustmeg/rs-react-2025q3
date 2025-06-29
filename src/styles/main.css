@@ -61,7 +61,7 @@ body {
   color: #213547;
   text-rendering: optimizelegibility;
 
-  background-color: #c2e0bc;
+  background-color: var(--custom-pistachio);
 
   font-synthesis: none;
 }

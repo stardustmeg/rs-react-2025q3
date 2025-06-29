@@ -15,7 +15,7 @@ interface State {
 class CharacterImage extends Component<Props, State> {
   private static readonly DEFAULT_ALT_TEXT = 'Character image not available';
 
-  public override state: State = { loaded: false };
+  public override state = { loaded: false };
 
   public override render(): React.ReactNode {
     const { alt, src } = this.props;

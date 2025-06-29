@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+const ERROR_MESSAGE = 'Test error thrown from ErrorButton';
+
 interface Props {
   wrapperClass?: string;
 }
@@ -9,7 +11,7 @@ interface State {
 }
 
 class ErrorButton extends Component<Props, State> {
-  public override state: State = { hasError: false };
+  public override state = { hasError: false };
 
   public handleClick = (): void => {
     this.setState((previous) => ({ hasError: !previous.hasError }));
@@ -17,7 +19,7 @@ class ErrorButton extends Component<Props, State> {
 
   public override render(): React.ReactNode {
     if (this.state.hasError) {
-      throw new Error('Test error thrown from ErrorButton');
+      throw new Error(ERROR_MESSAGE);
     }
     return (
       <div className={this.props.wrapperClass}>
