@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import type { Character } from '@/types';
 
@@ -12,7 +12,7 @@ interface Props {
   character: Character;
 }
 
-class CharacterCard extends Component<Props> {
+class CharacterCard extends PureComponent<Props> {
   public override render(): React.ReactNode {
     const { character } = this.props;
     const { gender, image, name, origin, species, status } = character;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import { getTrimmedSearchQuery, saveSearchQuery } from '@/services/localStorage';
 
@@ -10,7 +10,7 @@ interface State {
   query: string;
 }
 
-class Search extends Component<Props, State> {
+class Search extends PureComponent<Props, State> {
   public override state = { query: getTrimmedSearchQuery() };
 
   public handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {

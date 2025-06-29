@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import fallbackImage from '@/assets/png/placeholder.png';
 import Skeleton from '@/components/Skeleton';
@@ -12,7 +12,7 @@ interface State {
   loaded: boolean;
 }
 
-class CharacterImage extends Component<Props, State> {
+class CharacterImage extends PureComponent<Props, State> {
   private static readonly DEFAULT_ALT_TEXT = 'Character image not available';
 
   public override state = { loaded: false };

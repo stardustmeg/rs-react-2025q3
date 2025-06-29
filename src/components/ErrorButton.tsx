@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 const ERROR_MESSAGE = 'Test error thrown from ErrorButton';
 
@@ -10,7 +10,7 @@ interface State {
   hasError: boolean;
 }
 
-class ErrorButton extends Component<Props, State> {
+class ErrorButton extends PureComponent<Props, State> {
   public override state = { hasError: false };
 
   public handleClick = (): void => {

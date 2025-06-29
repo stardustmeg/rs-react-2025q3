@@ -1,25 +1,43 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import type { Character } from '@/types';
 
 import CharacterCard from '@/components/CharacterCard';
 import Loader from '@/components/Loader';
 import NoResultsFound from '@/components/NoResultsFound';
+import { fetchCharacters } from '@/services/api';
+import { getErrorMessage } from '@/utils';
 
 interface Props {
+  search: string;
+}
+
+interface State {
   characters: Character[];
+  error: null | string;
   loading: boolean;
 }
 
-class CardList extends Component<Props> {
+class CardList extends PureComponent<Props, State> {
+  public override state: State = { characters: [], error: null, loading: false };
+
+  public override componentDidMount(): void {
+    this.loadCharacters(this.props.search);
+  }
+
+  public override componentDidUpdate(previousProps: Props): void {
+    if (previousProps.search !== this.props.search) {
+      this.loadCharacters(this.props.search);
+    }
+  }
+
   public override render(): React.ReactNode {
-    const { characters, loading } = this.props;
+    const { characters, error, loading } = this.state;
 
     if (loading) {
       return <Loader />;
     }
-
-    if (!characters.length) {
+    if (error || !characters.length) {
       return <NoResultsFound />;
     }
 
@@ -30,6 +48,18 @@ class CardList extends Component<Props> {
         ))}
       </div>
     );
+  }
+
+  private loadCharacters(query: string): void {
+    this.setState({ error: null, loading: true });
+
+    fetchCharacters({ name: query })
+      .then((data) => {
+        this.setState({ characters: data.results ?? [], loading: false });
+      })
+      .catch((error: unknown) => {
+        this.setState({ characters: [], error: getErrorMessage(error), loading: false });
+      });
   }
 }
 

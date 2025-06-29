@@ -1,4 +1,4 @@
-import { Component, type ErrorInfo, type ReactNode } from 'react';
+import { type ErrorInfo, PureComponent, type ReactNode } from 'react';
 
 import errorImage from '@/assets/png/rick_and_morty.png';
 
@@ -12,7 +12,7 @@ interface State {
   hasError: boolean;
 }
 
-class ErrorBoundary extends Component<Props, State> {
+class ErrorBoundary extends PureComponent<Props, State> {
   public override state = { hasError: false };
 
   public static getDerivedStateFromError(): State {

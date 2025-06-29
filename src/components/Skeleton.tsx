@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 interface Props {
   className?: string;
   colorClass?: string;
 }
 
-class Skeleton extends Component<Props> {
+class Skeleton extends PureComponent<Props> {
   public static readonly defaultProps = { className: '', colorClass: 'bg-custom-gray' };
 
   public override render(): React.ReactNode {

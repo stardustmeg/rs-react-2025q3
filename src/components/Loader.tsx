@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 const LOADER_SIZE = { lg: 'lg', md: 'md', sm: 'sm' } as const;
 
@@ -8,7 +8,7 @@ interface Props {
   size?: LoaderSizeType;
 }
 
-class Loader extends Component<Props> {
+class Loader extends PureComponent<Props> {
   public static readonly defaultProps = { size: LOADER_SIZE.lg };
 
   public override render(): React.ReactNode {

@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import portalImage from '@/assets/gif/portal-rick-and-morty.gif';
 
-class NoResultsFound extends Component {
+class NoResultsFound extends PureComponent {
   public override render(): React.ReactNode {
     return (
       <div className="flex flex-col items-center justify-center space-y-6 p-6 text-center">
