@@ -1,6 +1,5 @@
 @import 'tailwindcss';
-
-@import './custom-colors-layer.css';
+@config "../../tailwind.config.js";
 
 @utility button {
   transition:
