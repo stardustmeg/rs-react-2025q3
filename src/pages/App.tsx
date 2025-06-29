@@ -5,6 +5,7 @@ import type { Character, Info } from '@/types';
 import CardList from '@/components/CardList';
 import ErrorButton from '@/components/ErrorButton';
 import Header from '@/components/Header';
+import { getTrimmedSearchQuery } from '@/services/localStorage';
 
 interface State {
   characters: Character[];
@@ -20,7 +21,7 @@ class App extends Component<object, State> {
   };
 
   public override componentDidMount(): void {
-    const search = localStorage.getItem('search')?.trim() ?? '';
+    const search = getTrimmedSearchQuery();
     this.fetchCharacters(search);
   }
 

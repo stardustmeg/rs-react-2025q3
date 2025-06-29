@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { getTrimmedSearchQuery, saveSearchQuery } from '@/services/localStorage';
+
 interface Props {
   onSubmit: (query: string) => void;
 }
@@ -10,7 +12,7 @@ interface State {
 
 class Search extends Component<Props, State> {
   public override state: State = {
-    query: localStorage.getItem('search')?.trim() ?? '',
+    query: getTrimmedSearchQuery(),
   };
 
   public handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -22,13 +24,13 @@ class Search extends Component<Props, State> {
 
     this.setState((previous) => {
       const trimmed = previous.query.trim();
-      const saved = localStorage.getItem('search')?.trim() ?? '';
+      const saved = getTrimmedSearchQuery();
 
       if (trimmed === saved) {
         return;
       }
 
-      this.saveQuery(trimmed);
+      saveSearchQuery(trimmed);
       this.props.onSubmit(trimmed);
       return { query: trimmed };
     });
@@ -50,10 +52,6 @@ class Search extends Component<Props, State> {
       </form>
     );
   }
-
-  private readonly saveQuery = (query: string): void => {
-    localStorage.setItem('search', query);
-  };
 }
 
 export default Search;
