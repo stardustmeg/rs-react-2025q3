@@ -7,8 +7,6 @@ import errorImage from '@/assets/png/rick_and_morty.png';
 import CardList from '@/components/CardList';
 import ErrorButton from '@/components/ErrorButton';
 import Header from '@/components/Header';
-import Loader from '@/components/Loader';
-import NoResultsFound from '@/components/NoResultsFound';
 import { fetchCharacters } from '@/services/api';
 import { getTrimmedSearchQuery } from '@/services/localStorage';
 import { getErrorMessage } from '@/utils';
@@ -33,10 +31,7 @@ class App extends Component<object, State> {
     return (
       <div className="w-full p-10">
         <Header onSearch={this.loadCharacters} />
-        {loading && <Loader />}
-        {!loading && !characters.length && <NoResultsFound />}
-        {!loading && !!characters.length && <CardList characters={characters} />}
-
+        <CardList characters={characters} loading={loading} />
         <ErrorButton wrapperClass="fixed bottom-10 right-0" />
       </div>
     );
@@ -55,18 +50,12 @@ class App extends Component<object, State> {
   };
 
   private preloadMedia(): void {
-    <img
-      alt="preload"
-      aria-hidden="true"
-      src={errorImage}
-      style={{ display: 'none', height: 0, overflow: 'hidden', width: 0 }}
-    />;
-    <img
-      alt="preload"
-      aria-hidden="true"
-      src={portal}
-      style={{ display: 'none', height: 0, overflow: 'hidden', width: 0 }}
-    />;
+    const imagesToPreload = [portal, errorImage];
+
+    for (const source of imagesToPreload) {
+      const img = new Image();
+      img.src = source;
+    }
   }
 }
 

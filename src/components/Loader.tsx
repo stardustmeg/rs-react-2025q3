@@ -11,7 +11,7 @@ class Loader extends Component<LoaderProps> {
 
   public override render(): React.ReactNode {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-custom-dark-night/50 backdrop-blur-sm">
+      <div className="fixed inset-0 z-20 flex items-center justify-center bg-custom-dark-night/10 backdrop-blur-sm">
         <div
           className={`animate-spin rounded-full border-solid border-custom-green border-t-transparent ${this.getSizeClasses()}`}
         />
