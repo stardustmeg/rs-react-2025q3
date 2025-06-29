@@ -39,20 +39,6 @@ body {
 }
 
 :root {
-  --custom-beige: oklch(96.7% 0.039 103.4deg);
-  --custom-blue: oklch(84.2% 0.057 237.3deg);
-  --custom-light-gray: oklch(88.2% 0.004 277.4deg);
-  --custom-gray: oklch(71.3% 0.004 277.4deg);
-  --custom-dark-gray: oklch(66.1% 0.004 277.4deg);
-  --custom-coal: oklch(28.7% 0.015 277.6deg);
-  --custom-pistachio: oklch(85.9% 0.047 137.5deg);
-  --custom-yellow: oklch(91.7% 0.165 100.1deg);
-  --custom-chocolate: oklch(33.5% 0.091 29.4deg);
-  --custom-green: oklch(78% 0.131 137.5deg);
-  --custom-pink: oklch(80.9% 0.138 357.3deg);
-  --custom-dark-night: oklch(18.6% 0.056 278.7deg);
-  --custom-red: oklch(59.8% 0.234 27.3deg);
-
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
@@ -61,7 +47,7 @@ body {
   color: #213547;
   text-rendering: optimizelegibility;
 
-  background-color: var(--custom-pistachio);
+  background-color: #c2e0bc;
 
   font-synthesis: none;
 }
