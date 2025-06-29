@@ -5,6 +5,7 @@ import type { Character, Info } from '@/types';
 import CardList from '@/components/CardList';
 import ErrorButton from '@/components/ErrorButton';
 import Header from '@/components/Header';
+import Loader from '@/components/Loader';
 import { getTrimmedSearchQuery } from '@/services/localStorage';
 
 interface State {
@@ -57,7 +58,8 @@ class App extends Component<object, State> {
     return (
       <div className="w-full p-10">
         <Header onSearch={this.handleSearchSubmit} />
-        {loading && <p>Loading...</p>}
+        {loading && <Loader />}
+        {/* TBD: add a separate component for not found */}
         {this.state.error && <p className="text-red-500">{this.state.error}</p>}
         {!loading && characters.length === 0 && <p>No characters found.</p>}
         {!loading && characters.length > 0 && <CardList characters={characters} />}
