@@ -7,11 +7,28 @@ import CharacterImage from '@/components/CharacterImage';
 class CharacterCard extends Component<{ character: Character }> {
   public override render(): React.ReactNode {
     const { character } = this.props;
+    const { gender, image, name, origin, species, status } = character;
+
+    const info: [label: string, value: string][] = [
+      ['Origin', origin.name],
+      ['Species', species],
+      ['Gender', gender],
+      ['Status', status],
+    ];
 
     return (
-      <div className="card flex flex-col rounded-lg bg-white p-4 shadow-md">
-        <p className="mb-2 text-center font-semibold">{character.name}</p>
-        <CharacterImage alt={character.name} src={character.image} />
+      <div className="w-68 hover:scale-101 mx-auto rounded-lg bg-white p-2 shadow-md transition-transform duration-300">
+        <div className="flex flex-col items-center rounded-t-lg bg-custom-beige p-4">
+          <p className="mb-2 text-center text-lg font-semibold">{name}</p>
+          <CharacterImage alt={name} src={image} />
+        </div>
+        <div className="space-y-2 rounded-b-lg bg-white py-4 text-sm">
+          {info.map(([label, value]) => (
+            <p key={label}>
+              <span className="font-semibold">{label}:</span> {value}
+            </p>
+          ))}
+        </div>
       </div>
     );
   }

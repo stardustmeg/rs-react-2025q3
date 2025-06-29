@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 
+interface Props {
+  wrapperClass?: string;
+}
+
 interface State {
   hasError: boolean;
 }
 
-class ErrorButton extends Component {
+class ErrorButton extends Component<Props, State> {
   public override state: State = { hasError: false };
 
   public handleClick = (): void => {
-    this.setState((previousState: State) => ({
-      hasError: !previousState.hasError,
-    }));
+    this.setState((previous) => ({ hasError: !previous.hasError }));
   };
 
   public override render(): React.ReactNode {
@@ -18,9 +20,11 @@ class ErrorButton extends Component {
       throw new Error('Test error thrown from ErrorButton');
     }
     return (
-      <button className="mt-4 rounded bg-red-600 px-4 py-2 text-white" onClick={this.handleClick}>
-        Throw Error
-      </button>
+      <div className={this.props.wrapperClass}>
+        <button className="mt-4 rounded bg-red-600 px-4 py-2 text-white" onClick={this.handleClick}>
+          Throw Error
+        </button>
+      </div>
     );
   }
 }

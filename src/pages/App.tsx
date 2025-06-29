@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import type { Character, Info } from '@/types';
 
 import CardList from '@/components/CardList';
+import ErrorButton from '@/components/ErrorButton';
 import Header from '@/components/Header';
 
 interface State {
@@ -53,12 +54,14 @@ class App extends Component<object, State> {
   public override render(): React.ReactNode {
     const { characters, loading } = this.state;
     return (
-      <div className="app px-6 pt-20">
+      <div className="w-full p-10">
         <Header onSearch={this.handleSearchSubmit} />
         {loading && <p>Loading...</p>}
         {this.state.error && <p className="text-red-500">{this.state.error}</p>}
         {!loading && characters.length === 0 && <p>No characters found.</p>}
         {!loading && characters.length > 0 && <CardList characters={characters} />}
+
+        <ErrorButton wrapperClass="fixed bottom-10 right-0" />
       </div>
     );
   }

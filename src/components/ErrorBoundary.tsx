@@ -18,9 +18,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, State> {
   }
 
   public handleClick = (): void => {
-    this.setState((previousState: State) => ({
-      hasError: !previousState.hasError,
-    }));
+    this.setState((previous) => ({ hasError: !previous.hasError }));
   };
 
   public override render(): ReactNode {

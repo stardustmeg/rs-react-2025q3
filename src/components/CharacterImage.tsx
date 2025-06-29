@@ -22,7 +22,7 @@ class CharacterImage extends Component<Props, State> {
     const { loaded } = this.state;
 
     return (
-      <div className="relative h-48 min-w-[192px] overflow-hidden rounded">
+      <div className="relative h-full min-h-56 w-full min-w-56 overflow-hidden rounded">
         {!loaded && <Skeleton />}
         <img
           alt={alt}
