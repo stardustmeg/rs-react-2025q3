@@ -28,7 +28,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, State> {
           <img alt="Error illustration" className="mb-4 w-80" src={errorImage} />
           <div className="flex flex-col gap-4">
             <div className="text-custom-chocolate">Congrats! It was successfully handled</div>
-            <button className="button mt-4 rounded bg-custom-red px-4 py-2 text-white" onClick={this.handleClick}>
+            <button className="mt-4 button rounded bg-custom-red px-4 py-2 text-white" onClick={this.handleClick}>
               Fix it back
             </button>
           </div>
