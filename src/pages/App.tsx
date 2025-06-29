@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 
 import type { Character } from '@/types';
 
+import portal from '@/assets/gif/portal-rick-and-morty.gif';
+import errorImage from '@/assets/png/rick_and_morty.png';
 import CardList from '@/components/CardList';
 import ErrorButton from '@/components/ErrorButton';
 import Header from '@/components/Header';
 import Loader from '@/components/Loader';
+import NoResultsFound from '@/components/NoResultsFound';
 import { fetchCharacters } from '@/services/api';
 import { getTrimmedSearchQuery } from '@/services/localStorage';
 import { getErrorMessage } from '@/utils';
@@ -21,6 +24,7 @@ class App extends Component<object, State> {
 
   public override componentDidMount(): void {
     const search = getTrimmedSearchQuery();
+    this.preloadMedia();
     this.loadCharacters(search);
   }
 
@@ -30,10 +34,8 @@ class App extends Component<object, State> {
       <div className="w-full p-10">
         <Header onSearch={this.loadCharacters} />
         {loading && <Loader />}
-        {/* TBD: add a separate component for not found */}
-        {this.state.error && <p className="text-red-500">{this.state.error}</p>}
-        {!loading && characters.length === 0 && <p>No characters found.</p>}
-        {!loading && characters.length > 0 && <CardList characters={characters} />}
+        {!loading && !characters.length && <NoResultsFound />}
+        {!loading && !!characters.length && <CardList characters={characters} />}
 
         <ErrorButton wrapperClass="fixed bottom-10 right-0" />
       </div>
@@ -51,6 +53,21 @@ class App extends Component<object, State> {
         this.setState({ characters: [], error: getErrorMessage(error), loading: false });
       });
   };
+
+  private preloadMedia(): void {
+    <img
+      alt="preload"
+      aria-hidden="true"
+      src={errorImage}
+      style={{ display: 'none', height: 0, overflow: 'hidden', width: 0 }}
+    />;
+    <img
+      alt="preload"
+      aria-hidden="true"
+      src={portal}
+      style={{ display: 'none', height: 0, overflow: 'hidden', width: 0 }}
+    />;
+  }
 }
 
 export default App;

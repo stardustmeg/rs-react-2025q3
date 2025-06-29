@@ -74,4 +74,5 @@ export const myEslintRules = {
   'unicorn/prefer-query-selector': 'off',
   'unicorn/filename-case': ['error', { cases: { camelCase: true, pascalCase: true } }],
   'unicorn/prevent-abbreviations': ['error', { allowList: { props: true, Props: true } }],
+  'unicorn/explicit-length-check': 'off',
 };
