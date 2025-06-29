@@ -3,6 +3,7 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import react from 'eslint-plugin-react';
 import tseslint from 'typescript-eslint';
+import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 import reactCompiler from 'eslint-plugin-react-compiler';
 import perfectionist from 'eslint-plugin-perfectionist';
 import eslintPluginImport from 'eslint-plugin-import';
@@ -11,7 +12,6 @@ import eslintPluginNoRelativeImportPaths from 'eslint-plugin-no-relative-import-
 import unusedImports from 'eslint-plugin-unused-imports';
 import { myEslintRules } from './eslint-rules/my-eslint-rules.js';
 import unicorn from 'eslint-plugin-unicorn';
-import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default tseslint.config(
   {
@@ -32,7 +32,7 @@ export default tseslint.config(
       ...tseslint.configs.stylisticTypeChecked,
       ...tseslint.configs.strictTypeChecked,
       unicorn.configs.recommended,
-      eslintConfigPrettier,
+      eslintPluginPrettier,
     ],
     languageOptions: {
       ecmaVersion: 'latest',

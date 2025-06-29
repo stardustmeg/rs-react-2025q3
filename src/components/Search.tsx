@@ -11,12 +11,16 @@ interface State {
 }
 
 class Search extends Component<Props, State> {
-  public override state: State = {
-    query: getTrimmedSearchQuery(),
-  };
+  public override state: State = { query: getTrimmedSearchQuery() };
 
   public handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    this.setState({ query: event.target.value.trimStart() });
+    this.setState({ query: event.target.value });
+  };
+
+  public handleClear = (): void => {
+    this.setState({ query: '' });
+    this.props.onSubmit('');
+    saveSearchQuery('');
   };
 
   public handleSubmit = (event: React.FormEvent): void => {
@@ -39,13 +43,25 @@ class Search extends Component<Props, State> {
   public override render(): React.ReactNode {
     return (
       <form className="flex items-center justify-center gap-2" onSubmit={this.handleSubmit}>
-        <input
-          className="w-70 rounded border border-custom-green bg-custom-blue px-4 py-2 text-sm shadow-sm"
-          onChange={this.handleChange}
-          placeholder="Search characters..."
-          type="text"
-          value={this.state.query}
-        />
+        <div className="relative w-70">
+          <input
+            className="w-full rounded border border-custom-green bg-custom-blue p-2 pr-7 text-sm text-custom-dark-night shadow-sm focus:border-custom-green focus:ring-2 focus:ring-custom-green focus:outline-none"
+            onChange={this.handleChange}
+            placeholder="Search characters..."
+            type="text"
+            value={this.state.query}
+          />
+          {this.state.query && (
+            <button
+              aria-label="Clear search"
+              className="absolute top-1/2 right-2 -translate-y-1/2 button text-custom-coal hover:text-custom-pink focus:text-custom-pink"
+              onClick={this.handleClear}
+              type="button"
+            >
+              ✕
+            </button>
+          )}
+        </div>
         <button className="button rounded bg-custom-yellow px-4 py-2 text-custom-coal shadow-sm" type="submit">
           Search
         </button>

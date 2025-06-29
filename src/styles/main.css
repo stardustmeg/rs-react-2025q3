@@ -3,11 +3,20 @@
 
 @utility button {
   transition:
-    transform 0.2s ease,
-    filter 0.2s ease;
+    transform 0.3s ease,
+    filter 0.3s ease,
+    color 0.3s ease,
+    background-color 0.3s ease;
 
   &:hover {
     cursor: pointer;
+    transform: scale(1.05);
+    filter: brightness(1.05);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
     transform: scale(1.05);
     filter: brightness(1.05);
   }
