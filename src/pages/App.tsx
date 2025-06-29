@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 
-import type { Character, Info } from '@/types';
+import type { Character } from '@/types';
 
 import CardList from '@/components/CardList';
 import ErrorButton from '@/components/ErrorButton';
 import Header from '@/components/Header';
 import Loader from '@/components/Loader';
+import { fetchCharacters } from '@/services/api';
 import { getTrimmedSearchQuery } from '@/services/localStorage';
+import { getErrorMessage } from '@/utils';
 
 interface State {
   characters: Character[];
@@ -15,49 +17,18 @@ interface State {
 }
 
 class App extends Component<object, State> {
-  public override state: State = {
-    characters: [],
-    error: null,
-    loading: false,
-  };
+  public override state: State = { characters: [], error: null, loading: false };
 
   public override componentDidMount(): void {
     const search = getTrimmedSearchQuery();
-    this.fetchCharacters(search);
+    this.loadCharacters(search);
   }
-
-  public fetchCharacters = (query: string): void => {
-    this.setState({ error: null, loading: true });
-
-    const url = query
-      ? `https://rickandmortyapi.com/api/character/?name=${encodeURIComponent(query)}`
-      : `https://rickandmortyapi.com/api/character`;
-
-    fetch(url)
-      .then((result) => {
-        if (!result.ok) {
-          throw new Error(`Error ${result.status}: ${result.statusText}`);
-        }
-        return result.json();
-      })
-      .then((data: Info<Character[]>) => {
-        this.setState({ characters: data.results ?? [], loading: false });
-      })
-      .catch((error: unknown) => {
-        this.setState({ characters: [] });
-        this.setState({ error: error instanceof Error ? error.message : 'Unknown error', loading: false });
-      });
-  };
-
-  public handleSearchSubmit = (query: string): void => {
-    this.fetchCharacters(query);
-  };
 
   public override render(): React.ReactNode {
     const { characters, loading } = this.state;
     return (
       <div className="w-full p-10">
-        <Header onSearch={this.handleSearchSubmit} />
+        <Header onSearch={this.loadCharacters} />
         {loading && <Loader />}
         {/* TBD: add a separate component for not found */}
         {this.state.error && <p className="text-red-500">{this.state.error}</p>}
@@ -68,6 +39,18 @@ class App extends Component<object, State> {
       </div>
     );
   }
+
+  private readonly loadCharacters = (query: string): void => {
+    this.setState({ error: null, loading: true });
+
+    fetchCharacters({ query })
+      .then((data) => {
+        this.setState({ characters: data.results ?? [], loading: false });
+      })
+      .catch((error: unknown) => {
+        this.setState({ characters: [], error: getErrorMessage(error), loading: false });
+      });
+  };
 }
 
 export default App;
