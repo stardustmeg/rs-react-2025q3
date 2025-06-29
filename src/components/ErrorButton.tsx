@@ -21,7 +21,7 @@ class ErrorButton extends Component<Props, State> {
     }
     return (
       <div className={this.props.wrapperClass}>
-        <button className="mt-4 rounded bg-custom-red px-4 py-2 text-white" onClick={this.handleClick}>
+        <button className="button mt-4 rounded bg-custom-red px-4 py-2 text-white" onClick={this.handleClick}>
           Throw an Error
         </button>
       </div>

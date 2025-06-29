@@ -9,7 +9,7 @@ interface Props {
 class Header extends Component<Props> {
   public override render(): React.ReactNode {
     return (
-      <div className="fixed left-0 top-0 z-50 flex w-full items-center justify-center bg-blue-400 px-6 py-4 shadow-md">
+      <div className="fixed left-0 top-0 z-50 flex w-full items-center justify-center bg-custom-pink px-6 py-4 shadow-md">
         <Search onSubmit={this.props.onSearch} />
       </div>
     );

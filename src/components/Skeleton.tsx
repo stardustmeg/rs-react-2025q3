@@ -2,11 +2,11 @@ import React from 'react';
 
 interface SkeletonProps {
   className?: string;
-  color?: string;
+  colorClass?: string;
 }
 
-const Skeleton: React.FC<SkeletonProps> = ({ className = '', color = '#bbbbbb' }) => {
-  return <div className={`absolute inset-0 animate-pulse ${className}`} style={{ backgroundColor: color }} />;
+const Skeleton: React.FC<SkeletonProps> = ({ className = '', colorClass = 'bg-custom-gray' }) => {
+  return <div className={`absolute inset-0 animate-pulse ${className} ${colorClass}`} />;
 };
 
 export default Skeleton;

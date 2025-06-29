@@ -2,10 +2,16 @@
 
 @config "../../tailwind.config.js";
 
-@utility btn {
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  background-color: ButtonFace;
+@utility button {
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    filter: brightness(1.05);
+  }
 }
 
 body {

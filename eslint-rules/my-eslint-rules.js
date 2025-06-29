@@ -47,7 +47,7 @@ export const myEslintRules = {
       ],
     },
   ],
-  'max-len': ['error', { code: 120, ignoreComments: true }],
+  'max-len': ['error', { code: 120, ignoreComments: true, ignorePattern: 'className="[^"]+"' }],
   'max-lines-per-function': ['error', { max: 40, skipBlankLines: true, skipComments: true }],
   'no-console': ['error', { allow: ['warn'] }],
   'no-empty-function': 'error',
