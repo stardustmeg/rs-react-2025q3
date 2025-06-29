@@ -22,6 +22,12 @@ class Search extends Component<Props, State> {
 
     this.setState((previous) => {
       const trimmed = previous.query.trim();
+      const saved = localStorage.getItem('search')?.trim() ?? '';
+
+      if (trimmed === saved) {
+        return;
+      }
+
       this.saveQuery(trimmed);
       this.props.onSubmit(trimmed);
       return { query: trimmed };
