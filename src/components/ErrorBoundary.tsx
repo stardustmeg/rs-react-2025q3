@@ -24,13 +24,15 @@ class ErrorBoundary extends Component<{ children: ReactNode }, State> {
   public override render(): ReactNode {
     if (this.state.hasError) {
       return (
-        <>
-          <img alt="Error illustration" className="mx-auto mb-4 w-64" src={errorImage} />
-          <div className="text-red-600">Something went wrong!</div>
-          <button className="mt-4 rounded bg-red-600 px-4 py-2 text-white" onClick={this.handleClick}>
-            Repair the site
-          </button>
-        </>
+        <div className="flex flex-wrap-reverse items-center justify-center gap-4 text-center">
+          <img alt="Error illustration" className="mb-4 w-80" src={errorImage} />
+          <div className="flex flex-col gap-4">
+            <div className="text-custom-chocolate">Congrats! It was successfully handled</div>
+            <button className="mt-4 rounded bg-custom-red px-4 py-2 text-white" onClick={this.handleClick}>
+              Fix it back
+            </button>
+          </div>
+        </div>
       );
     }
     return this.props.children;
