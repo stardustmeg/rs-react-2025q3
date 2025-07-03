@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react';
 import type { Character } from '@/types';
 
 import CharacterCard from '@/components/CharacterCard';
+import ErrorFallback from '@/components/ErrorFallback';
 import Loader from '@/components/Loader';
 import NoResultsFound from '@/components/NoResultsFound';
 import { fetchCharacters } from '@/services/api';
@@ -37,7 +38,16 @@ class CardList extends PureComponent<Props, State> {
     if (loading) {
       return <Loader />;
     }
-    if (error || !characters.length) {
+    if (error) {
+      return (
+        <ErrorFallback
+          onRetry={() => {
+            this.loadCharacters(this.props.search);
+          }}
+        />
+      );
+    }
+    if (!characters.length) {
       return <NoResultsFound />;
     }
 
