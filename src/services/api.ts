@@ -1,5 +1,6 @@
 import type { Character, CharacterFilter, Info } from '@/types';
 
+import HttpError from '@/services/utils/httpError';
 import { isCharacterInfo } from '@/types/helpers';
 
 type Validator<T> = (data: unknown) => data is T;
@@ -7,15 +8,15 @@ type Validator<T> = (data: unknown) => data is T;
 class ApiService {
   public async get<T>(url: string, validate: Validator<T>): Promise<T> {
     const response = await fetch(url);
+
     if (!response.ok) {
-      throw new Error(`Error ${response.status}: ${response.statusText}`);
+      throw new HttpError(response.status, response.statusText);
     }
 
     const data: unknown = await response.json();
 
     if (!validate(data)) {
-      const errorMessage = `Response structure is invalid`;
-      throw new Error(errorMessage);
+      throw new Error('Response structure is invalid');
     }
 
     return data;

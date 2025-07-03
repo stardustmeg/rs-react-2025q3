@@ -7,7 +7,10 @@ import ErrorFallback from '@/components/ErrorFallback';
 import Loader from '@/components/Loader';
 import NoResultsFound from '@/components/NoResultsFound';
 import { fetchCharacters } from '@/services/api';
+import HttpError from '@/services/utils/httpError';
 import { getErrorMessage } from '@/utils';
+
+const NOT_FOUND_ERROR_CODE = 404;
 
 interface Props {
   search: string;
@@ -39,13 +42,7 @@ class CardList extends PureComponent<Props, State> {
       return <Loader />;
     }
     if (error) {
-      return (
-        <ErrorFallback
-          onRetry={() => {
-            this.loadCharacters(this.props.search);
-          }}
-        />
-      );
+      return <ErrorFallback onRetry={this.handleRetry} />;
     }
     if (!characters.length) {
       return <NoResultsFound />;
@@ -60,6 +57,10 @@ class CardList extends PureComponent<Props, State> {
     );
   }
 
+  private readonly handleRetry = (): void => {
+    this.loadCharacters(this.props.search);
+  };
+
   private loadCharacters(query: string): void {
     this.setState({ error: null, loading: true });
 
@@ -68,7 +69,11 @@ class CardList extends PureComponent<Props, State> {
         this.setState({ characters: data.results ?? [], loading: false });
       })
       .catch((error: unknown) => {
-        this.setState({ characters: [], error: getErrorMessage(error), loading: false });
+        if (error instanceof HttpError && error.status === NOT_FOUND_ERROR_CODE) {
+          this.setState({ characters: [], loading: false });
+        } else {
+          this.setState({ characters: [], error: getErrorMessage(error), loading: false });
+        }
       });
   }
 }
