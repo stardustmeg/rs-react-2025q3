@@ -24,4 +24,8 @@ describe('getErrorMessage', () => {
   it('returns "Unknown error" when passed undefined', () => {
     expect(getErrorMessage(undefined)).toBe('Unknown error');
   });
+  it('returns the error message when passed an Error', () => {
+    const error = new Error('Something went wrong');
+    expect(getErrorMessage(error)).toBe('Something went wrong');
+  });
 });
