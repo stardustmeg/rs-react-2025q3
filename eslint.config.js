@@ -62,6 +62,7 @@ export default tseslint.config(
       ...jestDom.configs.recommended.rules,
       ...testingLibrary.configs.react.rules,
       'unicorn/no-useless-undefined': 'off',
+      'max-lines-per-function': 'off',
     },
   },
 );
