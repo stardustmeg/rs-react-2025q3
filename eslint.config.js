@@ -12,6 +12,8 @@ import eslintPluginNoRelativeImportPaths from 'eslint-plugin-no-relative-import-
 import unusedImports from 'eslint-plugin-unused-imports';
 import { myEslintRules } from './eslint-rules/my-eslint-rules.js';
 import unicorn from 'eslint-plugin-unicorn';
+import jestDom from 'eslint-plugin-jest-dom';
+import testingLibrary from 'eslint-plugin-testing-library';
 
 export default tseslint.config(
   {
@@ -34,10 +36,7 @@ export default tseslint.config(
       unicorn.configs.recommended,
       eslintPluginPrettier,
     ],
-    languageOptions: {
-      ecmaVersion: 'latest',
-      globals: globals.browser,
-    },
+    languageOptions: { ecmaVersion: 'latest', globals: globals.browser },
     plugins: {
       react,
       'react-hooks': reactHooks,
@@ -54,15 +53,15 @@ export default tseslint.config(
       ...react.configs['jsx-runtime'].rules,
       ...myEslintRules,
     },
-    settings: {
-      react: {
-        version: 'detect',
-      },
-      'import/resolver': {
-        typescript: {
-          project: './tsconfig.json',
-        },
-      },
+    settings: { react: { version: 'detect' }, 'import/resolver': { typescript: { project: './tsconfig.json' } } },
+  },
+  {
+    files: ['**/__tests__/**/*.[jt]s?(x)', '**/*.spec.[jt]s?(x)'],
+    plugins: { 'jest-dom': jestDom, 'testing-library': testingLibrary },
+    rules: {
+      ...jestDom.configs.recommended.rules,
+      ...testingLibrary.configs.react.rules,
+      'unicorn/no-useless-undefined': 'off',
     },
   },
 );
