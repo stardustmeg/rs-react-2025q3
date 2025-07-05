@@ -5,6 +5,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import Search from '@/components/Search';
 import { getTrimmedSearchQuery, saveSearchQuery } from '@/services/localStorage';
 
+const noop = (): void => void 0;
+
 vi.mock('@/services/localStorage');
 
 describe('Search component', () => {
@@ -127,5 +129,10 @@ describe('Search component', () => {
     const clearButton = screen.getByRole('button', { name: /clear search/i });
     fireEvent.click(clearButton);
     expect(screen.queryByRole('button', { name: /clear search/i })).not.toBeInTheDocument();
+  });
+
+  it('matches snapshot', () => {
+    const { asFragment } = render(<Search onSubmit={noop} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

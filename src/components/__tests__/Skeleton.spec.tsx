@@ -29,4 +29,9 @@ describe('Skeleton component', () => {
     expect(skeletonDiv).toHaveClass('absolute', 'inset-0', 'animate-pulse');
     expect(skeletonDiv).not.toHaveClass('undefined');
   });
+
+  it('matches snapshot', () => {
+    const { asFragment } = render(<Skeleton />);
+    expect(asFragment()).toMatchSnapshot();
+  });
 });

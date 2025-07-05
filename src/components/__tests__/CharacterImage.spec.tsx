@@ -45,4 +45,9 @@ describe('CharacterImage component', () => {
     expect(img.alt).toBe('Character image not available');
     expect(screen.queryByRole('presentation')).not.toBeInTheDocument();
   });
+
+  it('matches snapshot', () => {
+    const { asFragment } = render(<CharacterImage alt={ALT_TEXT} src={SOURCE} />);
+    expect(asFragment()).toMatchSnapshot();
+  });
 });

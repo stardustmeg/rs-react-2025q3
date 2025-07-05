@@ -36,9 +36,12 @@ describe('Header component', () => {
     const onSearchMock = vi.fn();
     render(<Header onSearch={onSearchMock} />);
     const input = screen.getByRole('textbox');
-
     fireEvent.keyDown(input, { charCode: 13, code: 'Enter', key: 'Enter' });
-
     expect(onSearchMock).toHaveBeenCalledWith('test query');
+  });
+
+  it('matches snapshot', () => {
+    const { asFragment } = render(<Header onSearch={noop} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

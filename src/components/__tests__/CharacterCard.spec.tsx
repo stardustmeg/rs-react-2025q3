@@ -83,4 +83,9 @@ describe('CharacterCard component', () => {
     expect(paragraphs[2]).toHaveTextContent('Gender:');
     expect(paragraphs[3]).toHaveTextContent('Status:');
   });
+
+  it('matches snapshot', () => {
+    const { asFragment } = render(<CharacterCard character={mockCharacter} />);
+    expect(asFragment()).toMatchSnapshot();
+  });
 });

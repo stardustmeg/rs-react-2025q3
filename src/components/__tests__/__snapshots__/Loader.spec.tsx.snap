@@ -1,0 +1,14 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Loader component > matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="fixed inset-0 z-20 flex items-center justify-center bg-custom-dark-night/10 backdrop-blur-sm"
+  >
+    <div
+      class="animate-spin rounded-full border-solid border-custom-green border-t-transparent w-24 h-24 border-6"
+      data-testid="loader-spinner"
+    />
+  </div>
+</DocumentFragment>
+`;

@@ -27,4 +27,9 @@ describe('Loader component', () => {
     const spinner = screen.getByTestId('loader-spinner');
     expect(spinner).toHaveClass('w-8 h-8 border-2');
   });
+
+  it('matches snapshot', () => {
+    const { asFragment } = render(<Loader />);
+    expect(asFragment()).toMatchSnapshot();
+  });
 });
