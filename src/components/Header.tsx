@@ -9,7 +9,10 @@ interface Props {
 class Header extends PureComponent<Props> {
   public override render(): React.ReactNode {
     return (
-      <div className="fixed top-0 left-0 z-50 flex w-full items-center justify-center bg-custom-pink px-6 py-4 shadow-md">
+      <div
+        className="fixed top-0 left-0 z-50 flex w-full items-center justify-center bg-custom-pink px-6 py-4 shadow-md"
+        role="header"
+      >
         <Search onSubmit={this.props.onSearch} />
       </div>
     );
