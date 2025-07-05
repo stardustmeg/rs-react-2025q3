@@ -3,6 +3,8 @@ import { describe, expect, it } from 'vitest';
 
 import type { Character } from '@/types';
 
+import { charactersMock } from '@/__mocks__/characters';
+import { incompleteCharacter } from '@/__mocks__/incompleteCharacter';
 import CharacterCard from '@/components/CharacterCard';
 
 const isElement = (node: ChildNode): node is Element => {
@@ -35,35 +37,7 @@ const getInfoParagraph = (label: string, value: string): HTMLElement => {
   });
 };
 
-const mockCharacter: Character = {
-  created: '',
-  episode: [],
-  gender: 'Male',
-  id: 1,
-  image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-  location: { name: 'Earth (Replacement Dimension)', url: '' },
-  name: 'Rick Sanchez',
-  origin: { name: 'Earth (C-137)', url: '' },
-  species: 'Human',
-  status: 'Alive',
-  type: '',
-  url: '',
-};
-
-const incompleteCharacter: Character = {
-  created: '',
-  episode: [],
-  gender: 'Male',
-  id: 2,
-  image: '',
-  location: { name: '', url: '' },
-  name: '',
-  origin: { name: '', url: '' },
-  species: '',
-  status: 'Alive',
-  type: '',
-  url: '',
-};
+const mockCharacter: Character = charactersMock[0];
 
 describe('CharacterCard component', () => {
   it('renders character name and info labels with correct values', () => {
