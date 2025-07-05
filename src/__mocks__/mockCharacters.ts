@@ -1,6 +1,6 @@
 import type { Character } from '@/types';
 
-export const charactersMock: Character[] = [
+export const mockCharacters: Character[] = [
   {
     created: '2017-11-04T18:48:46.250Z',
     episode: ['https://rickandmortyapi.com/api/episode/1'],

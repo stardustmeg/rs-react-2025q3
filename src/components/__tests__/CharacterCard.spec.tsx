@@ -3,9 +3,11 @@ import { describe, expect, it } from 'vitest';
 
 import type { Character } from '@/types';
 
-import { charactersMock } from '@/__mocks__/characters';
-import { incompleteCharacter } from '@/__mocks__/incompleteCharacter';
+import { mockCharacters } from '@/__mocks__/mockCharacters';
+import { mockIncompleteCharacter } from '@/__mocks__/mockIncompleteCharacter';
 import CharacterCard from '@/components/CharacterCard';
+
+const mockCharacter: Character = mockCharacters[0];
 
 const isElement = (node: ChildNode): node is Element => {
   return node.nodeType === Node.ELEMENT_NODE;
@@ -37,8 +39,6 @@ const getInfoParagraph = (label: string, value: string): HTMLElement => {
   });
 };
 
-const mockCharacter: Character = charactersMock[0];
-
 describe('CharacterCard component', () => {
   it('renders character name and info labels with correct values', () => {
     render(<CharacterCard character={mockCharacter} />);
@@ -53,7 +53,7 @@ describe('CharacterCard component', () => {
   });
 
   it('renders empty values when character fields are empty strings', () => {
-    render(<CharacterCard character={incompleteCharacter} />);
+    render(<CharacterCard character={mockIncompleteCharacter} />);
 
     expect(screen.getByText(/Origin:/i)).toHaveTextContent('Origin:');
     expect(screen.getByText(/Species:/i)).toHaveTextContent('Species:');

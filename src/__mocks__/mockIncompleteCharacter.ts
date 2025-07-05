@@ -1,6 +1,6 @@
 import type { Character } from '@/types';
 
-export const incompleteCharacter: Character = {
+export const mockIncompleteCharacter: Character = {
   created: '',
   episode: [],
   gender: 'Male',
