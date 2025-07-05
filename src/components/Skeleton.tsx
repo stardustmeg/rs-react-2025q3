@@ -11,7 +11,7 @@ class Skeleton extends PureComponent<Props> {
   public override render(): React.ReactNode {
     const { className, colorClass } = this.props;
 
-    return <div className={`absolute inset-0 animate-pulse ${className} ${colorClass}`} />;
+    return <div className={`absolute inset-0 animate-pulse ${className} ${colorClass}`} role="presentation" />;
   }
 }
 

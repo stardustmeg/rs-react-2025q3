@@ -7,10 +7,6 @@ class LocalStorageService {
     return localStorage.getItem(this.getFullKey(key));
   }
 
-  public remove(key: string): void {
-    localStorage.removeItem(this.getFullKey(key));
-  }
-
   public save(key: string, value: string): void {
     localStorage.setItem(this.getFullKey(key), value);
   }
