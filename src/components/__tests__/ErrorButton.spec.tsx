@@ -11,6 +11,7 @@ describe('ErrorButton', () => {
         <ErrorButton />
       </MockErrorBoundary>,
     );
+
     expect(screen.getByRole('button')).toBeInTheDocument();
   });
 
@@ -22,6 +23,7 @@ describe('ErrorButton', () => {
     );
 
     fireEvent.click(screen.getByRole('button'));
+
     expect(screen.getByRole('alert')).toHaveTextContent('Test error thrown from ErrorButton');
   });
 

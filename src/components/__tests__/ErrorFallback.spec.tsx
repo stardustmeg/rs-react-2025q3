@@ -11,6 +11,7 @@ describe('ErrorFallback component', () => {
     expect(screen.getByText(/Please try again/i)).toBeInTheDocument();
 
     const image = screen.getByAltText('Error illustration');
+
     expect(image).toBeInTheDocument();
     expect(image).toHaveAttribute('src');
   });
@@ -20,15 +21,19 @@ describe('ErrorFallback component', () => {
     render(<ErrorFallback onRetry={retryMock} />);
 
     const button = screen.getByRole('button', { name: /retry/i });
+
     expect(button).toBeInTheDocument();
 
     fireEvent.click(button);
+
     expect(retryMock).toHaveBeenCalledTimes(1);
   });
 
   it('does not render the Retry button if onRetry is not provided', () => {
     render(<ErrorFallback />);
+
     const button = screen.queryByRole('button', { name: /retry/i });
+
     expect(button).not.toBeInTheDocument();
   });
 

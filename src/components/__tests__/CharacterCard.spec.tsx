@@ -63,6 +63,7 @@ describe('CharacterCard component', () => {
 
   it('renders all info paragraphs', () => {
     render(<CharacterCard character={mockCharacter} />);
+
     const paragraphs = screen.getAllByText(/:/i);
     const PARAGRAPHS_COUNT = 4;
     expect(paragraphs.length).toBe(PARAGRAPHS_COUNT);
@@ -71,13 +72,16 @@ describe('CharacterCard component', () => {
   it('renders the image with correct alt text', () => {
     render(<CharacterCard character={mockCharacter} />);
     const img = screen.getByRole('img', { name: mockCharacter.name });
+
     expect(img).toBeInTheDocument();
     expect(img).toHaveAttribute('alt', mockCharacter.name);
   });
 
   it('renders labels in the expected order', () => {
     render(<CharacterCard character={mockCharacter} />);
+
     const paragraphs = screen.getAllByText(/:/i);
+
     expect(paragraphs[0]).toHaveTextContent('Origin:');
     expect(paragraphs[1]).toHaveTextContent('Species:');
     expect(paragraphs[2]).toHaveTextContent('Gender:');

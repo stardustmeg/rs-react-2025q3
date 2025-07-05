@@ -9,11 +9,12 @@ import CardList from '@/components/CardList';
 import { fetchCharacters } from '@/services/api';
 import HttpError from '@/services/utils/httpError';
 
-const mockCharacter = mockCharacters[0];
+const mockCharacterRick = mockCharacters[0];
+const mockCharacterMorty = mockCharacters[1];
 const mockedFetchCharacters = vi.mocked(fetchCharacters);
 
 vi.mock('@/components/CharacterCard', () => ({
-  default: ({ character }: { character: typeof mockCharacter }): JSX.Element => <div>{character.name}</div>,
+  default: ({ character }: { character: typeof mockCharacterRick }): JSX.Element => <div>{character.name}</div>,
 }));
 
 vi.mock('@/components/NoResultsFound', () => ({
@@ -26,10 +27,7 @@ vi.mock('@/components/ErrorFallback', () => ({
 
 vi.mock('@/services/api', async () => {
   const original = await vi.importActual('@/services/api');
-  return {
-    ...original,
-    fetchCharacters: vi.fn(),
-  };
+  return { ...original, fetchCharacters: vi.fn() };
 });
 
 describe('CardList component', () => {
@@ -46,9 +44,7 @@ describe('CardList component', () => {
   });
 
   it('renders character cards when characters are fetched', async () => {
-    mockedFetchCharacters.mockResolvedValue({
-      results: [mockCharacter],
-    });
+    mockedFetchCharacters.mockResolvedValue({ results: [mockCharacterRick] });
     const { container } = render(<CardList search="rick" />);
     await waitFor(() => {
       expect(screen.getByText('Mock Rick Sanchez')).toBeInTheDocument();
@@ -56,16 +52,45 @@ describe('CardList component', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it('renders NoResultsFound if no characters are returned', async () => {
-    mockedFetchCharacters.mockResolvedValue({
-      results: [],
+  it('calls loadCharacters again when search prop changes', async () => {
+    mockedFetchCharacters.mockResolvedValueOnce({ results: [mockCharacterRick] });
+
+    const { rerender } = render(<CardList search="rick" />);
+    await waitFor(() => {
+      expect(mockedFetchCharacters).toHaveBeenCalledWith({ name: 'rick' });
     });
+    await waitFor(() => {
+      expect(screen.getByText('Mock Rick Sanchez')).toBeInTheDocument();
+    });
+
+    mockedFetchCharacters.mockResolvedValueOnce({ results: [mockCharacterMorty] });
+
+    rerender(<CardList search="morty" />);
+    await waitFor(() => {
+      expect(mockedFetchCharacters).toHaveBeenCalledWith({ name: 'morty' });
+    });
+    await waitFor(() => {
+      expect(screen.getByText('Mock Morty Smith')).toBeInTheDocument();
+    });
+  });
+
+  it('renders NoResultsFound if no characters are returned', async () => {
+    mockedFetchCharacters.mockResolvedValue({ results: [] });
 
     const { container } = render(<CardList search="unknown" />);
     await waitFor(() => {
       expect(screen.getByText('No Results')).toBeInTheDocument();
     });
     expect(container).toMatchSnapshot();
+  });
+
+  it('handles missing results in fetched data gracefully', async () => {
+    mockedFetchCharacters.mockResolvedValueOnce({});
+
+    render(<CardList search="rick" />);
+    await waitFor(() => {
+      expect(screen.getByText('No Results')).toBeInTheDocument();
+    });
   });
 
   it('renders ErrorFallback for network errors', async () => {
@@ -92,7 +117,7 @@ describe('CardList component', () => {
   it('retries fetching data on retry button click', async () => {
     mockedFetchCharacters
       .mockRejectedValueOnce(new Error('First error'))
-      .mockResolvedValueOnce({ results: [mockCharacter] });
+      .mockResolvedValueOnce({ results: [mockCharacterRick] });
 
     render(<CardList search="rick" />);
     await waitFor(() => {

@@ -24,26 +24,28 @@ describe('Search component', () => {
 
   it('renders with initial query from localStorage', () => {
     setup('Rick');
-
     const input = screen.getByPlaceholderText('Search characters...');
+
     expect(input).toHaveValue('Rick');
   });
 
   it('updates input on change', () => {
     setup();
-
     const input = screen.getByPlaceholderText('Search characters...');
+
     fireEvent.change(input, { target: { value: 'Morty' } });
+
     expect(input).toHaveValue('Morty');
   });
 
   it('clears input and submits on clear button click', () => {
     setup('Bird');
-
     const clearButton = screen.getByRole('button', { name: /clear search/i });
+
     fireEvent.click(clearButton);
 
     const input = screen.getByPlaceholderText('Search characters...');
+
     expect(input).toHaveValue('');
     expect(mockOnSubmit).toHaveBeenCalledWith('');
     expect(saveSearchQuery).toHaveBeenCalledWith('');
@@ -51,7 +53,6 @@ describe('Search component', () => {
 
   it('submits trimmed query on form submit', () => {
     setup('');
-
     const input = screen.getByPlaceholderText('Search characters...');
     const submitButton = screen.getByText(/search/i);
 
@@ -64,8 +65,8 @@ describe('Search component', () => {
 
   it('does not submit if query is unchanged', () => {
     setup('Pickle');
-
     const submitButton = screen.getByText(/search/i);
+
     fireEvent.click(submitButton);
 
     expect(mockOnSubmit).not.toHaveBeenCalled();
@@ -74,19 +75,23 @@ describe('Search component', () => {
   it('does not render clear button if input is empty', () => {
     setup('');
     const clearButton = screen.queryByRole('button', { name: /clear search/i });
+
     expect(clearButton).not.toBeInTheDocument();
   });
 
   it('renders clear button if input is non-empty', () => {
     setup('Evil Morty');
     const clearButton = screen.getByRole('button', { name: /clear search/i });
+
     expect(clearButton).toBeInTheDocument();
   });
 
   it('does not call onSubmit or saveSearchQuery on empty submit', () => {
     setup('');
     const submitButton = screen.getByText(/search/i);
+
     fireEvent.click(submitButton);
+
     expect(mockOnSubmit).not.toHaveBeenCalled();
     expect(saveSearchQuery).not.toHaveBeenCalled();
   });
@@ -106,7 +111,9 @@ describe('Search component', () => {
   it('handleClear calls submitQuery exactly once', () => {
     setup('Summer');
     const clearButton = screen.getByRole('button', { name: /clear search/i });
+
     fireEvent.click(clearButton);
+
     expect(mockOnSubmit).toHaveBeenCalledTimes(1);
     expect(saveSearchQuery).toHaveBeenCalledTimes(1);
   });
@@ -126,7 +133,9 @@ describe('Search component', () => {
   it('clear button is not rendered after input is cleared', () => {
     setup('Summer');
     const clearButton = screen.getByRole('button', { name: /clear search/i });
+
     fireEvent.click(clearButton);
+
     expect(screen.queryByRole('button', { name: /clear search/i })).not.toBeInTheDocument();
   });
 
