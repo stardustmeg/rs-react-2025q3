@@ -1,11 +1,10 @@
 import type { JSX } from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
+import { noop } from '@vitest/utils';
 import { describe, expect, it, vi } from 'vitest';
 
 import Header from '@/components/Header';
-
-const noop = (): void => void 0;
 
 vi.mock('@/components/Search', () => ({
   default: ({ onSubmit }: { onSubmit: (query: string) => void }): JSX.Element => (

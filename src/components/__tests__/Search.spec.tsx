@@ -1,11 +1,10 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
+import { noop } from '@vitest/utils';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import Search from '@/components/Search';
 import { getTrimmedSearchQuery, saveSearchQuery } from '@/services/localStorage';
-
-const noop = (): void => void 0;
 
 vi.mock('@/services/localStorage');
 
