@@ -4,7 +4,7 @@ import type { Character } from '@/types';
 
 import CharacterCard from '@/components/CharacterCard';
 import ErrorFallback from '@/components/ErrorFallback';
-import Loader from '@/components/Loader';
+import Loader from '@/components/Loader/Loader';
 import NoResultsFound from '@/components/NoResultsFound';
 import { fetchCharacters } from '@/services/api';
 import HttpError from '@/services/utils/httpError';
