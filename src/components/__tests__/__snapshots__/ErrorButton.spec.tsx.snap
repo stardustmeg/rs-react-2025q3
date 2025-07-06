@@ -4,7 +4,7 @@ exports[`ErrorButton > matches snapshot 1`] = `
 <DocumentFragment>
   <div>
     <button
-      class="mt-4 button rounded bg-custom-red px-4 py-2 text-white"
+      class="button rounded-l bg-custom-red px-4 py-2 text-white"
     >
       Throw an Error
     </button>
