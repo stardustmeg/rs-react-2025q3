@@ -10,6 +10,7 @@ lerna-debug.log*
 node_modules
 dist
 coverage
+test-results
 .vite
 dist-ssr
 *.local

@@ -14,6 +14,7 @@ import { myEslintRules } from './eslint-rules/my-eslint-rules.js';
 import unicorn from 'eslint-plugin-unicorn';
 import jestDom from 'eslint-plugin-jest-dom';
 import testingLibrary from 'eslint-plugin-testing-library';
+import playwright from 'eslint-plugin-playwright';
 
 export default tseslint.config(
   {
@@ -63,6 +64,13 @@ export default tseslint.config(
       ...testingLibrary.configs.react.rules,
       'unicorn/no-useless-undefined': 'off',
       'max-lines-per-function': 'off',
+    },
+  },
+  {
+    files: ['**/__tests__/e2e/**/*.spec.[jt]s?(x)'],
+    extends: [playwright.configs['flat/recommended']],
+    rules: {
+      'testing-library/prefer-screen-queries': 'off',
     },
   },
 );

@@ -6,6 +6,7 @@ export default defineConfig({
   server: { open: true },
   plugins: [tsconfigPaths(), react()],
   test: {
+    exclude: ['node_modules', 'dist', '**/e2e/**'],
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./src/__tests__/setupTests.ts'],
@@ -26,5 +27,7 @@ export default defineConfig({
       extension: ['.ts', '.tsx'],
       reporter: ['text', 'lcov'],
     },
+    slowTestThreshold: 500,
+    silent: true,
   },
 });
