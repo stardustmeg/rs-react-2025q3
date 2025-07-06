@@ -25,7 +25,6 @@ export const myEslintRules = {
       ignoreRestSiblings: true,
     },
   ],
-  '@typescript-eslint/no-use-before-define': 'error',
   '@typescript-eslint/no-useless-empty-export': 'error',
   '@typescript-eslint/require-array-sort-compare': 'error',
   '@typescript-eslint/unbound-method': ['error', { ignoreStatic: true }],
