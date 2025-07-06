@@ -1,18 +1,12 @@
-import React, { PureComponent } from 'react';
+import React, { type JSX } from 'react';
 
 interface Props {
   className?: string;
   colorClass?: string;
 }
 
-class Skeleton extends PureComponent<Props> {
-  public static readonly defaultProps = { className: '', colorClass: 'bg-custom-gray' };
+const Skeleton = ({ className = '', colorClass = 'bg-custom-gray' }: Props): JSX.Element => (
+  <div className={`absolute inset-0 animate-pulse ${className} ${colorClass}`} role="presentation" />
+);
 
-  public override render(): React.ReactNode {
-    const { className, colorClass } = this.props;
-
-    return <div className={`absolute inset-0 animate-pulse ${className} ${colorClass}`} role="presentation" />;
-  }
-}
-
-export default Skeleton;
+export default React.memo(Skeleton);
