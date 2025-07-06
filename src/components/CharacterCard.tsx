@@ -25,7 +25,10 @@ class CharacterCard extends PureComponent<Props> {
     ];
 
     return (
-      <div className="mx-auto w-68 rounded-lg bg-white p-2 shadow-md transition-transform duration-300 hover:scale-101">
+      <div
+        className="mx-auto w-68 rounded-lg bg-white p-2 shadow-md transition-transform duration-300 hover:scale-101"
+        data-testid="character-card"
+      >
         <div className="flex flex-col items-center rounded-t-lg bg-custom-beige p-4">
           <p className="mb-2 text-center text-lg font-semibold">{name}</p>
           <CharacterImage alt={name} src={image} />
