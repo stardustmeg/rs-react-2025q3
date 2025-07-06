@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import portal from '@/assets/gif/portal-rick-and-morty.gif';
 import errorImage from '@/assets/png/rick_and_morty.png';
 import CardList from '@/components/CardList';
-import ErrorButton from '@/components/ErrorButton';
 import Header from '@/components/Header';
 import { getTrimmedSearchQuery } from '@/services/localStorage';
 
@@ -24,7 +23,6 @@ class App extends Component<object, State> {
       <div className="w-full p-10">
         <Header onSearch={this.handleSearch} />
         <CardList search={search} />
-        <ErrorButton wrapperClass="fixed bottom-10 right-0" />
       </div>
     );
   }
