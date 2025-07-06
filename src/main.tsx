@@ -1,9 +1,8 @@
 import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import ReactDOM from 'react-dom/client';
 
 import '@/styles/main.css';
-import ErrorBoundary from '@/components/ErrorBoundary';
-import App from '@/pages/App';
+import { Router } from '@/router/Router';
 
 const ERROR_MESSAGE = 'Root element not found';
 
@@ -12,10 +11,8 @@ if (!rootElement) {
   throw new Error(ERROR_MESSAGE);
 }
 
-createRoot(rootElement).render(
+ReactDOM.createRoot(rootElement).render(
   <StrictMode>
-    <ErrorBoundary>
-      <App />
-    </ErrorBoundary>
+    <Router />
   </StrictMode>,
 );
