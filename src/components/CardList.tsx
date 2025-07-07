@@ -4,14 +4,14 @@ import CharacterCard from '@/components/CharacterCard';
 import ErrorFallback from '@/components/ErrorFallback';
 import Loader from '@/components/Loader/Loader';
 import NoResultsFound from '@/components/NoResultsFound';
-import { useCharacters } from '@/hooks/useCharacters';
+import { useCharactersSearch } from '@/hooks/useCharactersSearch';
 
 interface Props {
   search: string;
 }
 
 const CardList = ({ search }: Props): JSX.Element => {
-  const { characters, error, loading, retry } = useCharacters(search);
+  const { characters, error, loading, retry } = useCharactersSearch(search);
 
   if (loading) {
     return <Loader />;

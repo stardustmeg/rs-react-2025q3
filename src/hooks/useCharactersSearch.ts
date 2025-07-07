@@ -18,7 +18,7 @@ interface UseCharactersReturn extends CharactersState {
   retry: () => void;
 }
 
-export const useCharacters = (search: string): UseCharactersReturn => {
+export const useCharactersSearch = (search: string): UseCharactersReturn => {
   const [state, setState] = useState<CharactersState>({ characters: null, error: null, loading: false });
 
   const loadCharacters = (query: string): void => {
