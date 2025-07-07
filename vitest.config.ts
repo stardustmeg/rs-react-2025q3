@@ -23,6 +23,7 @@ export default defineConfig({
         'config/**/*',
         '**/*.d.ts',
         '**/types/**',
+        '**/constants/**',
       ],
       extension: ['.ts', '.tsx'],
       reporter: ['text', 'lcov'],
