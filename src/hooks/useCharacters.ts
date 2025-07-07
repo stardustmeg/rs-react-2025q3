@@ -9,7 +9,7 @@ import { getErrorMessage } from '@/utils';
 const NOT_FOUND_ERROR_CODE = 404;
 
 interface CharactersState {
-  characters: Character[];
+  characters: Character[] | null;
   error: null | string;
   loading: boolean;
 }
@@ -19,7 +19,7 @@ interface UseCharactersReturn extends CharactersState {
 }
 
 export const useCharacters = (search: string): UseCharactersReturn => {
-  const [state, setState] = useState<CharactersState>({ characters: [], error: null, loading: false });
+  const [state, setState] = useState<CharactersState>({ characters: null, error: null, loading: false });
 
   const loadCharacters = (query: string): void => {
     setState((previous) => ({ ...previous, error: null, loading: true }));

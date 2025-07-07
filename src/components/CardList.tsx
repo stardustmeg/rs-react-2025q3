@@ -19,7 +19,7 @@ const CardList = ({ search }: Props): JSX.Element => {
   if (error) {
     return <ErrorFallback onRetry={retry} />;
   }
-  if (!characters.length) {
+  if (characters && !characters.length) {
     return <NoResultsFound />;
   }
 
@@ -28,7 +28,7 @@ const CardList = ({ search }: Props): JSX.Element => {
       className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
       data-testid="card-list"
     >
-      {characters.map((char) => (
+      {characters?.map((char) => (
         <CharacterCard character={char} key={char.id} />
       ))}
     </div>
