@@ -18,6 +18,10 @@ export interface CharacterFilter {
   type?: string;
 }
 
+export interface HttpError extends Error {
+  status: number;
+}
+
 export interface Info<T> {
   info?: {
     count: number;

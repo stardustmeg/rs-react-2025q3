@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import type { Character } from '@/types';
 
 import { fetchCharacters } from '@/services/api';
-import HttpError from '@/services/utils/httpError';
+import { isHttpError } from '@/types/helpers';
 import { getErrorMessage } from '@/utils';
 
 const NOT_FOUND_ERROR_CODE = 404;
@@ -31,7 +31,7 @@ export const useCharacters = (search: string): UseCharactersReturn => {
       .catch((error: unknown) => {
         setState({
           characters: [],
-          error: error instanceof HttpError && error.status === NOT_FOUND_ERROR_CODE ? null : getErrorMessage(error),
+          error: isHttpError(error) && error.status === NOT_FOUND_ERROR_CODE ? null : getErrorMessage(error),
           loading: false,
         });
       });

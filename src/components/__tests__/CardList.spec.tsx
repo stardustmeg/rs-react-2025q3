@@ -7,7 +7,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { mockCharacters } from '@/__mocks__/mockCharacters';
 import CardList from '@/components/CardList';
 import { fetchCharacters } from '@/services/api';
-import HttpError from '@/services/utils/httpError';
+import createHttpError from '@/services/utils/httpError';
 
 const mockCharacterRick = mockCharacters[0];
 const mockCharacterMorty = mockCharacters[1];
@@ -105,7 +105,7 @@ describe('CardList component', () => {
 
   it('renders NoResultsFound for 404 error', async () => {
     const NOT_FOUND_ERROR_CODE = 404;
-    mockedFetchCharacters.mockRejectedValue(new HttpError(NOT_FOUND_ERROR_CODE, 'Not Found'));
+    mockedFetchCharacters.mockRejectedValue(createHttpError(NOT_FOUND_ERROR_CODE, 'Not Found'));
 
     const { container } = render(<CardList search="unknown" />);
     await waitFor(() => {

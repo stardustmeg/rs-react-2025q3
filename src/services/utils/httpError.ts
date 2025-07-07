@@ -1,11 +1,8 @@
-class HttpError extends Error {
-  public status: number;
+import type { HttpError } from '@/types';
 
-  constructor(status: number, statusText: string) {
-    super(`Error ${status}: ${statusText}`);
-    this.status = status;
-    Object.setPrototypeOf(this, HttpError.prototype);
-  }
-}
+const createHttpError = (status: number, statusText: string): HttpError => {
+  const error = new Error(`Error ${status}: ${statusText}`);
+  return Object.assign(error, { status });
+};
 
-export default HttpError;
+export default createHttpError;

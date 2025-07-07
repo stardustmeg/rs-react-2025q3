@@ -1,6 +1,6 @@
 import type { Character, CharacterFilter, Info } from '@/types';
 
-import HttpError from '@/services/utils/httpError';
+import createHttpError from '@/services/utils/httpError';
 import { isCharacterInfo } from '@/types/helpers';
 
 type Validator<T> = (data: unknown) => data is T;
@@ -10,7 +10,7 @@ class ApiService {
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new HttpError(response.status, response.statusText);
+      throw createHttpError(response.status, response.statusText);
     }
 
     const data: unknown = await response.json();
