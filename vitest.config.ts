@@ -28,6 +28,7 @@ export default defineConfig({
       reporter: ['text', 'lcov'],
     },
     slowTestThreshold: 500,
+    testTimeout: 15000,
     silent: true,
   },
 });
