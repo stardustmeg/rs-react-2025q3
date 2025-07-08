@@ -1,0 +1,54 @@
+@import 'tailwindcss';
+@config "../../tailwind.config.js";
+
+@utility button {
+  transition:
+    transform 0.3s ease,
+    filter 0.3s ease,
+    color 0.3s ease,
+    background-color 0.3s ease;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    filter: brightness(1.05);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+    transform: scale(1.05);
+    filter: brightness(1.05);
+  }
+}
+
+body {
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  padding-right: 13px;
+  box-sizing: border-box;
+}
+
+#root {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-top: 4rem;
+  text-align: center;
+}
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  color: #213547;
+  text-rendering: optimizelegibility;
+
+  background-color: #c2e0bc;
+
+  font-synthesis: none;
+}

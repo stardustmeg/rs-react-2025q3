@@ -1,0 +1,85 @@
+import React, { PureComponent } from 'react';
+
+import { getTrimmedSearchQuery, saveSearchQuery } from '@/services/localStorage';
+
+interface Props {
+  onSubmit: (query: string) => void;
+}
+
+interface State {
+  query: string;
+}
+
+class Search extends PureComponent<Props, State> {
+  public override state = { query: getTrimmedSearchQuery() };
+
+  public handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    this.setState({ query: event.target.value });
+  };
+
+  public handleClear = (): void => {
+    this.setState({ query: '' }, this.submitQuery);
+  };
+
+  public handleSubmit = (event: React.FormEvent): void => {
+    event.preventDefault();
+    this.submitQuery();
+  };
+
+  public override render(): React.ReactNode {
+    return (
+      <form
+        className="flex w-full items-center justify-center gap-2 p-1 sm:w-1/2 lg:w-1/3"
+        onSubmit={this.handleSubmit}
+      >
+        <div className="relative w-full">
+          <input
+            className="w-full rounded border border-custom-green bg-custom-blue p-2 pr-7 text-sm text-custom-dark-night shadow-sm focus:border-custom-green focus:ring-2 focus:ring-custom-green focus:outline-none"
+            onChange={this.handleChange}
+            placeholder="Search characters..."
+            type="text"
+            value={this.state.query}
+          />
+          {this.renderClearButton()}
+        </div>
+        <button className="button rounded bg-custom-yellow px-4 py-2 text-custom-coal shadow-sm" type="submit">
+          Search
+        </button>
+      </form>
+    );
+  }
+
+  private renderClearButton(): React.ReactNode {
+    if (!this.state.query) {
+      return null;
+    }
+
+    return (
+      <button
+        aria-label="Clear search"
+        className="absolute top-1/2 right-2 -translate-y-1/2 button text-custom-coal hover:text-custom-pink focus:text-custom-pink"
+        onClick={this.handleClear}
+        type="button"
+      >
+        ✕
+      </button>
+    );
+  }
+
+  private readonly submitQuery = (): void => {
+    this.setState((previous) => {
+      const trimmed = previous.query.trim();
+      const saved = getTrimmedSearchQuery();
+
+      if (trimmed === saved) {
+        return null;
+      }
+
+      saveSearchQuery(trimmed);
+      this.props.onSubmit(trimmed);
+      return { query: trimmed };
+    });
+  };
+}
+
+export default Search;
