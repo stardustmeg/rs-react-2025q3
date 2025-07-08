@@ -28,8 +28,11 @@ class Search extends PureComponent<Props, State> {
 
   public override render(): React.ReactNode {
     return (
-      <form className="flex items-center justify-center gap-2" onSubmit={this.handleSubmit}>
-        <div className="relative w-70">
+      <form
+        className="flex w-full items-center justify-center gap-2 p-1 sm:w-1/2 lg:w-1/3"
+        onSubmit={this.handleSubmit}
+      >
+        <div className="relative w-full">
           <input
             className="w-full rounded border border-custom-green bg-custom-blue p-2 pr-7 text-sm text-custom-dark-night shadow-sm focus:border-custom-green focus:ring-2 focus:ring-custom-green focus:outline-none"
             onChange={this.handleChange}
