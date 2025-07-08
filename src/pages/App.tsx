@@ -1,4 +1,5 @@
 import React, { type JSX, useState } from 'react';
+import { Outlet } from 'react-router';
 
 import portal from '@/assets/gif/portal-rick-and-morty.gif';
 import errorImage from '@/assets/png/rick_and_morty.png';
@@ -22,6 +23,7 @@ const App = (): JSX.Element => {
     <div className="w-full p-10">
       <Header onSearch={handleSearch} />
       <CardList search={search} />
+      <Outlet />
     </div>
   );
 };
