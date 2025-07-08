@@ -27,11 +27,15 @@ exports[`CardList component > renders NoResultsFound if no characters are return
 exports[`CardList component > renders character cards when characters are fetched 1`] = `
 <div>
   <div
-    class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-    data-testid="card-list"
+    class="min-h-screen"
   >
-    <div>
-      Mock Rick Sanchez
+    <div
+      class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+      data-testid="card-list"
+    >
+      <div>
+        Mock Rick Sanchez
+      </div>
     </div>
   </div>
 </div>
