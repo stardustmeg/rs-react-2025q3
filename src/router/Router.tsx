@@ -2,9 +2,9 @@ import type { JSX } from 'react';
 
 import { createBrowserRouter, RouterProvider } from 'react-router';
 
+import DetailedCharacterInfo from '@/components/DetailedCharacterInfo';
 import AboutPage from '@/pages/AboutPage';
 import App from '@/pages/App';
-import DetailedPage from '@/pages/DetailedPage';
 import NotFoundPage from '@/pages/NotFoundPage';
 import { PATHS } from '@/router/constants';
 
@@ -12,9 +12,8 @@ const router = createBrowserRouter([
   {
     children: [
       {
-        element: <DetailedPage />,
-        // TBD: remove detailed
-        path: 'detailed/:id',
+        element: <DetailedCharacterInfo />,
+        path: ':id',
       },
     ],
     element: <App />,
