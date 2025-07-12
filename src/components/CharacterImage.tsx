@@ -5,12 +5,12 @@ import Skeleton from '@/components/Skeleton';
 
 const DEFAULT_ALT_TEXT = 'Character image not available';
 
-interface Props {
+interface CharacterImageProps {
   alt: string;
   src: string;
 }
 
-const CharacterImage = ({ alt, src }: Props): JSX.Element => {
+const CharacterImage = ({ alt, src }: CharacterImageProps): JSX.Element => {
   const [loaded, setLoaded] = useState(false);
 
   const handleError = (event: React.SyntheticEvent<HTMLImageElement>): void => {

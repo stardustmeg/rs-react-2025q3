@@ -6,13 +6,13 @@ import CharacterImage from '@/components/CharacterImage';
 
 const LABELS = { gender: 'Gender', origin: 'Origin', species: 'Species', status: 'Status' } as const;
 
-type LabelsType = (typeof LABELS)[keyof typeof LABELS];
-
-interface Props {
+interface CharacterCardProps {
   character: Character;
 }
 
-const CharacterCard = ({ character }: Props): JSX.Element => {
+type LabelsType = (typeof LABELS)[keyof typeof LABELS];
+
+const CharacterCard = ({ character }: CharacterCardProps): JSX.Element => {
   const { gender, image, name, origin, species, status } = character;
 
   const info: [label: LabelsType, value: string][] = [

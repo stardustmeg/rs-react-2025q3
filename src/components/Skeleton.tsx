@@ -1,11 +1,11 @@
 import React, { type JSX } from 'react';
 
-interface Props {
+interface SkeletonProps {
   className?: string;
   colorClass?: string;
 }
 
-const Skeleton = ({ className = '', colorClass = 'bg-custom-gray' }: Props): JSX.Element => (
+const Skeleton = ({ className = '', colorClass = 'bg-custom-gray' }: SkeletonProps): JSX.Element => (
   <div className={`absolute inset-0 animate-pulse ${className} ${colorClass}`} role="presentation" />
 );
 

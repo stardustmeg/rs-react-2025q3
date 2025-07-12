@@ -6,11 +6,11 @@ import Loader from '@/components/Loader/Loader';
 import NoResultsFound from '@/components/NoResultsFound';
 import { useCharactersSearch } from '@/hooks/useCharactersSearch';
 
-interface Props {
+interface CardListProps {
   searchQuery: string;
 }
 
-const CardList = ({ searchQuery }: Props): JSX.Element => {
+const CardList = ({ searchQuery }: CardListProps): JSX.Element => {
   const { characters, error, loading, retry } = useCharactersSearch(searchQuery);
 
   if (loading) {

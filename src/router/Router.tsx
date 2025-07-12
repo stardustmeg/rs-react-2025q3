@@ -13,6 +13,7 @@ const router = createBrowserRouter([
     children: [
       {
         element: <DetailedPage />,
+        // TBD: remove detailed
         path: 'detailed/:id',
       },
     ],
