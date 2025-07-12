@@ -24,7 +24,7 @@ describe('Search component', () => {
 
   const setup = (initialQuery = ''): void => {
     mockSearchQuery = initialQuery;
-    render(<Search onSubmit={mockOnSubmit} />);
+    render(<Search handleSearch={mockOnSubmit} initialSearchQuery={initialQuery} />);
   };
 
   it('renders with initial query from localStorage', () => {
@@ -53,7 +53,6 @@ describe('Search component', () => {
 
     expect(input).toHaveValue('');
     expect(mockOnSubmit).toHaveBeenCalledWith('');
-    expect(mockSetSearchQuery).toHaveBeenCalledWith('');
   });
 
   it('submits trimmed query on form submit', () => {
@@ -65,17 +64,17 @@ describe('Search component', () => {
     fireEvent.click(submitButton);
 
     expect(mockOnSubmit).toHaveBeenCalledWith('Summer');
-    expect(mockSetSearchQuery).toHaveBeenCalledWith('Summer');
   });
 
-  it('does not submit if query is unchanged', () => {
-    setup('Pickle');
-    const submitButton = screen.getByText(/search/i);
+  // TBD: move to app
+  // it('does not submit if query is unchanged', () => {
+  //   setup('Pickle');
+  //   const submitButton = screen.getByText(/search/i);
 
-    fireEvent.click(submitButton);
+  //   fireEvent.click(submitButton);
 
-    expect(mockOnSubmit).not.toHaveBeenCalled();
-  });
+  //   expect(mockOnSubmit).not.toHaveBeenCalled();
+  // });
 
   it('does not render clear button if input is empty', () => {
     setup('');
@@ -91,16 +90,6 @@ describe('Search component', () => {
     expect(clearButton).toBeInTheDocument();
   });
 
-  it('does not call onSubmit or setSearchQuery on empty submit', () => {
-    setup('');
-    const submitButton = screen.getByText(/search/i);
-
-    fireEvent.click(submitButton);
-
-    expect(mockOnSubmit).not.toHaveBeenCalled();
-    expect(mockSetSearchQuery).not.toHaveBeenCalled();
-  });
-
   it('trims input value correctly before submission', () => {
     setup('');
     const input = screen.getByPlaceholderText('Search characters...');
@@ -110,7 +99,6 @@ describe('Search component', () => {
     fireEvent.click(submitButton);
 
     expect(mockOnSubmit).toHaveBeenCalledWith('Rick');
-    expect(mockSetSearchQuery).toHaveBeenCalledWith('Rick');
   });
 
   it('handleClear calls submitQuery exactly once', () => {
@@ -120,20 +108,19 @@ describe('Search component', () => {
     fireEvent.click(clearButton);
 
     expect(mockOnSubmit).toHaveBeenCalledTimes(1);
-    expect(mockSetSearchQuery).toHaveBeenCalledTimes(1);
   });
 
-  it('does not submit if input trimmed is equal to saved query', () => {
-    setup('Rick');
-    const input = screen.getByPlaceholderText('Search characters...');
-    const submitButton = screen.getByText(/search/i);
+  // TBD: move to app
+  // it('does not submit if input trimmed is equal to saved query', () => {
+  //   setup('Rick');
+  //   const input = screen.getByPlaceholderText('Search characters...');
+  //   const submitButton = screen.getByText(/search/i);
 
-    fireEvent.change(input, { target: { value: ' Rick ' } });
-    fireEvent.click(submitButton);
+  //   fireEvent.change(input, { target: { value: ' Rick ' } });
+  //   fireEvent.click(submitButton);
 
-    expect(mockOnSubmit).not.toHaveBeenCalled();
-    expect(mockSetSearchQuery).not.toHaveBeenCalled();
-  });
+  //   expect(mockOnSubmit).not.toHaveBeenCalled();
+  // });
 
   it('clear button is not rendered after input is cleared', () => {
     setup('Summer');
@@ -146,7 +133,7 @@ describe('Search component', () => {
 
   it('matches snapshot', () => {
     vi.mocked(useLocalStorage).mockImplementation(() => ['Summer', mockSetSearchQuery]);
-    const { asFragment } = render(<Search onSubmit={noop} />);
+    const { asFragment } = render(<Search handleSearch={noop} initialSearchQuery="Summer" />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

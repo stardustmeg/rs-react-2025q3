@@ -38,14 +38,14 @@ describe('CardList component', () => {
   it('shows loader initially', () => {
     mockedFetchCharacters.mockReturnValue(new Promise(noop));
 
-    const { container } = render(<CardList search="rick" />);
+    const { container } = render(<CardList searchQuery="rick" />);
     expect(screen.getByTestId('loader-spinner')).toBeInTheDocument();
     expect(container).toMatchSnapshot();
   });
 
   it('renders character cards when characters are fetched', async () => {
     mockedFetchCharacters.mockResolvedValue({ results: [mockCharacterRick] });
-    const { container } = render(<CardList search="rick" />);
+    const { container } = render(<CardList searchQuery="rick" />);
     await waitFor(() => {
       expect(screen.getByText('Mock Rick Sanchez')).toBeInTheDocument();
     });
@@ -55,7 +55,7 @@ describe('CardList component', () => {
   it('calls loadCharacters again when search prop changes', async () => {
     mockedFetchCharacters.mockResolvedValueOnce({ results: [mockCharacterRick] });
 
-    const { rerender } = render(<CardList search="rick" />);
+    const { rerender } = render(<CardList searchQuery="rick" />);
     await waitFor(() => {
       expect(mockedFetchCharacters).toHaveBeenCalledWith({ name: 'rick' });
     });
@@ -65,7 +65,7 @@ describe('CardList component', () => {
 
     mockedFetchCharacters.mockResolvedValueOnce({ results: [mockCharacterMorty] });
 
-    rerender(<CardList search="morty" />);
+    rerender(<CardList searchQuery="morty" />);
     await waitFor(() => {
       expect(mockedFetchCharacters).toHaveBeenCalledWith({ name: 'morty' });
     });
@@ -77,7 +77,7 @@ describe('CardList component', () => {
   it('renders NoResultsFound if no characters are returned', async () => {
     mockedFetchCharacters.mockResolvedValue({ results: [] });
 
-    const { container } = render(<CardList search="unknown" />);
+    const { container } = render(<CardList searchQuery="unknown" />);
     await waitFor(() => {
       expect(screen.getByText('No Results')).toBeInTheDocument();
     });
@@ -87,7 +87,7 @@ describe('CardList component', () => {
   it('handles missing results in fetched data gracefully', async () => {
     mockedFetchCharacters.mockResolvedValueOnce({});
 
-    render(<CardList search="rick" />);
+    render(<CardList searchQuery="rick" />);
     await waitFor(() => {
       expect(screen.getByText('No Results')).toBeInTheDocument();
     });
@@ -96,7 +96,7 @@ describe('CardList component', () => {
   it('renders ErrorFallback for network errors', async () => {
     mockedFetchCharacters.mockRejectedValue(new Error('Network error'));
 
-    const { container } = render(<CardList search="rick" />);
+    const { container } = render(<CardList searchQuery="rick" />);
     await waitFor(() => {
       expect(screen.getByText('Retry')).toBeInTheDocument();
     });
@@ -107,7 +107,7 @@ describe('CardList component', () => {
     const NOT_FOUND_ERROR_CODE = 404;
     mockedFetchCharacters.mockRejectedValue(createHttpError(NOT_FOUND_ERROR_CODE, 'Not Found'));
 
-    const { container } = render(<CardList search="unknown" />);
+    const { container } = render(<CardList searchQuery="unknown" />);
     await waitFor(() => {
       expect(screen.getByText('No Results')).toBeInTheDocument();
     });
@@ -119,7 +119,7 @@ describe('CardList component', () => {
       .mockRejectedValueOnce(new Error('First error'))
       .mockResolvedValueOnce({ results: [mockCharacterRick] });
 
-    render(<CardList search="rick" />);
+    render(<CardList searchQuery="rick" />);
     await waitFor(() => {
       expect(screen.getByText('Retry')).toBeInTheDocument();
     });

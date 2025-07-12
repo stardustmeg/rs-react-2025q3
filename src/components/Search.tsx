@@ -1,15 +1,14 @@
 import React, { type JSX, useState } from 'react';
 
 import ClearButton from '@/components/ClearButton';
-import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 interface SearchProps {
-  onSubmit: (query: string) => void;
+  handleSearch: (query: string) => void;
+  initialSearchQuery: string;
 }
 
-const Search = ({ onSubmit }: SearchProps): JSX.Element => {
-  const [searchQuery, setSearchQuery] = useLocalStorage();
-  const [query, setQuery] = useState(searchQuery);
+const Search = ({ handleSearch, initialSearchQuery }: SearchProps): JSX.Element => {
+  const [query, setQuery] = useState(initialSearchQuery);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setQuery(event.target.value);
@@ -17,22 +16,12 @@ const Search = ({ onSubmit }: SearchProps): JSX.Element => {
 
   const handleClear = (): void => {
     setQuery('');
-    submitQuery('');
+    handleSearch('');
   };
 
   const handleSubmit = (event: React.FormEvent): void => {
     event.preventDefault();
-    submitQuery(query);
-  };
-
-  const submitQuery = (currentQuery: string): void => {
-    const trimmed = currentQuery.trim();
-    const saved = searchQuery;
-
-    if (trimmed !== saved) {
-      setSearchQuery(trimmed);
-      onSubmit(trimmed);
-    }
+    handleSearch(query.trim());
   };
 
   return (

@@ -12,17 +12,21 @@ for (const source of [portal, errorImage]) {
 }
 
 const App = (): JSX.Element => {
-  const [searchQuery] = useLocalStorage();
-  const [search, setSearch] = useState(searchQuery);
+  const [savedSearchQuery, setSavedSearchQuery] = useLocalStorage();
+  const [searchQuery, setSearchQuery] = useState(savedSearchQuery);
 
-  const handleSearch = (search: string): void => {
-    setSearch(search);
+  const handleSearch = (currentSearch: string): void => {
+    if (currentSearch === savedSearchQuery) {
+      return;
+    }
+    setSavedSearchQuery(currentSearch);
+    setSearchQuery(currentSearch);
   };
 
   return (
     <div className="w-full p-10">
-      <Header onSearch={handleSearch} />
-      <CardList search={search} />
+      <Header handleSearch={handleSearch} initialSearchQuery={savedSearchQuery} />
+      <CardList searchQuery={searchQuery} />
       <Outlet />
     </div>
   );

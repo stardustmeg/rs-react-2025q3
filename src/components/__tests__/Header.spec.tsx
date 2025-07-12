@@ -7,11 +7,11 @@ import { describe, expect, it, vi } from 'vitest';
 import Header from '@/components/Header';
 
 vi.mock('@/components/Search', () => ({
-  default: ({ onSubmit }: { onSubmit: (query: string) => void }): JSX.Element => (
+  default: ({ handleSearch }: { handleSearch: (query: string) => void }): JSX.Element => (
     <input
       onKeyDown={(event) => {
         if (event.key === 'Enter') {
-          onSubmit('test query');
+          handleSearch('test query');
         }
       }}
     />
@@ -20,7 +20,7 @@ vi.mock('@/components/Search', () => ({
 
 describe('Header component', () => {
   it('renders the header element', () => {
-    render(<Header onSearch={noop} />);
+    render(<Header handleSearch={noop} initialSearchQuery="" />);
 
     const header = screen.getByRole('header');
 
@@ -28,7 +28,7 @@ describe('Header component', () => {
   });
 
   it('renders the Search component inside header', () => {
-    render(<Header onSearch={noop} />);
+    render(<Header handleSearch={noop} initialSearchQuery="" />);
 
     const input = screen.getByRole('textbox');
 
@@ -37,7 +37,7 @@ describe('Header component', () => {
 
   it('calls onSearch when Search is submitted', () => {
     const onSearchMock = vi.fn();
-    render(<Header onSearch={onSearchMock} />);
+    render(<Header handleSearch={onSearchMock} initialSearchQuery="" />);
 
     const input = screen.getByRole('textbox');
 
@@ -47,7 +47,7 @@ describe('Header component', () => {
   });
 
   it('matches snapshot', () => {
-    const { asFragment } = render(<Header onSearch={noop} />);
+    const { asFragment } = render(<Header handleSearch={noop} initialSearchQuery="" />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

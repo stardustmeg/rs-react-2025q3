@@ -7,11 +7,11 @@ import NoResultsFound from '@/components/NoResultsFound';
 import { useCharactersSearch } from '@/hooks/useCharactersSearch';
 
 interface Props {
-  search: string;
+  searchQuery: string;
 }
 
-const CardList = ({ search }: Props): JSX.Element => {
-  const { characters, error, loading, retry } = useCharactersSearch(search);
+const CardList = ({ searchQuery }: Props): JSX.Element => {
+  const { characters, error, loading, retry } = useCharactersSearch(searchQuery);
 
   if (loading) {
     return <Loader />;
