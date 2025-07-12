@@ -1,7 +1,9 @@
 import React, { type JSX } from 'react';
 
-const DetailedPage = (): JSX.Element => {
-  return <div>I am the Detailed page</div>;
+import Drawer from '@/components/Drawer';
+
+const DetailedCharacterInfo = (): JSX.Element => {
+  return <Drawer>{'I am the detailed character info'}</Drawer>;
 };
 
-export default React.memo(DetailedPage);
+export default React.memo(DetailedCharacterInfo);

@@ -1,4 +1,4 @@
-import React, { type JSX, useState } from 'react';
+import React, { type JSX } from 'react';
 import { Outlet } from 'react-router';
 
 import portal from '@/assets/gif/portal-rick-and-morty.gif';
@@ -13,20 +13,18 @@ for (const source of [portal, errorImage]) {
 
 const App = (): JSX.Element => {
   const [savedSearchQuery, setSavedSearchQuery] = useLocalStorage();
-  const [searchQuery, setSearchQuery] = useState(savedSearchQuery);
 
   const handleSearch = (currentSearch: string): void => {
     if (currentSearch === savedSearchQuery) {
       return;
     }
     setSavedSearchQuery(currentSearch);
-    setSearchQuery(currentSearch);
   };
 
   return (
     <div className="w-full p-10">
       <Header handleSearch={handleSearch} initialSearchQuery={savedSearchQuery} />
-      <CardList searchQuery={searchQuery} />
+      <CardList searchQuery={savedSearchQuery} />
       <Outlet />
     </div>
   );
