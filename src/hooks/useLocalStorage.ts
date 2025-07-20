@@ -18,9 +18,6 @@ export const useLocalStorage = (): UseLocalStorageReturnType => {
   useEffect(() => {
     const trimmedValue = searchQuery.trim();
     localStorage.setItem(getFullKey(LS_SEARCH_KEY), trimmedValue);
-    if (searchQuery !== trimmedValue) {
-      setSearchQuery(trimmedValue);
-    }
   }, [searchQuery]);
 
   return [searchQuery, setSearchQuery];

@@ -15,9 +15,6 @@ const App: React.FC = () => {
   const [savedSearchQuery, setSavedSearchQuery] = useLocalStorage();
 
   const handleSearch = (currentSearch: string): void => {
-    if (currentSearch === savedSearchQuery) {
-      return;
-    }
     setSavedSearchQuery(currentSearch);
   };
 

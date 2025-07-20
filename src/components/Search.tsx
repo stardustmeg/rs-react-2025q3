@@ -16,7 +16,6 @@ const Search: React.FC<SearchProps> = ({ handleSearch, initialSearchQuery }) => 
 
   const handleClear = (): void => {
     setQuery('');
-    handleSearch('');
   };
 
   const handleSubmit = (event: React.FormEvent): void => {
