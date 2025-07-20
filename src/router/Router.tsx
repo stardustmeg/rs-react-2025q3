@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router';
 
-import DetailedCharacterInfo from '@/components/DetailedCharacterInfo';
+import CharacterInfo from '@/components/CharacterInfo';
 import AboutPage from '@/pages/AboutPage';
 import App from '@/pages/App';
 import NotFoundPage from '@/pages/NotFoundPage';
@@ -10,7 +10,7 @@ const router = createBrowserRouter([
   {
     children: [
       {
-        element: <DetailedCharacterInfo />,
+        element: <CharacterInfo />,
         path: ':id',
       },
     ],

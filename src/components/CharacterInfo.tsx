@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
 import Drawer from '@/components/Drawer';
+import { PATHS } from '@/router/constants';
 
-const DetailedCharacterInfo: React.FC = () => {
+const CharacterInfo: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(!!id);
 
   const handleCloseDrawer = (): void => {
     setIsDrawerOpen(false);
-    navigate(-1);
+    navigate(PATHS.main);
   };
 
   return (
@@ -21,4 +22,4 @@ const DetailedCharacterInfo: React.FC = () => {
   );
 };
 
-export default DetailedCharacterInfo;
+export default CharacterInfo;
