@@ -1,8 +1,8 @@
-import React, { type JSX } from 'react';
+import React from 'react';
 
 import styles from '@/components/Loader/Loader.module.css';
 
-const Loader = (): JSX.Element => (
+const Loader: React.FC = () => (
   <div className={styles.loaderWrapper}>
     <div
       aria-label="Orange and tan hamster running in a metal wheel"
@@ -29,4 +29,4 @@ const Loader = (): JSX.Element => (
   </div>
 );
 
-export default React.memo(Loader);
+export default Loader;

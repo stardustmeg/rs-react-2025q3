@@ -1,5 +1,3 @@
-import React, { type JSX } from 'react';
-
 import CharacterCard from '@/components/CharacterCard';
 import ErrorFallback from '@/components/ErrorFallback';
 import Loader from '@/components/Loader/Loader';
@@ -10,7 +8,7 @@ interface CardListProps {
   searchQuery: string;
 }
 
-const CardList = ({ searchQuery }: CardListProps): JSX.Element => {
+const CardList: React.FC<CardListProps> = ({ searchQuery }: CardListProps) => {
   const { characters, error, loading, retry } = useCharactersSearch(searchQuery);
 
   if (loading) {
@@ -37,4 +35,4 @@ const CardList = ({ searchQuery }: CardListProps): JSX.Element => {
   );
 };
 
-export default React.memo(CardList);
+export default CardList;

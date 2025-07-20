@@ -1,7 +1,7 @@
-import React, { type JSX } from 'react';
+import React from 'react';
 
-const AboutPage = (): JSX.Element => {
+const AboutPage: React.FC = () => {
   return <div>I am the about page</div>;
 };
 
-export default React.memo(AboutPage);
+export default AboutPage;

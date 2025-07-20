@@ -1,4 +1,4 @@
-import React, { type JSX, useState } from 'react';
+import React, { useState } from 'react';
 
 import fallbackImage from '@/assets/png/placeholder.png';
 import Skeleton from '@/components/Skeleton';
@@ -10,7 +10,7 @@ interface CharacterImageProps {
   src: string;
 }
 
-const CharacterImage = ({ alt, src }: CharacterImageProps): JSX.Element => {
+const CharacterImage: React.FC<CharacterImageProps> = ({ alt, src }) => {
   const [loaded, setLoaded] = useState(false);
 
   const handleError = (event: React.SyntheticEvent<HTMLImageElement>): void => {
@@ -37,4 +37,4 @@ const CharacterImage = ({ alt, src }: CharacterImageProps): JSX.Element => {
   );
 };
 
-export default React.memo(CharacterImage);
+export default CharacterImage;

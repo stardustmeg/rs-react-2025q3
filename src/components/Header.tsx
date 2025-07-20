@@ -1,4 +1,4 @@
-import React, { type JSX } from 'react';
+import type React from 'react';
 
 import Search from '@/components/Search';
 
@@ -7,7 +7,7 @@ interface HeaderProps {
   initialSearchQuery: string;
 }
 
-const Header = ({ handleSearch, initialSearchQuery }: HeaderProps): JSX.Element => (
+const Header: React.FC<HeaderProps> = ({ handleSearch, initialSearchQuery }) => (
   <div
     className="fixed top-0 left-0 z-50 flex w-full items-center justify-center bg-custom-pink px-6 py-4 shadow-md"
     role="header"
@@ -15,5 +15,4 @@ const Header = ({ handleSearch, initialSearchQuery }: HeaderProps): JSX.Element 
     <Search handleSearch={handleSearch} initialSearchQuery={initialSearchQuery} />
   </div>
 );
-
-export default React.memo(Header);
+export default Header;

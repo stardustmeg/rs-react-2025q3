@@ -1,7 +1,7 @@
-import React, { type JSX } from 'react';
+import React from 'react';
 
-const NotFoundPage = (): JSX.Element => {
+const NotFoundPage: React.FC = () => {
   return <div>I am the not found page</div>;
 };
 
-export default React.memo(NotFoundPage);
+export default NotFoundPage;

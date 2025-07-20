@@ -1,4 +1,4 @@
-import React, { type JSX } from 'react';
+import React from 'react';
 
 interface DrawerProps {
   children?: React.ReactNode;
@@ -6,7 +6,7 @@ interface DrawerProps {
   isDrawerOpen: boolean;
 }
 
-const Drawer = ({ children, handleCloseDrawer, isDrawerOpen }: DrawerProps): JSX.Element => {
+const Drawer: React.FC<DrawerProps> = ({ children, handleCloseDrawer, isDrawerOpen }) => {
   return (
     <>
       <div
@@ -37,4 +37,4 @@ const Drawer = ({ children, handleCloseDrawer, isDrawerOpen }: DrawerProps): JSX
   );
 };
 
-export default React.memo(Drawer);
+export default Drawer;

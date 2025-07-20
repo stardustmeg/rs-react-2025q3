@@ -1,5 +1,3 @@
-import type { JSX } from 'react';
-
 import { createBrowserRouter, RouterProvider } from 'react-router';
 
 import DetailedCharacterInfo from '@/components/DetailedCharacterInfo';
@@ -31,4 +29,4 @@ const router = createBrowserRouter([
   },
 ]);
 
-export const Router = (): JSX.Element => <RouterProvider router={router} />;
+export const Router: React.FC = () => <RouterProvider router={router} />;

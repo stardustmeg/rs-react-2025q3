@@ -1,8 +1,8 @@
-import React, { type JSX } from 'react';
+import React from 'react';
 
 import portalImage from '@/assets/gif/portal-rick-and-morty.gif';
 
-const NoResultsFound = (): JSX.Element => (
+const NoResultsFound: React.FC = () => (
   <div className="flex flex-col items-center justify-center space-y-6 p-6 text-center">
     <p className="max-w-md text-lg text-custom-dark-night">
       Nothing was found in this dimension.
@@ -13,4 +13,4 @@ const NoResultsFound = (): JSX.Element => (
   </div>
 );
 
-export default React.memo(NoResultsFound);
+export default NoResultsFound;

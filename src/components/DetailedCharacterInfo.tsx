@@ -1,9 +1,9 @@
-import React, { type JSX, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
 import Drawer from '@/components/Drawer';
 
-const DetailedCharacterInfo = (): JSX.Element => {
+const DetailedCharacterInfo: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(!!id);
@@ -21,4 +21,4 @@ const DetailedCharacterInfo = (): JSX.Element => {
   );
 };
 
-export default React.memo(DetailedCharacterInfo);
+export default DetailedCharacterInfo;

@@ -1,4 +1,4 @@
-import React, { type JSX } from 'react';
+import React from 'react';
 
 import errorImage from '@/assets/png/rick_and_morty.png';
 
@@ -6,7 +6,7 @@ interface ErrorFallbackProps {
   onRetry?: () => void;
 }
 
-const ErrorFallback = ({ onRetry }: ErrorFallbackProps): JSX.Element => (
+const ErrorFallback: React.FC<ErrorFallbackProps> = ({ onRetry }) => (
   <div className="flex flex-col items-center justify-center space-y-6 p-6 text-center">
     <img alt="Error illustration" className="h-auto w-64" src={errorImage} />
     <p className="max-w-md text-lg text-custom-red">
@@ -22,4 +22,4 @@ const ErrorFallback = ({ onRetry }: ErrorFallbackProps): JSX.Element => (
   </div>
 );
 
-export default React.memo(ErrorFallback);
+export default ErrorFallback;

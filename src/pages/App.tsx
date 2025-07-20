@@ -1,4 +1,4 @@
-import React, { type JSX } from 'react';
+import React from 'react';
 import { Outlet } from 'react-router';
 
 import portal from '@/assets/gif/portal-rick-and-morty.gif';
@@ -11,7 +11,7 @@ for (const source of [portal, errorImage]) {
   new Image().src = source;
 }
 
-const App = (): JSX.Element => {
+const App: React.FC = () => {
   const [savedSearchQuery, setSavedSearchQuery] = useLocalStorage();
 
   const handleSearch = (currentSearch: string): void => {
@@ -30,4 +30,4 @@ const App = (): JSX.Element => {
   );
 };
 
-export default React.memo(App);
+export default App;

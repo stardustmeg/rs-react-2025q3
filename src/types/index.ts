@@ -32,6 +32,17 @@ export interface Info<T> {
   results?: T;
 }
 
+export interface TransformedCharacter {
+  gender: string;
+  id: string;
+  image: string;
+  info: readonly { label: string; value: string }[];
+  name: string;
+  origin: string;
+  species: string;
+  status: string;
+}
+
 type CharacterGender = 'Female' | 'Genderless' | 'Male' | 'unknown';
 
 interface CharacterLocation {

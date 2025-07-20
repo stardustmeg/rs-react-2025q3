@@ -1,11 +1,11 @@
-import React, { type JSX } from 'react';
+import React from 'react';
 
 interface ClearButtonProps {
   onClick: () => void;
   visible: boolean;
 }
 
-const ClearButton = ({ onClick, visible }: ClearButtonProps): JSX.Element | null => {
+const ClearButton: React.FC<ClearButtonProps> = ({ onClick, visible }) => {
   if (!visible) {
     return null;
   }
@@ -22,4 +22,4 @@ const ClearButton = ({ onClick, visible }: ClearButtonProps): JSX.Element | null
   );
 };
 
-export default React.memo(ClearButton);
+export default ClearButton;

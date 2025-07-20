@@ -1,4 +1,4 @@
-import React, { type JSX, useState } from 'react';
+import React, { useState } from 'react';
 
 import ClearButton from '@/components/ClearButton';
 
@@ -7,8 +7,8 @@ interface SearchProps {
   initialSearchQuery: string;
 }
 
-const Search = ({ handleSearch, initialSearchQuery }: SearchProps): JSX.Element => {
-  const [query, setQuery] = useState(initialSearchQuery);
+const Search: React.FC<SearchProps> = ({ handleSearch, initialSearchQuery }) => {
+  const [query, setQuery] = useState<string>(initialSearchQuery);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setQuery(event.target.value);
@@ -43,4 +43,4 @@ const Search = ({ handleSearch, initialSearchQuery }: SearchProps): JSX.Element 
   );
 };
 
-export default React.memo(Search);
+export default Search;
