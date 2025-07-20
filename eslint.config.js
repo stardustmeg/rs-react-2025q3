@@ -71,6 +71,7 @@ export default tseslint.config(
     extends: [playwright.configs['flat/recommended']],
     rules: {
       'testing-library/prefer-screen-queries': 'off',
+      'testing-library/no-node-access': 'off',
     },
   },
 );
