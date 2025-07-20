@@ -19,6 +19,8 @@ A React app built with **class components** that lets you search Rick and Morty 
 - Tailwind CSS
 - Vite
 - ESLint + Prettier + Husky
+- Vitest + React Testing Library + jsdom (for unit testing)
+- Playwright (for end-to-end testing)
 
 ⚙️ **Scripts:**
 
@@ -28,3 +30,24 @@ A React app built with **class components** that lets you search Rick and Morty 
 - `npm run lint` — run ESLint
 - `npm run lint:fix` — fix lint issues
 - `npm run format:fix` — run Prettier formatter
+- `npm run test` — run tests
+- `npm run test:watch` — run tests in watch mode
+- `npm run test:coverage` — run tests and generate coverage report
+- `npm run test:e2e` — run end-to-end tests
+- `npm run test:e2e:headed` — run end-to-end tests in headed mode
+- `npm run test:e2e:debug` — run end-to-end tests in debug mode
+- `npm run prepare` — install husky
+
+🧪 **Testing Setup:**
+
+This project uses **Vitest** as the test runner with **React Testing Library** and `jsdom` for simulating the DOM.
+Tests are located in `__tests__` folders.
+Coverage is reported using `@vitest/coverage-v8`.
+For end-to-end tests, **Playwright** is used.
+
+📊 **Coverage Goals:**
+
+- ≥80% statements
+- ≥50% branches, functions, and lines
+- Tests must validate **public behavior**, not internal class logic
+- All external API calls are mocked

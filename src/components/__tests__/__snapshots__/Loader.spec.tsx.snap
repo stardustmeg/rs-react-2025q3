@@ -1,0 +1,58 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Loader component > matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="_loaderWrapper_59f4b9"
+  >
+    <div
+      aria-label="Orange and tan hamster running in a metal wheel"
+      class="_wheelAndHamster_59f4b9"
+      data-testid="loader-spinner"
+    >
+      <div
+        class="_wheel_59f4b9"
+      />
+      <div
+        class="_hamster_59f4b9"
+      >
+        <div
+          class="_hamsterBody_59f4b9"
+        >
+          <div
+            class="_hamsterHead_59f4b9"
+          >
+            <div
+              class="_hamsterEar_59f4b9"
+            />
+            <div
+              class="_hamsterEye_59f4b9"
+            />
+            <div
+              class="_hamsterNose_59f4b9"
+            />
+          </div>
+          <div
+            class="_hamsterLimb_59f4b9 _hamsterLimbFr_59f4b9"
+          />
+          <div
+            class="_hamsterLimb_59f4b9 _hamsterLimbFl_59f4b9"
+          />
+          <div
+            class="_hamsterLimb_59f4b9 _hamsterLimbBr_59f4b9"
+          />
+          <div
+            class="_hamsterLimb_59f4b9 _hamsterLimbBl_59f4b9"
+          />
+          <div
+            class="_hamsterTail_59f4b9"
+          />
+        </div>
+      </div>
+      <div
+        class="_spoke_59f4b9"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
