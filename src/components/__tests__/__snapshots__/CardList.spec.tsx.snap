@@ -10,16 +10,34 @@ exports[`CardList component > renders ErrorFallback for network errors 1`] = `
 
 exports[`CardList component > renders NoResultsFound for 404 error 1`] = `
 <div>
-  <div>
-    No Results
+  <div
+    class="min-h-screen"
+  >
+    <div
+      class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+      data-testid="card-list"
+    >
+      <div>
+        No Results
+      </div>
+    </div>
   </div>
 </div>
 `;
 
 exports[`CardList component > renders NoResultsFound if no characters are returned 1`] = `
 <div>
-  <div>
-    No Results
+  <div
+    class="min-h-screen"
+  >
+    <div
+      class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+      data-testid="card-list"
+    >
+      <div>
+        No Results
+      </div>
+    </div>
   </div>
 </div>
 `;
