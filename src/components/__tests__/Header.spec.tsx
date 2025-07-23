@@ -2,6 +2,7 @@ import type { JSX } from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 import { noop } from '@vitest/utils';
+import { MemoryRouter } from 'react-router';
 import { describe, expect, it, vi } from 'vitest';
 
 import Header from '@/components/Header';
@@ -14,40 +15,47 @@ vi.mock('@/components/Search', () => ({
           handleSearch('test query');
         }
       }}
+      type="text"
     />
   ),
 }));
 
+const renderWithRouter = (ui: JSX.Element): ReturnType<typeof render> => {
+  return render(<MemoryRouter>{ui}</MemoryRouter>);
+};
+
 describe('Header component', () => {
   it('renders the header element', () => {
-    render(<Header handleSearch={noop} initialSearchQuery="" />);
-
-    const header = screen.getByRole('header');
-
+    renderWithRouter(<Header handleSearch={noop} initialSearchQuery="" />);
+    const header = screen.getByTestId('header');
     expect(header).toBeInTheDocument();
   });
 
   it('renders the Search component inside header', () => {
-    render(<Header handleSearch={noop} initialSearchQuery="" />);
-
+    renderWithRouter(<Header handleSearch={noop} initialSearchQuery="" />);
     const input = screen.getByRole('textbox');
-
     expect(input).toBeInTheDocument();
   });
 
-  it('calls onSearch when Search is submitted', () => {
+  it('calls handleSearch when Enter is pressed in Search input', () => {
     const onSearchMock = vi.fn();
-    render(<Header handleSearch={onSearchMock} initialSearchQuery="" />);
-
+    renderWithRouter(<Header handleSearch={onSearchMock} initialSearchQuery="" />);
     const input = screen.getByRole('textbox');
 
-    fireEvent.keyDown(input, { charCode: 13, code: 'Enter', key: 'Enter' });
+    fireEvent.keyDown(input, { key: 'Enter' });
 
     expect(onSearchMock).toHaveBeenCalledWith('test query');
   });
 
+  it('renders the About link with correct href', () => {
+    renderWithRouter(<Header handleSearch={noop} initialSearchQuery="" />);
+    const link = screen.getByRole('link', { name: /about/i });
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute('href', '/about');
+  });
+
   it('matches snapshot', () => {
-    const { asFragment } = render(<Header handleSearch={noop} initialSearchQuery="" />);
+    const { asFragment } = renderWithRouter(<Header handleSearch={noop} initialSearchQuery="" />);
     expect(asFragment()).toMatchSnapshot();
   });
 });
