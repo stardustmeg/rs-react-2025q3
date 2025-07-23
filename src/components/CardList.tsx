@@ -10,7 +10,6 @@ interface CardListProps {
 
 const CardList: React.FC<CardListProps> = ({ searchQuery }: CardListProps) => {
   const { characters, error, loading, retry } = useCharactersSearch(searchQuery);
-
   if (loading) {
     return <Loader />;
   }

@@ -4,13 +4,13 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { noop } from '@vitest/utils';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { mockCharacters } from '@/__mocks__/mockCharacters';
+import { mockTransformedCharacters } from '@/__mocks__/mockTransformedCharacters';
 import CardList from '@/components/CardList';
 import { fetchCharacters } from '@/services/api';
 import createHttpError from '@/services/utils/httpError';
 
-const mockCharacterRick = mockCharacters[0];
-const mockCharacterMorty = mockCharacters[1];
+const mockCharacterRick = mockTransformedCharacters[0];
+const mockCharacterMorty = mockTransformedCharacters[1];
 const mockedFetchCharacters = vi.mocked(fetchCharacters);
 
 vi.mock('@/components/CharacterCard', () => ({

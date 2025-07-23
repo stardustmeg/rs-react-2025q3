@@ -1,12 +1,12 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { mockCharacters } from '@/__mocks__/mockCharacters';
+import { mockTransformedCharacters } from '@/__mocks__/mockTransformedCharacters';
 import { fetchCharacters } from '@/services/api';
 
 describe('fetchCharacters', () => {
   it('fetches characters successfully with a name filter', async () => {
     const data = await fetchCharacters({ name: 'rick' });
-    expect(data.results).toEqual(mockCharacters);
+    expect(data.results).toEqual(mockTransformedCharacters);
   });
 
   it('fetches characters successfully without a name filter', async () => {
