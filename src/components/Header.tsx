@@ -1,6 +1,9 @@
 import type React from 'react';
 
+import { Link } from 'react-router';
+
 import Search from '@/components/Search';
+import { PATHS } from '@/router/constants';
 
 interface HeaderProps {
   handleSearch: (query: string) => void;
@@ -13,6 +16,9 @@ const Header: React.FC<HeaderProps> = ({ handleSearch, initialSearchQuery }) => 
     role="header"
   >
     <Search handleSearch={handleSearch} initialSearchQuery={initialSearchQuery} />
+    <Link className="ml-4 text-lg font-bold text-white" to={PATHS.about}>
+      About
+    </Link>
   </div>
 );
 export default Header;
