@@ -1,32 +1,42 @@
+/* eslint-disable perfectionist/sort-objects */
+import { lazy, Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 
-import CharacterInfo from '@/components/CharacterInfo';
-import AboutPage from '@/pages/AboutPage';
-import App from '@/pages/App';
-import NotFoundPage from '@/pages/NotFoundPage';
+import ErrorFallback from '@/components/ErrorFallback';
+import Loader from '@/components/Loader/Loader';
 import { PATHS } from '@/router/constants';
+
+const App = lazy(() => import('@/pages/App'));
+const CharacterInfo = lazy(() => import('@/components/CharacterInfo'));
+const AboutPage = lazy(() => import('@/pages/AboutPage'));
+const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 
 const router = createBrowserRouter([
   {
+    path: PATHS.main,
+    element: <App />,
+    errorElement: <ErrorFallback />,
     children: [
       {
-        element: <CharacterInfo />,
         path: ':id',
+        element: <CharacterInfo />,
       },
     ],
-    element: <App />,
-    // TBD: add fallback element
-    // errorElement: ,
-    path: PATHS.main,
   },
   {
-    element: <AboutPage />,
     path: PATHS.about,
+    element: <AboutPage />,
+    errorElement: <ErrorFallback />,
   },
   {
-    element: <NotFoundPage />,
     path: PATHS.joker,
+    element: <NotFoundPage />,
+    errorElement: <ErrorFallback />,
   },
 ]);
 
-export const Router: React.FC = () => <RouterProvider router={router} />;
+export const Router: React.FC = () => (
+  <Suspense fallback={<Loader />}>
+    <RouterProvider router={router} />
+  </Suspense>
+);
