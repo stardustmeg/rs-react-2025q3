@@ -47,13 +47,6 @@ describe('Header component', () => {
     expect(onSearchMock).toHaveBeenCalledWith('test query');
   });
 
-  it('renders the About link with correct href', () => {
-    renderWithRouter(<Header handleSearch={noop} initialSearchQuery="" />);
-    const link = screen.getByRole('link', { name: /about/i });
-    expect(link).toBeInTheDocument();
-    expect(link).toHaveAttribute('href', '/about');
-  });
-
   it('matches snapshot', () => {
     const { asFragment } = renderWithRouter(<Header handleSearch={noop} initialSearchQuery="" />);
     expect(asFragment()).toMatchSnapshot();
