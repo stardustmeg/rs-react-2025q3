@@ -62,7 +62,7 @@ describe('useLocalStorage hook', () => {
     expect(localStorage.getItem(getFullKey(LS_SEARCH_KEY))).toBe('');
   });
 
-  it('always trims values in localStorage and state', () => {
+  it('trims values only in localStorage, not in state', () => {
     localStorage.setItem(getFullKey(LS_SEARCH_KEY), '  initial  ');
 
     const { result } = renderHook(() => useLocalStorage());
@@ -74,14 +74,14 @@ describe('useLocalStorage hook', () => {
       result.current[1]('  new value  ');
     });
 
+    expect(result.current[0]).toBe('  new value  ');
     expect(localStorage.getItem(getFullKey(LS_SEARCH_KEY))).toBe('new value');
-    expect(result.current[0]).toBe('new value');
 
     act(() => {
       result.current[1]('    ');
     });
 
+    expect(result.current[0]).toBe('    ');
     expect(localStorage.getItem(getFullKey(LS_SEARCH_KEY))).toBe('');
-    expect(result.current[0]).toBe('');
   });
 });

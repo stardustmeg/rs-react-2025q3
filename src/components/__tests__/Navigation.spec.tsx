@@ -6,7 +6,6 @@ import { MemoryRouter } from 'react-router';
 import { describe, expect, it } from 'vitest';
 
 import Header from '@/components/Header';
-import { PATHS } from '@/router/constants';
 
 const renderWithRouter = (ui: JSX.Element): ReturnType<typeof render> => {
   return render(<MemoryRouter>{ui}</MemoryRouter>);
@@ -17,6 +16,6 @@ describe('Navigation component', () => {
     renderWithRouter(<Header handleSearch={noop} initialSearchQuery="" />);
     const link = screen.getByRole('link', { name: /about/i });
     expect(link).toBeInTheDocument();
-    expect(link).toHaveAttribute('href', PATHS.about);
+    expect(link).toHaveAttribute('href', '/about');
   });
 });

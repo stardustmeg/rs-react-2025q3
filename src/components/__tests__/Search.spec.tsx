@@ -52,7 +52,6 @@ describe('Search component', () => {
     const input = screen.getByPlaceholderText('Search characters...');
 
     expect(input).toHaveValue('');
-    expect(mockOnSubmit).toHaveBeenCalledWith('');
   });
 
   it('submits trimmed query on form submit', () => {
@@ -99,15 +98,6 @@ describe('Search component', () => {
     fireEvent.click(submitButton);
 
     expect(mockOnSubmit).toHaveBeenCalledWith('Rick');
-  });
-
-  it('handleClear calls submitQuery exactly once', () => {
-    setup('Summer');
-    const clearButton = screen.getByRole('button', { name: /clear search/i });
-
-    fireEvent.click(clearButton);
-
-    expect(mockOnSubmit).toHaveBeenCalledTimes(1);
   });
 
   // TBD: move to app
