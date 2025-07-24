@@ -23,7 +23,7 @@ export default tseslint.config(
       parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname },
     },
   },
-  { ignores: ['dist', '**/*.js', '**/*.d.ts', '**/*.config.ts'] },
+  { ignores: ['dist', '**/*.js', '**/*.d.ts', '**/*.config.[jt]s?(x)'] },
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
