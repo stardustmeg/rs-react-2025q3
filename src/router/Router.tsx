@@ -4,7 +4,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router';
 
 import ErrorFallback from '@/components/ErrorFallback';
 import Loader from '@/components/Loader/Loader';
-import { PATHS } from '@/router/constants';
 
 const App = lazy(() => import('@/pages/App'));
 const CharacterInfo = lazy(() => import('@/components/CharacterInfo'));
@@ -13,7 +12,7 @@ const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 
 const router = createBrowserRouter([
   {
-    path: PATHS.main,
+    path: '/',
     element: <App />,
     errorElement: <ErrorFallback />,
     children: [
@@ -24,12 +23,12 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: PATHS.about,
+    path: 'about',
     element: <AboutPage />,
     errorElement: <ErrorFallback />,
   },
   {
-    path: PATHS.joker,
+    path: '*',
     element: <NotFoundPage />,
     errorElement: <ErrorFallback />,
   },

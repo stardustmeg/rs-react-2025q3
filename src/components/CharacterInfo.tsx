@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
 import Drawer from '@/components/Drawer';
-import { PATHS } from '@/router/constants';
+import ErrorFallback from '@/components/ErrorFallback';
+import Loader from '@/components/Loader/Loader';
+import NoResultsFound from '@/components/NoResultsFound';
+import { useCharacterById } from '@/hooks/useCharacterById';
 
 const CharacterInfo: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -11,7 +14,7 @@ const CharacterInfo: React.FC = () => {
 
   const handleCloseDrawer = (): void => {
     setIsDrawerOpen(false);
-    navigate(PATHS.main);
+    navigate('/');
   };
 
   return (
