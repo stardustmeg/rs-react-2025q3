@@ -1,22 +1,13 @@
+import type { TransformedCharacter } from '@/types';
+
 import CharacterCard from '@/components/CharacterCard';
-import ErrorFallback from '@/components/ErrorFallback';
-import Loader from '@/components/Loader/Loader';
 import NoResultsFound from '@/components/NoResultsFound';
-import { useCharactersSearch } from '@/hooks/useCharactersSearch';
 
 interface CardListProps {
-  searchQuery: string;
+  characters: TransformedCharacter[];
 }
 
-const CardList: React.FC<CardListProps> = ({ searchQuery }: CardListProps) => {
-  const { characters, error, loading, retry } = useCharactersSearch(searchQuery);
-  if (loading) {
-    return <Loader />;
-  }
-  if (error) {
-    return <ErrorFallback onRetry={retry} />;
-  }
-
+const CardList: React.FC<CardListProps> = ({ characters }: CardListProps) => {
   return (
     <div className="min-h-screen">
       <div

@@ -4,26 +4,25 @@ import type { Character, TransformedCharacter } from '@/types';
 
 import { fetchCharacters } from '@/services/api';
 import { isHttpError } from '@/types/helpers';
-import { getErrorMessage } from '@/utils';
 
 const NOT_FOUND_ERROR_CODE = 404;
 
-interface CharactersState {
-  characters: TransformedCharacter[];
-  error: null | string;
-  loading: boolean;
+interface FetchStatus {
+  status: 'error' | 'loading' | 'ready';
 }
 
-interface UseCharactersReturn extends CharactersState {
+interface UseCharactersReturn {
+  characters: TransformedCharacter[];
   retry: () => void;
+  setStatus: (status: FetchStatus) => void;
+  status: FetchStatus;
 }
 
 export const useCharactersSearch = (search: string): UseCharactersReturn => {
-  const [state, setState] = useState<CharactersState>({ characters: [], error: null, loading: false });
+  const [characters, setCharacters] = useState<TransformedCharacter[]>([]);
+  const [status, setStatus] = useState<FetchStatus>({ status: 'loading' });
 
   const loadCharacters = (query: string): void => {
-    setState((previous) => ({ ...previous, error: null, loading: true }));
-
     fetchCharacters({ name: query })
       .then((data) => {
         const transformed = (data.results ?? []).map((character: Character): TransformedCharacter => {
@@ -39,25 +38,30 @@ export const useCharactersSearch = (search: string): UseCharactersReturn => {
           return { gender, id: String(id), image, info, name, origin: origin.name, species, status };
         });
 
-        setState({ characters: transformed, error: null, loading: false });
+        setCharacters(transformed);
       })
       .catch((error: unknown) => {
-        setState({
-          characters: [],
-          error: isHttpError(error) && error.status === NOT_FOUND_ERROR_CODE ? null : getErrorMessage(error),
-          loading: false,
-        });
+        if (isHttpError(error) && error.status === NOT_FOUND_ERROR_CODE) {
+          setCharacters([]);
+        } else {
+          throw error;
+        }
+      })
+      .then(() => {
+        setStatus({ status: 'ready' });
+      })
+      .catch(() => {
+        setStatus({ status: 'error' });
       });
+  };
+
+  const retry = (): void => {
+    loadCharacters(search);
   };
 
   useEffect(() => {
     loadCharacters(search);
   }, [search]);
 
-  return {
-    ...state,
-    retry: (): void => {
-      loadCharacters(search);
-    },
-  };
+  return { characters, retry, setStatus, status };
 };
