@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-import { stopPropagation } from '@/services/utils';
+import { stopPropagation } from '@/utils';
 
 interface DrawerProps {
   children?: React.ReactNode;

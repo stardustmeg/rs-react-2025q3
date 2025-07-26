@@ -16,7 +16,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
   return (
     <Link to={`${id}?${searchParameters.toString()}`}>
       <article
-        className="mx-auto w-68 rounded-lg bg-white p-2 shadow-md transition-transform duration-300 hover:scale-101"
+        className="mx-auto w-full rounded-lg bg-white p-2 shadow-md transition-transform duration-300 hover:scale-101"
         data-testid="character-card"
       >
         <div className="flex flex-col items-center rounded-t-lg bg-custom-beige p-4">

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import fallbackImage from '@/assets/png/placeholder.png';
 import Skeleton from '@/components/Skeleton';
+import { cn } from '@/utils';
 
 const DEFAULT_ALT_TEXT = 'Character image not available';
 
@@ -24,11 +25,14 @@ const CharacterImage: React.FC<CharacterImageProps> = ({ alt, src }) => {
   };
 
   return (
-    <div className="relative h-full min-h-56 w-full min-w-56 overflow-hidden rounded">
+    <div className="relative h-full min-h-73 w-full overflow-hidden rounded">
       {!loaded && <Skeleton />}
       <img
         alt={alt}
-        className={`h-full w-full object-cover transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        className={cn([
+          'h-full w-full object-cover transition-opacity duration-300',
+          { 'opacity-0': !loaded, 'opacity-100': loaded },
+        ])}
         onError={handleError}
         onLoad={markAsLoaded}
         src={src}

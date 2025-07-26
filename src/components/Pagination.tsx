@@ -1,6 +1,8 @@
 /* eslint-disable max-lines-per-function */
 import React from 'react';
 
+import { cn } from '@/utils';
+
 interface PaginationProps {
   currentPage: number;
   maxButtons?: number;
@@ -56,9 +58,12 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, maxButtons = 5, on
       }
       pages.push(
         <button
-          className={`flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-200 ${
-            page === currentPage ? 'bg-custom-pink text-white' : ''
-          }`}
+          className={cn([
+            'flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-200',
+            {
+              'bg-custom-pink text-white': page === currentPage,
+            },
+          ])}
           key={page}
           onClick={() => {
             handlePageClick(page);

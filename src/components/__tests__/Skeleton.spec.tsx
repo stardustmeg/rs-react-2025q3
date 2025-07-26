@@ -14,7 +14,7 @@ describe('Skeleton component', () => {
   });
 
   it('applies custom className and colorClass', () => {
-    render(<Skeleton className="custom-class" colorClass="bg-red-500" />);
+    render(<Skeleton className="custom-class" />);
 
     const skeletonDiv = screen.getByRole('presentation');
 
@@ -30,7 +30,7 @@ describe('Skeleton component', () => {
   });
 
   it('renders with empty string classes if passed empty props', () => {
-    render(<Skeleton className="" colorClass="" />);
+    render(<Skeleton className="" />);
 
     const skeletonDiv = screen.getByRole('presentation');
 
