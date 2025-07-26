@@ -8,11 +8,11 @@ import Loader from '@/components/Loader/Loader';
 import Pagination from '@/components/Pagination';
 import { useCharactersSearch } from '@/hooks/useCharactersSearch';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { useSearhPage } from '@/hooks/useSearchPage';
+import { useSearchPage } from '@/hooks/useSearchPage';
 
 const App: React.FC = () => {
   const [searchQuery, setSearchQuery] = useLocalStorage();
-  const [searchPage, setSearchPage] = useSearhPage();
+  const [searchPage, setSearchPage] = useSearchPage();
 
   const { characters, status, totalPages } = useCharactersSearch(searchQuery, searchPage);
 

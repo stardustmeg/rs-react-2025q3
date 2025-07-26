@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router';
 
 type SearchPage = [searchPage: number, setSearchPage: (page: number) => void];
 
-export const useSearhPage = (): SearchPage => {
+export const useSearchPage = (): SearchPage => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const searchPage = Number.parseInt(searchParams.get('page') ?? '1', 10);
