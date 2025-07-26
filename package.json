@@ -17,7 +17,6 @@
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:debug": "playwright test --debug",
-    "postinstall": "npx playwright install",
     "prepare": "husky"
   },
   "dependencies": {
