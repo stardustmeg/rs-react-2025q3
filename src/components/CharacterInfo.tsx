@@ -11,14 +11,14 @@ import { useCharacterById } from '@/hooks/useCharacterById';
 const CharacterInfo: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [searchParameters] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [isDrawerOpen, setIsDrawerOpen] = useState(!!id);
 
   const { character, status } = useCharacterById();
 
   const handleCloseDrawer = (): void => {
     setIsDrawerOpen(false);
-    navigate(`/?${searchParameters.toString()}`);
+    navigate(`/?${searchParams}`);
   };
 
   return (

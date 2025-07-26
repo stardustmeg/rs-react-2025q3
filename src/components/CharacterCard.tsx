@@ -11,10 +11,10 @@ interface CharacterCardProps {
 
 const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
   const { id, image, info, name } = character;
-  const [searchParameters] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   return (
-    <Link to={`${id}?${searchParameters.toString()}`}>
+    <Link to={`${id}?${searchParams}`}>
       <article
         className="mx-auto w-full rounded-lg bg-white p-2 shadow-md transition-transform duration-300 hover:scale-101"
         data-testid="character-card"
