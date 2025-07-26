@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams, useSearchParams } from 'react-router';
 
 import CharacterImage from '@/components/CharacterImage';
 import Drawer from '@/components/Drawer';
@@ -11,22 +11,21 @@ import { useCharacterById } from '@/hooks/useCharacterById';
 const CharacterInfo: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const [searchParameters] = useSearchParams();
   const [isDrawerOpen, setIsDrawerOpen] = useState(!!id);
 
   const { character, status } = useCharacterById();
 
   const handleCloseDrawer = (): void => {
     setIsDrawerOpen(false);
-    navigate('/');
+    navigate(`/?${searchParameters.toString()}`);
   };
 
   return (
     <Drawer handleCloseDrawer={handleCloseDrawer} isDrawerOpen={isDrawerOpen}>
-      <div data-testid="character-details" style={{ margin: 'auto', maxWidth: 400 }}>
+      <div data-testid="character-details">
         {status.status === 'loading' ? (
-          <div className="flex h-full items-center justify-center">
-            <Loader />
-          </div>
+          <Loader />
         ) : status.status === 'ready' ? (
           character ? (
             <>

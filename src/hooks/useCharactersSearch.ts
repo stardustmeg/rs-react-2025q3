@@ -15,14 +15,16 @@ interface UseCharactersReturn {
   characters: TransformedCharacter[];
   setStatus: (status: FetchStatus) => void;
   status: FetchStatus;
+  totalPages: number;
 }
 
-export const useCharactersSearch = (search: string): UseCharactersReturn => {
+export const useCharactersSearch = (search: string, page: number): UseCharactersReturn => {
   const [characters, setCharacters] = useState<TransformedCharacter[]>([]);
   const [status, setStatus] = useState<FetchStatus>({ status: 'loading' });
+  const [totalPages, setTotalPages] = useState(1);
 
-  const loadCharacters = (query: string): void => {
-    fetchCharacters({ name: query })
+  const loadCharacters = (query: string, pageNumber: number): void => {
+    fetchCharacters({ name: query, page: pageNumber })
       .then((data) => {
         const transformed = (data.results ?? []).map((character: Character): TransformedCharacter => {
           const { gender, id, image, name, origin, species, status } = character;
@@ -38,10 +40,12 @@ export const useCharactersSearch = (search: string): UseCharactersReturn => {
         });
 
         setCharacters(transformed);
+        setTotalPages(data.info?.pages ?? 1);
       })
       .catch((error: unknown) => {
         if (isHttpError(error) && error.status === NOT_FOUND_ERROR_CODE) {
           setCharacters([]);
+          setTotalPages(1);
         } else {
           throw error;
         }
@@ -55,8 +59,8 @@ export const useCharactersSearch = (search: string): UseCharactersReturn => {
   };
 
   useEffect(() => {
-    loadCharacters(search);
-  }, [search]);
+    loadCharacters(search, page);
+  }, [search, page]);
 
-  return { characters, setStatus, status };
+  return { characters, setStatus, status, totalPages };
 };

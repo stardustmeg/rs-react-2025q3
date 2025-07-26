@@ -1,4 +1,5 @@
-import { Link } from 'react-router';
+import React from 'react';
+import { Link, useSearchParams } from 'react-router';
 
 import type { TransformedCharacter } from '@/types';
 
@@ -8,11 +9,12 @@ interface CharacterCardProps {
   character: TransformedCharacter;
 }
 
-const CharacterCard: React.FC<CharacterCardProps> = ({ character }: CharacterCardProps) => {
+const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
   const { id, image, info, name } = character;
+  const [searchParameters] = useSearchParams();
 
   return (
-    <Link to={id}>
+    <Link to={`${id}?${searchParameters.toString()}`}>
       <article
         className="mx-auto w-68 rounded-lg bg-white p-2 shadow-md transition-transform duration-300 hover:scale-101"
         data-testid="character-card"
