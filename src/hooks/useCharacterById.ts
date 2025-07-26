@@ -16,7 +16,6 @@ interface FetchStatus {
 interface UseCharacterByIdReturn {
   character: null | TransformedCharacter;
   error: null | string;
-  retry: () => void;
   setStatus: (status: FetchStatus) => void;
   status: FetchStatus;
 }
@@ -74,11 +73,5 @@ export const useCharacterById = (): UseCharacterByIdReturn => {
     }
   }, [id]);
 
-  const retry = (): void => {
-    if (id) {
-      loadCharacter(id);
-    }
-  };
-
-  return { character, error, retry, setStatus, status };
+  return { character, error, setStatus, status };
 };

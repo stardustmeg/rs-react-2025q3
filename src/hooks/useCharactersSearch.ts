@@ -13,7 +13,6 @@ interface FetchStatus {
 
 interface UseCharactersReturn {
   characters: TransformedCharacter[];
-  retry: () => void;
   setStatus: (status: FetchStatus) => void;
   status: FetchStatus;
 }
@@ -55,13 +54,9 @@ export const useCharactersSearch = (search: string): UseCharactersReturn => {
       });
   };
 
-  const retry = (): void => {
-    loadCharacters(search);
-  };
-
   useEffect(() => {
     loadCharacters(search);
   }, [search]);
 
-  return { characters, retry, setStatus, status };
+  return { characters, setStatus, status };
 };

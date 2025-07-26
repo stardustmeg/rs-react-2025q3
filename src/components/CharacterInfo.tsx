@@ -22,31 +22,35 @@ const CharacterInfo: React.FC = () => {
 
   return (
     <Drawer handleCloseDrawer={handleCloseDrawer} isDrawerOpen={isDrawerOpen}>
-      {status.status === 'loading' ? (
-        <Loader />
-      ) : status.status === 'ready' ? (
-        character ? (
-          <div data-testid="character-details" style={{ margin: 'auto', maxWidth: 400 }}>
-            <div className="mt-16 flex flex-col items-center bg-white p-2">
-              <h2 className="mb-4 text-center text-2xl font-semibold text-gray-900">{character.name}</h2>
-              <CharacterImage alt={character.name} src={character.image} />
-            </div>
-
-            <div className="flex-1 space-y-4 overflow-auto bg-white p-6">
-              {character.info.map(({ label, value }) => (
-                <div className="flex justify-between border-b border-gray-200 pb-2" key={label}>
-                  <span className="font-medium text-gray-700">{label}</span>
-                  <span className="text-gray-900">{value}</span>
-                </div>
-              ))}
-            </div>
+      <div data-testid="character-details" style={{ margin: 'auto', maxWidth: 400 }}>
+        {status.status === 'loading' ? (
+          <div className="flex h-full items-center justify-center">
+            <Loader />
           </div>
+        ) : status.status === 'ready' ? (
+          character ? (
+            <>
+              <div className="flex flex-col items-center bg-white p-2">
+                <h2 className="mb-4 text-center text-2xl font-semibold text-gray-900">{character.name}</h2>
+                <CharacterImage alt={character.name} src={character.image} />
+              </div>
+
+              <div className="flex-1 space-y-4 overflow-auto bg-white p-6">
+                {character.info.map(({ label, value }) => (
+                  <div className="flex justify-between border-b border-gray-200 pb-2" key={label}>
+                    <span className="font-medium text-gray-700">{label}</span>
+                    <span className="text-gray-900">{value}</span>
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : (
+            <NoResultsFound />
+          )
         ) : (
-          <NoResultsFound />
-        )
-      ) : (
-        <ErrorFallback />
-      )}
+          <ErrorFallback />
+        )}
+      </div>
     </Drawer>
   );
 };
