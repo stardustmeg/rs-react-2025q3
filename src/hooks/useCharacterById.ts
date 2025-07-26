@@ -9,28 +9,29 @@ import { getErrorMessage } from '@/utils';
 
 const NOT_FOUND_ERROR_CODE = 404;
 
-interface CharacterState {
+interface FetchStatus {
+  status: 'error' | 'loading' | 'ready';
+}
+
+interface UseCharacterByIdReturn {
   character: null | TransformedCharacter;
   error: null | string;
-  loading: boolean;
-}
-
-interface UseCharacterReturn extends CharacterState {
   retry: () => void;
+  setStatus: (status: FetchStatus) => void;
+  status: FetchStatus;
 }
 
-// eslint-disable-next-line max-lines-per-function
-export const useCharacterById = (): UseCharacterReturn => {
+export const useCharacterById = (): UseCharacterByIdReturn => {
   const { id } = useParams<{ id: string }>();
 
-  const [state, setState] = useState<CharacterState>({
-    character: null,
-    error: null,
-    loading: false,
-  });
+  const [character, setCharacter] = useState<null | TransformedCharacter>(null);
+  const [error, setError] = useState<null | string>(null);
+  const [status, setStatus] = useState<FetchStatus>({ status: 'loading' });
 
   const loadCharacter = (characterId: string): void => {
-    setState({ character: null, error: null, loading: true });
+    setStatus({ status: 'loading' });
+    setError(null);
+    setCharacter(null);
 
     fetchCharacterById(characterId)
       .then((character: Character) => {
@@ -43,27 +44,27 @@ export const useCharacterById = (): UseCharacterReturn => {
           { label: 'Status', value: status },
         ] as const;
 
-        setState({
-          character: {
-            gender,
-            id: String(id),
-            image,
-            info,
-            name,
-            origin: origin.name,
-            species,
-            status,
-          },
-          error: null,
-          loading: false,
+        setCharacter({
+          gender,
+          id: String(id),
+          image,
+          info,
+          name,
+          origin: origin.name,
+          species,
+          status,
         });
+        setStatus({ status: 'ready' });
       })
       .catch((error: unknown) => {
-        setState({
-          character: null,
-          error: isHttpError(error) && error.status === NOT_FOUND_ERROR_CODE ? null : getErrorMessage(error),
-          loading: false,
-        });
+        if (isHttpError(error) && error.status === NOT_FOUND_ERROR_CODE) {
+          setCharacter(null);
+          setError(null);
+          setStatus({ status: 'ready' });
+        } else {
+          setError(getErrorMessage(error));
+          setStatus({ status: 'error' });
+        }
       });
   };
 
@@ -73,12 +74,11 @@ export const useCharacterById = (): UseCharacterReturn => {
     }
   }, [id]);
 
-  return {
-    ...state,
-    retry: (): void => {
-      if (id) {
-        loadCharacter(id);
-      }
-    },
+  const retry = (): void => {
+    if (id) {
+      loadCharacter(id);
+    }
   };
+
+  return { character, error, retry, setStatus, status };
 };
