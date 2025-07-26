@@ -10,7 +10,7 @@ import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 const App: React.FC = () => {
   const [savedSearchQuery, setSavedSearchQuery] = useLocalStorage();
-  const { characters, retry, setStatus, status } = useCharactersSearch(savedSearchQuery);
+  const { characters, setStatus, status } = useCharactersSearch(savedSearchQuery);
 
   const handleSearch = (currentSearch: string): void => {
     setStatus({ status: 'loading' });
@@ -25,7 +25,7 @@ const App: React.FC = () => {
       ) : status.status === 'loading' ? (
         <Loader />
       ) : (
-        <ErrorFallback onRetry={retry} />
+        <ErrorFallback />
       )}
       <Outlet />
     </div>
