@@ -1,0 +1,29 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Header component > matches snapshot 1`] = `
+<DocumentFragment>
+  <header
+    class="fixed top-0 left-0 z-50 w-full bg-custom-pink px-6 py-4 shadow-md"
+    data-testid="header"
+  >
+    <div
+      class="mx-auto flex flex-wrap items-center justify-center gap-4 md:justify-between"
+    >
+      <input
+        type="text"
+      />
+      <nav
+        class="flex space-x-4"
+      >
+        <a
+          class="text-white transition hover:text-white/80"
+          data-discover="true"
+          href="/about"
+        >
+          About
+        </a>
+      </nav>
+    </div>
+  </header>
+</DocumentFragment>
+`;

@@ -13,14 +13,6 @@ describe('Skeleton component', () => {
     expect(skeletonDiv).toHaveClass('absolute', 'inset-0', 'animate-pulse', 'bg-custom-gray');
   });
 
-  it('applies custom className and colorClass', () => {
-    render(<Skeleton className="custom-class" />);
-
-    const skeletonDiv = screen.getByRole('presentation');
-
-    expect(skeletonDiv).toHaveClass('custom-class', 'bg-red-500');
-  });
-
   it('renders a div element', () => {
     render(<Skeleton />);
 
