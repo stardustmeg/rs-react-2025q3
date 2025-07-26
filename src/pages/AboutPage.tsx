@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 
 import myPhoto from '@/assets/png/my-photo.png';
-import { PATHS } from '@/router/constants';
 
 const AboutPage: React.FC = () => {
   return (
@@ -34,7 +33,7 @@ const AboutPage: React.FC = () => {
         RS School React Course
       </a>
 
-      <Link className="text-chocolate text-xl font-bold transition-all duration-300 hover:underline" to={PATHS.main}>
+      <Link className="text-chocolate text-xl font-bold transition-all duration-300 hover:underline" to="/">
         Back to Home
       </Link>
     </div>
