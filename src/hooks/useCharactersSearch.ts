@@ -24,6 +24,7 @@ export const useCharactersSearch = (search: string, page: number): UseCharacters
   const [totalPages, setTotalPages] = useState(1);
 
   const loadCharacters = (query: string, pageNumber: number): void => {
+    setStatus({ status: 'loading' });
     fetchCharacters({ name: query, page: pageNumber })
       .then((data) => {
         const transformed = (data.results ?? []).map((character: Character): TransformedCharacter => {
