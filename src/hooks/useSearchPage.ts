@@ -6,7 +6,7 @@ type SearchPage = [searchPage: number, setSearchPage: (page: number) => void];
 export const useSearchPage = (): SearchPage => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const searchPage = Number.parseInt(searchParams.get('page') ?? '1', 10);
+  const searchPage = Number.parseInt(searchParams.get('page') ?? '1', 10) || 1;
 
   useEffect(() => {
     const hasPage = searchParams.has('page');

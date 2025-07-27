@@ -3,7 +3,7 @@
 exports[`CharacterImage component > matches snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="relative h-full min-h-73 w-full overflow-hidden rounded"
+    class="relative h-full min-h-56 w-full min-w-56 overflow-hidden rounded"
   >
     <div
       class="absolute inset-0 animate-pulse bg-custom-gray"

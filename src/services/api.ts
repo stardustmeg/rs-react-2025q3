@@ -1,7 +1,7 @@
 import type { Character, CharacterFilter, Info } from '@/types';
 
 import createHttpError from '@/services/utils/httpError';
-import { isCharacterInfo } from '@/types/helpers';
+import { isCharacter, isCharacterInfo } from '@/types/helpers';
 
 const WRONG_STRUCTURE_ERROR_MESSAGE = 'Response structure is invalid';
 
@@ -27,10 +27,6 @@ export const fetchCharacters = ({ name, page = 1 }: CharacterFilter): Promise<In
   const BASE = 'https://rickandmortyapi.com/api/character';
   const url = name ? `${BASE}/?name=${encodeURIComponent(name)}&page=${page}` : `${BASE}/?page=${page}`;
   return apiFetch<Info<Character[]>>(url, isCharacterInfo);
-};
-
-export const isCharacter = (data: unknown): data is Character => {
-  return typeof data === 'object' && data !== null && 'id' in data && 'name' in data;
 };
 
 export const fetchCharacterById = (id: string): Promise<Character> => {

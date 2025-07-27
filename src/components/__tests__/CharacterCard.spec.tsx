@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import type { TransformedCharacter } from '@/types';
 
@@ -8,10 +8,18 @@ import { mockIncompleteTransformedCharacter } from '@/__mocks__/mockIncompleteTr
 import { mockTransformedCharacters } from '@/__mocks__/mockTransformedCharacters';
 import CharacterCard from '@/components/CharacterCard';
 
+vi.mock('react-router', async () => {
+  const actual = await vi.importActual<typeof import('react-router')>('react-router');
+  return {
+    ...actual,
+    useSearchParams: (): [URLSearchParams] => [new URLSearchParams('filter=name')],
+  };
+});
+
 const mockCharacter: TransformedCharacter = mockTransformedCharacters[0];
 
 describe('CharacterCard component', () => {
-  it.skip('renders empty values when character fields are empty strings', () => {
+  it('renders empty values when character fields are empty strings', () => {
     render(
       <MemoryRouter>
         <CharacterCard character={mockIncompleteTransformedCharacter} />
@@ -24,7 +32,7 @@ describe('CharacterCard component', () => {
     expect(screen.getByText(/Status:/i)).toHaveTextContent('Status:');
   });
 
-  it.skip('renders character name and info labels with correct values', () => {
+  it('renders character name and info labels with correct values', () => {
     render(
       <MemoryRouter>
         <CharacterCard character={mockCharacter} />
@@ -34,33 +42,30 @@ describe('CharacterCard component', () => {
     expect(screen.getByText(mockCharacter.name)).toBeInTheDocument();
     expect(screen.getByRole('img', { name: mockCharacter.name })).toHaveAttribute('src', mockCharacter.image);
 
-    expect(screen.getByText(mockCharacter.info[0].value)).toBeInTheDocument();
-    expect(screen.getByText(mockCharacter.info[1].value)).toBeInTheDocument();
-    expect(screen.getByText(mockCharacter.info[2].value)).toBeInTheDocument();
-    expect(screen.getByText(mockCharacter.info[3].value)).toBeInTheDocument();
+    for (const { value } of mockCharacter.info) {
+      expect(screen.getByText(value)).toBeInTheDocument();
+    }
   });
 
-  it.skip('renders the image with correct alt text', () => {
-    render(<CharacterCard character={mockCharacter} />);
-    const img = screen.getByRole('img', { name: mockCharacter.name });
+  it('renders the image with correct alt text', () => {
+    render(
+      <MemoryRouter>
+        <CharacterCard character={mockCharacter} />
+      </MemoryRouter>,
+    );
 
+    const img = screen.getByRole('img', { name: mockCharacter.name });
     expect(img).toBeInTheDocument();
     expect(img).toHaveAttribute('alt', mockCharacter.name);
   });
 
-  it.skip('renders labels in the expected order', () => {
-    render(<CharacterCard character={mockCharacter} />);
+  it('matches snapshot', () => {
+    const { asFragment } = render(
+      <MemoryRouter>
+        <CharacterCard character={mockCharacter} />
+      </MemoryRouter>,
+    );
 
-    const paragraphs = screen.getAllByText(/:/i);
-
-    expect(paragraphs[0]).toHaveTextContent('Origin:');
-    expect(paragraphs[1]).toHaveTextContent('Species:');
-    expect(paragraphs[2]).toHaveTextContent('Gender:');
-    expect(paragraphs[3]).toHaveTextContent('Status:');
-  });
-
-  it.skip('matches snapshot', () => {
-    const { asFragment } = render(<CharacterCard character={mockCharacter} />);
     expect(asFragment()).toMatchSnapshot();
   });
 });
