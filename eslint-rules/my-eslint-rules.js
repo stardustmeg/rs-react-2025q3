@@ -77,7 +77,6 @@ export const myEslintRules = {
     'error',
     { allowList: { props: true, Props: true, idx: true, Index: true, params: true, Params: true } },
   ],
-  // React
   'react-hooks/exhaustive-deps': 'off',
   'react-refresh/only-export-components': 'off',
 };

@@ -65,16 +65,6 @@ describe('Search component', () => {
     expect(mockOnSubmit).toHaveBeenCalledWith('Summer');
   });
 
-  // TBD: move to app
-  // it('does not submit if query is unchanged', () => {
-  //   setup('Pickle');
-  //   const submitButton = screen.getByText(/search/i);
-
-  //   fireEvent.click(submitButton);
-
-  //   expect(mockOnSubmit).not.toHaveBeenCalled();
-  // });
-
   it('does not render clear button if input is empty', () => {
     setup('');
     const clearButton = screen.queryByRole('button', { name: /clear search/i });
@@ -99,18 +89,6 @@ describe('Search component', () => {
 
     expect(mockOnSubmit).toHaveBeenCalledWith('Rick');
   });
-
-  // TBD: move to app
-  // it('does not submit if input trimmed is equal to saved query', () => {
-  //   setup('Rick');
-  //   const input = screen.getByPlaceholderText('Search characters...');
-  //   const submitButton = screen.getByText(/search/i);
-
-  //   fireEvent.change(input, { target: { value: ' Rick ' } });
-  //   fireEvent.click(submitButton);
-
-  //   expect(mockOnSubmit).not.toHaveBeenCalled();
-  // });
 
   it('clear button is not rendered after input is cleared', () => {
     setup('Summer');
