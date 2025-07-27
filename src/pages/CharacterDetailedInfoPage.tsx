@@ -8,7 +8,7 @@ import Loader from '@/components/Loader/Loader';
 import NoResultsFound from '@/components/NoResultsFound';
 import { useCharacterById } from '@/hooks/useCharacterById';
 
-const CharacterDetailedInfo: React.FC = () => {
+const CharacterDetailedInfoPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -42,4 +42,4 @@ const CharacterDetailedInfo: React.FC = () => {
   );
 };
 
-export default CharacterDetailedInfo;
+export default CharacterDetailedInfoPage;

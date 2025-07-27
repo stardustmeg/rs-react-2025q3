@@ -1,41 +1,55 @@
-/* eslint-disable perfectionist/sort-objects */
 import { lazy, Suspense } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router';
+import { createBrowserRouter, createMemoryRouter, type LoaderFunction, redirect, RouterProvider } from 'react-router';
 
 import ErrorFallback from '@/components/ErrorFallback';
 import Loader from '@/components/Loader/Loader';
 
 const App = lazy(() => import('@/pages/App'));
-const CharacterDetailedInfo = lazy(() => import('@/components/CharacterDetailedInfo'));
+const CharacterDetailedInfoPage = lazy(() => import('@/pages/CharacterDetailedInfoPage'));
 const AboutPage = lazy(() => import('@/pages/AboutPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 
-const router = createBrowserRouter([
+const loader: LoaderFunction = ({ params }) => {
+  const { id } = params;
+  if (!/^\d+$/.test(id ?? '')) {
+    return redirect('/404');
+  }
+  return null;
+};
+
+export const routerConfig = [
   {
-    path: '/',
-    element: <App />,
-    errorElement: <ErrorFallback />,
     children: [
       {
+        element: <CharacterDetailedInfoPage />,
+        loader,
         path: ':id',
-        element: <CharacterDetailedInfo />,
       },
     ],
+    element: <App />,
+    errorElement: <ErrorFallback />,
+    path: '/',
   },
   {
-    path: 'about',
     element: <AboutPage />,
     errorElement: <ErrorFallback />,
+    path: 'about',
   },
   {
-    path: '*',
     element: <NotFoundPage />,
-    errorElement: <ErrorFallback />,
+    path: '404',
   },
-]);
+  {
+    element: <NotFoundPage />,
+    path: '*',
+  },
+];
+
+export const createRouter = (initialEntries: string[]): ReturnType<typeof createMemoryRouter> =>
+  createMemoryRouter(routerConfig, { initialEntries });
 
 export const Router: React.FC = () => (
   <Suspense fallback={<Loader />}>
-    <RouterProvider router={router} />
+    <RouterProvider router={createBrowserRouter(routerConfig)} />
   </Suspense>
 );
