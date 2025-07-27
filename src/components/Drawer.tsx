@@ -46,7 +46,7 @@ const Drawer: React.FC<DrawerProps> = ({ children, handleCloseDrawer, isDrawerOp
         >
           &times;
         </button>
-        <div className="h-full overflow-y-auto p-6">{children}</div>
+        <div className="h-full overflow-y-auto p-6 contain-layout">{children}</div>
       </div>
     </dialog>
   );
