@@ -2,52 +2,53 @@ import type { JSX } from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 import { noop } from '@vitest/utils';
+import { MemoryRouter } from 'react-router';
 import { describe, expect, it, vi } from 'vitest';
 
 import Header from '@/components/Header';
 
 vi.mock('@/components/Search', () => ({
-  default: ({ onSubmit }: { onSubmit: (query: string) => void }): JSX.Element => (
+  default: ({ handleSearch }: { handleSearch: (query: string) => void }): JSX.Element => (
     <input
       onKeyDown={(event) => {
         if (event.key === 'Enter') {
-          onSubmit('test query');
+          handleSearch('test query');
         }
       }}
+      type="text"
     />
   ),
 }));
 
+const renderWithRouter = (ui: JSX.Element): ReturnType<typeof render> => {
+  return render(<MemoryRouter>{ui}</MemoryRouter>);
+};
+
 describe('Header component', () => {
   it('renders the header element', () => {
-    render(<Header onSearch={noop} />);
-
-    const header = screen.getByRole('header');
-
+    renderWithRouter(<Header handleSearch={noop} initialSearchQuery="" />);
+    const header = screen.getByTestId('header');
     expect(header).toBeInTheDocument();
   });
 
   it('renders the Search component inside header', () => {
-    render(<Header onSearch={noop} />);
-
+    renderWithRouter(<Header handleSearch={noop} initialSearchQuery="" />);
     const input = screen.getByRole('textbox');
-
     expect(input).toBeInTheDocument();
   });
 
-  it('calls onSearch when Search is submitted', () => {
+  it('calls handleSearch when Enter is pressed in Search input', () => {
     const onSearchMock = vi.fn();
-    render(<Header onSearch={onSearchMock} />);
-
+    renderWithRouter(<Header handleSearch={onSearchMock} initialSearchQuery="" />);
     const input = screen.getByRole('textbox');
 
-    fireEvent.keyDown(input, { charCode: 13, code: 'Enter', key: 'Enter' });
+    fireEvent.keyDown(input, { key: 'Enter' });
 
     expect(onSearchMock).toHaveBeenCalledWith('test query');
   });
 
   it('matches snapshot', () => {
-    const { asFragment } = render(<Header onSearch={noop} />);
+    const { asFragment } = renderWithRouter(<Header handleSearch={noop} initialSearchQuery="" />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

@@ -1,22 +1,21 @@
-import React, { PureComponent } from 'react';
+import type React from 'react';
 
+import Navigation from '@/components/Navigation';
 import Search from '@/components/Search';
 
-interface Props {
-  onSearch: (query: string) => void;
+interface HeaderProps {
+  handleSearch: (query: string) => void;
+  initialSearchQuery: string;
 }
 
-class Header extends PureComponent<Props> {
-  public override render(): React.ReactNode {
-    return (
-      <div
-        className="fixed top-0 left-0 z-50 flex w-full items-center justify-center bg-custom-pink px-6 py-4 shadow-md"
-        role="header"
-      >
-        <Search onSubmit={this.props.onSearch} />
-      </div>
-    );
-  }
-}
+const Header: React.FC<HeaderProps> = ({ handleSearch, initialSearchQuery }) => (
+  <header className="fixed top-0 left-0 z-50 w-full bg-custom-pink px-6 py-4 shadow-md" data-testid="header">
+    <div className="mx-auto flex flex-wrap items-center justify-center gap-4 md:justify-between">
+      <Search handleSearch={handleSearch} initialSearchQuery={initialSearchQuery} />
+
+      <Navigation />
+    </div>
+  </header>
+);
 
 export default Header;

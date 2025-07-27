@@ -57,18 +57,4 @@ export const mockCharacters: Character[] = [
     type: '',
     url: 'https://rickandmortyapi.com/api/character/4',
   },
-  {
-    created: '2017-11-04T20:20:20.965Z',
-    episode: ['https://rickandmortyapi.com/api/episode/12'],
-    gender: 'Male',
-    id: 11,
-    image: 'https://rickandmortyapi.com/api/character/avatar/11.jpeg',
-    location: { name: 'Mock Earth (Replacement Dimension)', url: 'https://rickandmortyapi.com/api/location/20' },
-    name: 'Mock Albert Einstein',
-    origin: { name: 'Mock Earth (C-137)', url: 'https://rickandmortyapi.com/api/location/1' },
-    species: 'Human',
-    status: 'Dead',
-    type: '',
-    url: 'https://rickandmortyapi.com/api/character/11',
-  },
 ];

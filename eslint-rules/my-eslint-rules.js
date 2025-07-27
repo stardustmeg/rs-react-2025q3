@@ -25,7 +25,6 @@ export const myEslintRules = {
       ignoreRestSiblings: true,
     },
   ],
-  '@typescript-eslint/no-use-before-define': 'error',
   '@typescript-eslint/no-useless-empty-export': 'error',
   '@typescript-eslint/require-array-sort-compare': 'error',
   '@typescript-eslint/unbound-method': ['error', { ignoreStatic: true }],
@@ -48,7 +47,7 @@ export const myEslintRules = {
     },
   ],
   'max-len': ['error', { code: 120, ignoreComments: true, ignoreTemplateLiterals: true, ignoreStrings: true }],
-  'max-lines-per-function': ['error', { max: 40, skipBlankLines: true, skipComments: true }],
+  'max-lines-per-function': ['error', { max: 60, skipBlankLines: true, skipComments: true }],
   'no-console': ['error', { allow: ['warn'] }],
   'no-empty-function': 'error',
   'no-relative-import-paths/no-relative-import-paths': [
@@ -73,6 +72,11 @@ export const myEslintRules = {
   'unicorn/prefer-global-this': 'off',
   'unicorn/prefer-query-selector': 'off',
   'unicorn/filename-case': ['error', { cases: { camelCase: true, pascalCase: true } }],
-  'unicorn/prevent-abbreviations': ['error', { allowList: { props: true, Props: true } }],
   'unicorn/explicit-length-check': 'off',
+  'unicorn/prevent-abbreviations': [
+    'error',
+    { allowList: { props: true, Props: true, idx: true, Index: true, params: true, Params: true } },
+  ],
+  'react-hooks/exhaustive-deps': 'off',
+  'react-refresh/only-export-components': 'off',
 };

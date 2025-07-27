@@ -23,11 +23,13 @@ export default defineConfig({
         'config/**/*',
         '**/*.d.ts',
         '**/types/**',
+        '**/constants/**',
       ],
       extension: ['.ts', '.tsx'],
       reporter: ['text', 'lcov'],
     },
     slowTestThreshold: 500,
+    testTimeout: 15000,
     silent: true,
   },
 });

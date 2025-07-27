@@ -1,32 +1,22 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
+import { Link, useSearchParams } from 'react-router';
 
-import type { Character } from '@/types';
+import type { TransformedCharacter } from '@/types';
 
 import CharacterImage from '@/components/CharacterImage';
 
-const LABELS = { gender: 'Gender', origin: 'Origin', species: 'Species', status: 'Status' } as const;
-
-type LabelsType = (typeof LABELS)[keyof typeof LABELS];
-
-interface Props {
-  character: Character;
+interface CharacterCardProps {
+  character: TransformedCharacter;
 }
 
-class CharacterCard extends PureComponent<Props> {
-  public override render(): React.ReactNode {
-    const { character } = this.props;
-    const { gender, image, name, origin, species, status } = character;
+const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
+  const { id, image, info, name } = character;
+  const [searchParams] = useSearchParams();
 
-    const info: [label: LabelsType, value: string][] = [
-      [LABELS.origin, origin.name],
-      [LABELS.species, species],
-      [LABELS.gender, gender],
-      [LABELS.status, status],
-    ];
-
-    return (
-      <div
-        className="mx-auto w-68 rounded-lg bg-white p-2 shadow-md transition-transform duration-300 hover:scale-101"
+  return (
+    <Link to={`${id}?${searchParams}`}>
+      <article
+        className="mx-auto h-full w-full rounded-lg bg-white p-2 shadow-md transition-transform duration-300 hover:scale-101"
         data-testid="character-card"
       >
         <div className="flex flex-col items-center rounded-t-lg bg-custom-beige p-4">
@@ -34,15 +24,15 @@ class CharacterCard extends PureComponent<Props> {
           <CharacterImage alt={name} src={image} />
         </div>
         <div className="space-y-2 rounded-b-lg bg-white py-4 text-sm">
-          {info.map(([label, value]) => (
-            <p key={label}>
+          {info.map(({ label, value }) => (
+            <div key={label}>
               <span className="font-semibold">{label}:</span> {value}
-            </p>
+            </div>
           ))}
         </div>
-      </div>
-    );
-  }
-}
+      </article>
+    </Link>
+  );
+};
 
 export default CharacterCard;

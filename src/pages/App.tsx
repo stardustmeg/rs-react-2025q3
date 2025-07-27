@@ -1,44 +1,34 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Outlet } from 'react-router';
 
-import portal from '@/assets/gif/portal-rick-and-morty.gif';
-import errorImage from '@/assets/png/rick_and_morty.png';
 import CardList from '@/components/CardList';
-import ErrorButton from '@/components/ErrorButton';
+import ErrorFallback from '@/components/ErrorFallback';
 import Header from '@/components/Header';
-import { getTrimmedSearchQuery } from '@/services/localStorage';
+import Loader from '@/components/Loader/Loader';
+import Pagination from '@/components/Pagination';
+import { useCharactersSearch } from '@/hooks/useCharactersSearch';
 
-interface State {
-  search: string;
-}
+const App: React.FC = () => {
+  const { characters, handlePagination, handleSearch, searchPage, searchQuery, status, totalPages } =
+    useCharactersSearch();
 
-class App extends Component<object, State> {
-  public override state = { search: getTrimmedSearchQuery() };
-
-  public override componentDidMount(): void {
-    this.preloadMedia();
-  }
-
-  public override render(): React.ReactNode {
-    const { search } = this.state;
-    return (
-      <div className="w-full p-10">
-        <Header onSearch={this.handleSearch} />
-        <CardList search={search} />
-        <ErrorButton wrapperClass="fixed bottom-10 right-0" />
-      </div>
-    );
-  }
-
-  private readonly handleSearch = (search: string): void => {
-    this.setState({ search });
-  };
-
-  private preloadMedia(): void {
-    for (const source of [portal, errorImage]) {
-      const img = new Image();
-      img.src = source;
-    }
-  }
-}
+  return (
+    <div className="w-full p-10">
+      <Header handleSearch={handleSearch} initialSearchQuery={searchQuery} />
+      {status.status === 'ready' ? (
+        <>
+          <Pagination currentPage={searchPage} onPageChange={handlePagination} totalPages={totalPages} />
+          <CardList characters={characters} />
+          <Pagination currentPage={searchPage} onPageChange={handlePagination} totalPages={totalPages} />
+        </>
+      ) : status.status === 'loading' ? (
+        <Loader />
+      ) : (
+        <ErrorFallback />
+      )}
+      <Outlet />
+    </div>
+  );
+};
 
 export default App;

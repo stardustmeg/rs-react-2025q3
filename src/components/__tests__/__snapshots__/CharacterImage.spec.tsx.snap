@@ -6,7 +6,7 @@ exports[`CharacterImage component > matches snapshot 1`] = `
     class="relative h-full min-h-56 w-full min-w-56 overflow-hidden rounded"
   >
     <div
-      class="absolute inset-0 animate-pulse  bg-custom-gray"
+      class="absolute inset-0 animate-pulse bg-custom-gray"
       role="presentation"
     />
     <img

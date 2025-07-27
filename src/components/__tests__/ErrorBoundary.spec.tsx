@@ -1,6 +1,6 @@
 import type { JSX } from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { noop } from '@vitest/utils';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -31,23 +31,6 @@ describe('ErrorBoundary component', () => {
     );
 
     expect(screen.getByText(/Congrats! It was successfully handled/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Fix it back/i })).toBeInTheDocument();
-
-    consoleErrorSpy.mockRestore();
-  });
-
-  it('fix it back button resets error and shows children again', () => {
-    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(noop);
-
-    render(
-      <ErrorBoundary>
-        <ProblemChild />
-      </ErrorBoundary>,
-    );
-
-    expect(screen.getByText(/Congrats! It was successfully handled/i)).toBeInTheDocument();
-
-    fireEvent.click(screen.getByRole('button', { name: /Fix it back/i }));
 
     consoleErrorSpy.mockRestore();
   });

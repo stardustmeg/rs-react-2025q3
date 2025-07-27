@@ -3,7 +3,7 @@
 exports[`Skeleton component > matches snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="absolute inset-0 animate-pulse  bg-custom-gray"
+    class="absolute inset-0 animate-pulse bg-custom-gray"
     role="presentation"
   />
 </DocumentFragment>

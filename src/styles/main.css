@@ -28,6 +28,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
+  scrollbar-gutter: stable;
   padding-right: 13px;
   box-sizing: border-box;
 }

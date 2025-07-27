@@ -18,6 +18,10 @@ export interface CharacterFilter {
   type?: string;
 }
 
+export interface HttpError extends Error {
+  status: number;
+}
+
 export interface Info<T> {
   info?: {
     count: number;
@@ -26,6 +30,22 @@ export interface Info<T> {
     prev: null | string;
   };
   results?: T;
+}
+
+export interface TransformedCharacter {
+  gender: string;
+  id: string;
+  image: string;
+  info: readonly TransformedCharacterInfo[];
+  name: string;
+  origin: string;
+  species: string;
+  status: string;
+}
+
+export interface TransformedCharacterInfo {
+  label: string;
+  value: string;
 }
 
 type CharacterGender = 'Female' | 'Genderless' | 'Male' | 'unknown';

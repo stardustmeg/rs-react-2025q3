@@ -2,30 +2,24 @@ import { type ErrorInfo, PureComponent, type ReactNode } from 'react';
 
 import errorImage from '@/assets/png/rick_and_morty.png';
 
-const CONSOLE_MESSAGE = 'ErrorBoundary caught an error: ';
-
-interface Props {
+interface ErrorBoundaryProps {
   children: ReactNode;
 }
 
-interface State {
+interface ErrorBoundaryState {
   hasError: boolean;
 }
 
-class ErrorBoundary extends PureComponent<Props, State> {
+class ErrorBoundary extends PureComponent<ErrorBoundaryProps, ErrorBoundaryState> {
   public override state = { hasError: false };
 
-  public static getDerivedStateFromError(): State {
+  public static getDerivedStateFromError(): ErrorBoundaryState {
     return { hasError: true };
   }
 
   public override componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    console.warn(CONSOLE_MESSAGE, error, errorInfo);
+    console.warn('ErrorBoundary caught an error:', error, errorInfo);
   }
-
-  public handleClick = (): void => {
-    this.setState((previous) => ({ hasError: !previous.hasError }));
-  };
 
   public override render(): ReactNode {
     if (this.state.hasError) {
@@ -34,9 +28,6 @@ class ErrorBoundary extends PureComponent<Props, State> {
           <img alt="Error illustration" className="mb-4 w-80" src={errorImage} />
           <div className="flex flex-col gap-4">
             <div className="text-custom-chocolate">Congrats! It was successfully handled</div>
-            <button className="mt-4 button rounded bg-custom-red px-4 py-2 text-white" onClick={this.handleClick}>
-              Fix it back
-            </button>
           </div>
         </div>
       );

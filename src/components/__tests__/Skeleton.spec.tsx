@@ -13,14 +13,6 @@ describe('Skeleton component', () => {
     expect(skeletonDiv).toHaveClass('absolute', 'inset-0', 'animate-pulse', 'bg-custom-gray');
   });
 
-  it('applies custom className and colorClass', () => {
-    render(<Skeleton className="custom-class" colorClass="bg-red-500" />);
-
-    const skeletonDiv = screen.getByRole('presentation');
-
-    expect(skeletonDiv).toHaveClass('custom-class', 'bg-red-500');
-  });
-
   it('renders a div element', () => {
     render(<Skeleton />);
 
@@ -30,7 +22,7 @@ describe('Skeleton component', () => {
   });
 
   it('renders with empty string classes if passed empty props', () => {
-    render(<Skeleton className="" colorClass="" />);
+    render(<Skeleton className="" />);
 
     const skeletonDiv = screen.getByRole('presentation');
 

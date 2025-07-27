@@ -20,7 +20,7 @@ run_linter () {
 
 run_tsc () {
   echo -e "${BASIC_BLUE}🌊 Checking for TypeScript errors${ENDCOLOR}"
-  npx tsc
+  npm run build
   if [[ $? -ne 0 ]]
   then
     echo -e "${BASIC_RED}❌ TypeScript compilation failed.${ENDCOLOR}"
