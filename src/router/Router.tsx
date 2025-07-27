@@ -6,7 +6,7 @@ import ErrorFallback from '@/components/ErrorFallback';
 import Loader from '@/components/Loader/Loader';
 
 const App = lazy(() => import('@/pages/App'));
-const CharacterInfo = lazy(() => import('@/components/CharacterInfo'));
+const CharacterDetailedInfo = lazy(() => import('@/components/CharacterDetailedInfo'));
 const AboutPage = lazy(() => import('@/pages/AboutPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: ':id',
-        element: <CharacterInfo />,
+        element: <CharacterDetailedInfo />,
       },
     ],
   },

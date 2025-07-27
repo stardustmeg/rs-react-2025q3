@@ -36,11 +36,16 @@ export interface TransformedCharacter {
   gender: string;
   id: string;
   image: string;
-  info: readonly { label: string; value: string }[];
+  info: readonly TransformedCharacterInfo[];
   name: string;
   origin: string;
   species: string;
   status: string;
+}
+
+export interface TransformedCharacterInfo {
+  label: string;
+  value: string;
 }
 
 type CharacterGender = 'Female' | 'Genderless' | 'Male' | 'unknown';
