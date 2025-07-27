@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 
 import type { Character, TransformedCharacter } from '@/types';
 
+import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { useSearchPage } from '@/hooks/useSearchPage';
 import { fetchCharacters } from '@/services/api';
 import { isHttpError } from '@/types/helpers';
 
@@ -13,19 +15,36 @@ interface FetchStatus {
 
 interface UseCharactersReturn {
   characters: TransformedCharacter[];
-  setStatus: (status: FetchStatus) => void;
+  handlePagination: (page: number) => void;
+  handleSearch: (search: string) => void;
+  searchPage: number;
+  searchQuery: string;
   status: FetchStatus;
   totalPages: number;
 }
 
-export const useCharactersSearch = (search: string, page: number): UseCharactersReturn => {
+export const useCharactersSearch = (): UseCharactersReturn => {
+  const [searchQuery, setSearchQuery] = useLocalStorage();
+  const [searchPage, setSearchPage] = useSearchPage();
   const [characters, setCharacters] = useState<TransformedCharacter[]>([]);
   const [status, setStatus] = useState<FetchStatus>({ status: 'loading' });
   const [totalPages, setTotalPages] = useState(1);
 
-  const loadCharacters = (query: string, pageNumber: number): void => {
+  const handleSearch = (currentSearch: string): void => {
     setStatus({ status: 'loading' });
-    fetchCharacters({ name: query, page: pageNumber })
+    setSearchPage(1);
+    setSearchQuery(currentSearch);
+    loadCharacters(currentSearch, 1);
+  };
+
+  const handlePagination = (newPage: number): void => {
+    setStatus({ status: 'loading' });
+    setSearchPage(newPage);
+    loadCharacters(searchQuery, newPage);
+  };
+
+  const loadCharacters = (searchQuery: string, searchPage: number): void => {
+    fetchCharacters({ name: searchQuery, page: searchPage })
       .then((data) => {
         const transformed = (data.results ?? []).map((character: Character): TransformedCharacter => {
           const { gender, id, image, name, origin, species, status } = character;
@@ -60,8 +79,8 @@ export const useCharactersSearch = (search: string, page: number): UseCharacters
   };
 
   useEffect(() => {
-    loadCharacters(search, page);
-  }, [search, page]);
+    loadCharacters(searchQuery, searchPage);
+  }, []);
 
-  return { characters, setStatus, status, totalPages };
+  return { characters, handlePagination, handleSearch, searchPage, searchQuery, status, totalPages };
 };
