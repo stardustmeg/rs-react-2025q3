@@ -64,6 +64,9 @@ export default tseslint.config(
       ...testingLibrary.configs.react.rules,
       'unicorn/no-useless-undefined': 'off',
       'max-lines-per-function': 'off',
+      '@typescript-eslint/no-unnecessary-type-assertion': 'off',
+      '@typescript-eslint/consistent-type-assertions': 'off',
+      '@typescript-eslint/no-magic-numbers': 'off',
     },
   },
   {
