@@ -80,7 +80,7 @@ export const useCharactersSearch = (): UseCharactersReturn => {
 
   useEffect(() => {
     loadCharacters(searchQuery, searchPage);
-  }, []);
+  }, [searchQuery, searchPage]);
 
   return { characters, handlePagination, handleSearch, searchPage, searchQuery, status, totalPages };
 };

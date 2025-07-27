@@ -25,7 +25,7 @@ const CharacterImage: React.FC<CharacterImageProps> = ({ alt, src }) => {
   };
 
   return (
-    <div className="relative h-full min-h-73 w-full overflow-hidden rounded">
+    <div className="relative h-full min-h-56 w-full min-w-56 overflow-hidden rounded">
       {!loaded && <Skeleton />}
       <img
         alt={alt}

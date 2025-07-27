@@ -1,7 +1,7 @@
-/* eslint-disable max-lines-per-function */
 import React from 'react';
 
-import { cn } from '@/utils';
+import { getVisiblePages } from '@/components/helpers';
+import { PageButton } from '@/components/PageButton';
 
 interface PaginationProps {
   currentPage: number;
@@ -15,134 +15,48 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, maxButtons = 5, on
     return null;
   }
 
-  const handlePageClick = (page: number): void => {
+  const handlePageChange = (page: number): void => {
     if (page !== currentPage && page >= 1 && page <= totalPages) {
       onPageChange(page);
     }
   };
 
-  const renderPageNumbers = (): React.ReactNode => {
-    const pages = [];
-
-    let startPage = Math.max(1, currentPage - 2);
-    const endPage = Math.min(totalPages, startPage + maxButtons - 1);
-
-    if (endPage - startPage < maxButtons - 1) {
-      startPage = Math.max(1, endPage - maxButtons + 1);
-    }
-
-    if (startPage > 1) {
-      pages.push(
-        <button
-          className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-200"
-          key={1}
-          onClick={() => {
-            handlePageClick(1);
-          }}
-        >
-          1
-        </button>,
-      );
-      if (startPage > 2) {
-        pages.push(
-          <span className="px-2 select-none" key="start-ellipsis">
-            ...
-          </span>,
-        );
-      }
-    }
-
-    for (let page = startPage; page <= endPage; page++) {
-      if (page === 1 || page === totalPages) {
-        continue;
-      }
-      pages.push(
-        <button
-          className={cn([
-            'flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-200',
-            {
-              'bg-custom-pink text-white': page === currentPage,
-            },
-          ])}
-          key={page}
-          onClick={() => {
-            handlePageClick(page);
-          }}
-        >
-          {page}
-        </button>,
-      );
-    }
-
-    if (endPage < totalPages) {
-      if (endPage < totalPages - 1) {
-        pages.push(
-          <span className="px-2 select-none" key="end-ellipsis">
-            ...
-          </span>,
-        );
-      }
-      pages.push(
-        <button
-          className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-200"
-          key={totalPages}
-          onClick={() => {
-            handlePageClick(totalPages);
-          }}
-        >
-          {totalPages}
-        </button>,
-      );
-    }
-
-    return pages;
-  };
+  const pages = getVisiblePages(currentPage, totalPages, maxButtons);
 
   return (
-    <nav aria-label="Pagination" className="my-4 flex items-center justify-center space-x-1">
-      <button
-        aria-label="First page"
-        className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-200 disabled:opacity-50"
-        disabled={currentPage === 1}
-        onClick={() => {
-          handlePageClick(1);
-        }}
-      >
+    <nav aria-label="Pagination" className="my-4 flex flex-wrap items-center justify-center gap-2">
+      <PageButton ariaLabel="First page" disabled={currentPage === 1} onClick={handlePageChange} page={1}>
         &laquo;
-      </button>
-      <button
-        aria-label="Previous page"
-        className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-200 disabled:opacity-50"
+      </PageButton>
+      <PageButton
+        ariaLabel="Previous page"
         disabled={currentPage === 1}
-        onClick={() => {
-          handlePageClick(currentPage - 1);
-        }}
+        onClick={handlePageChange}
+        page={currentPage - 1}
       >
         &lsaquo;
-      </button>
+      </PageButton>
 
-      {renderPageNumbers()}
+      {pages.map((page) => (
+        <PageButton isActive={page === currentPage} key={page} onClick={handlePageChange} page={page} />
+      ))}
 
-      <button
-        aria-label="Next page"
-        className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-200 disabled:opacity-50"
+      <PageButton
+        ariaLabel="Next page"
         disabled={currentPage === totalPages}
-        onClick={() => {
-          handlePageClick(currentPage + 1);
-        }}
+        onClick={handlePageChange}
+        page={currentPage + 1}
       >
         &rsaquo;
-      </button>
-      <button
-        aria-label="Last page"
-        className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-200 disabled:opacity-50"
+      </PageButton>
+      <PageButton
+        ariaLabel="Last page"
         disabled={currentPage === totalPages}
-        onClick={() => {
-          handlePageClick(totalPages);
-        }}
+        onClick={handlePageChange}
+        page={totalPages}
       >
         &raquo;
-      </button>
+      </PageButton>
     </nav>
   );
 };

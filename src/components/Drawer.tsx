@@ -41,7 +41,7 @@ const Drawer: React.FC<DrawerProps> = ({ children, handleCloseDrawer, isDrawerOp
       >
         <button
           aria-label="Close drawer"
-          className="absolute top-4 right-4 text-2xl text-gray-500 hover:cursor-pointer hover:text-gray-700 focus:outline-none"
+          className="absolute top-4 right-4 z-50 text-2xl text-gray-500 hover:cursor-pointer hover:text-gray-700 focus:outline-none"
           onClick={handleCloseDrawer}
         >
           &times;
