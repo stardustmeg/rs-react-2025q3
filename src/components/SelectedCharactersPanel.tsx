@@ -22,15 +22,14 @@ const downloadCSV = (characters: TransformedCharacter[]): void => {
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
   const link = document.createElement('a');
 
-  if (link.download) {
-    const url = URL.createObjectURL(blob);
-    link.setAttribute('href', url);
-    link.setAttribute('download', 'selected-characters.csv');
-    link.style.visibility = 'hidden';
-    document.body.append(link);
-    link.click();
-    link.remove();
-  }
+  const url = URL.createObjectURL(blob);
+  link.href = url;
+  link.download = `${characters.length}-characters.csv`;
+  link.style.visibility = 'hidden';
+  document.body.append(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
 };
 
 const SelectedCharactersPanel: React.FC<SelectedCharactersPanelProps> = ({ selectedCharacters }) => {
