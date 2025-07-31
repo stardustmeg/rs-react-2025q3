@@ -7,13 +7,13 @@ import { mockCharacters } from '@/__mocks__/mockCharacters';
 import { mockTransformedCharacters } from '@/__mocks__/mockTransformedCharacters';
 import { useCharactersSearch } from '@/hooks/useCharactersSearch';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { useSearchPage } from '@/hooks/useSearchPage';
+import { useSearch } from '@/hooks/useSearch';
 import { fetchCharacters } from '@/services/api';
 import { isHttpError } from '@/types/helpers';
 
 vi.mock('@/services/api');
 vi.mock('@/hooks/useLocalStorage');
-vi.mock('@/hooks/useSearchPage');
+vi.mock('@/hooks/useSearch');
 vi.mock('@/types/helpers');
 
 const mockInfo: Info<Character[]>['info'] = {
@@ -26,7 +26,7 @@ const mockInfo: Info<Character[]>['info'] = {
 describe('useCharactersSearch', () => {
   let mockFetchCharacters: Mock;
   let mockUseLocalStorage: Mock;
-  let mockUseSearchPage: Mock;
+  let mockUseSearch: Mock;
   let mockIsHttpError: Mock;
 
   beforeEach(() => {
@@ -34,11 +34,11 @@ describe('useCharactersSearch', () => {
 
     mockFetchCharacters = vi.mocked(fetchCharacters);
     mockUseLocalStorage = vi.mocked(useLocalStorage);
-    mockUseSearchPage = vi.mocked(useSearchPage);
+    mockUseSearch = vi.mocked(useSearch);
     mockIsHttpError = vi.mocked(isHttpError);
 
     mockUseLocalStorage.mockReturnValue(['', vi.fn()]);
-    mockUseSearchPage.mockReturnValue([1, vi.fn()]);
+    mockUseSearch.mockReturnValue([1, vi.fn()]);
     mockFetchCharacters.mockResolvedValue({ info: mockInfo, results: mockCharacters });
   });
 
@@ -100,7 +100,7 @@ describe('useCharactersSearch', () => {
       searchPage = newPage;
     });
 
-    mockUseSearchPage.mockImplementation(() => [searchPage, setSearchPage]);
+    mockUseSearch.mockImplementation(() => [searchPage, setSearchPage]);
 
     const { result } = renderHook(() => useCharactersSearch());
 
@@ -150,7 +150,7 @@ describe('useCharactersSearch', () => {
   });
 
   it('should use searchPage hook for page persistence', () => {
-    mockUseSearchPage.mockReturnValue([3, vi.fn()]);
+    mockUseSearch.mockReturnValue([3, vi.fn()]);
 
     const { result } = renderHook(() => useCharactersSearch());
 
