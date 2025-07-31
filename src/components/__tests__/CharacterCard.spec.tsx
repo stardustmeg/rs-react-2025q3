@@ -16,6 +16,15 @@ vi.mock('react-router', async () => {
   };
 });
 
+import useStore from '@/store';
+
+vi.mock('@/store', () => ({
+  default: vi.fn(() => ({
+    isCharacterSelected: vi.fn(() => false),
+    toggleSelectedCharacter: vi.fn(),
+  })),
+}));
+
 const mockCharacter: TransformedCharacter = mockTransformedCharacters[0];
 
 describe('CharacterCard component', () => {
@@ -57,6 +66,61 @@ describe('CharacterCard component', () => {
     const img = screen.getByRole('img', { name: mockCharacter.name });
     expect(img).toBeInTheDocument();
     expect(img).toHaveAttribute('alt', mockCharacter.name);
+  });
+
+  it('renders checkbox with correct initial state', () => {
+    render(
+      <MemoryRouter>
+        <CharacterCard character={mockCharacter} />
+      </MemoryRouter>,
+    );
+
+    const checkbox = screen.getByTestId('character-checkbox');
+    expect(checkbox).toBeInTheDocument();
+    expect(checkbox).not.toBeChecked();
+  });
+
+  it('renders selected state when character is selected', () => {
+    vi.mocked(useStore).mockReturnValue({
+      addSelectedCharacter: vi.fn(),
+      clearSelectedCharacters: vi.fn(),
+      isCharacterSelected: vi.fn(() => true),
+      removeSelectedCharacter: vi.fn(),
+      selectedCharacters: [],
+      toggleSelectedCharacter: vi.fn(),
+    });
+
+    render(
+      <MemoryRouter>
+        <CharacterCard character={mockCharacter} />
+      </MemoryRouter>,
+    );
+
+    const checkbox = screen.getByTestId('character-checkbox');
+    expect(checkbox).toBeChecked();
+  });
+
+  it('creates correct link with search params', () => {
+    render(
+      <MemoryRouter>
+        <CharacterCard character={mockCharacter} />
+      </MemoryRouter>,
+    );
+
+    const link = screen.getByRole('link');
+    expect(link).toHaveAttribute('href', `/${mockCharacter.id}?filter=name`);
+  });
+
+  it('renders character card with correct test id', () => {
+    render(
+      <MemoryRouter>
+        <CharacterCard character={mockCharacter} />
+      </MemoryRouter>,
+    );
+
+    const card = screen.getByTestId('character-card');
+    expect(card).toBeInTheDocument();
+    expect(card).toHaveClass('mx-auto', 'h-full', 'w-full', 'rounded-lg');
   });
 
   it('matches snapshot', () => {

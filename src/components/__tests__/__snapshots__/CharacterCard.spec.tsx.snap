@@ -20,6 +20,7 @@ exports[`CharacterCard component > matches snapshot 1`] = `
             class="relative flex place-content-center"
           >
             <input
+              checked=""
               class="peer sr-only"
               data-testid="character-checkbox"
               id="checkbox-1"
@@ -30,7 +31,7 @@ exports[`CharacterCard component > matches snapshot 1`] = `
               for="checkbox-1"
             >
               <svg
-                class="h-4 w-4 text-white transition-opacity duration-200 opacity-0"
+                class="h-4 w-4 text-white transition-opacity duration-200 opacity-100"
                 fill="none"
                 stroke="currentColor"
                 stroke-width="2"
