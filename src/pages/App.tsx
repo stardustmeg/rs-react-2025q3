@@ -19,7 +19,7 @@ const App: React.FC = () => {
 
   return (
     <div
-      className={cn('w-full bg-custom-pistachio p-10 transition-colors duration-300 dark:bg-dark-bg', {
+      className={cn('mt-10 w-full bg-custom-pistachio p-5 transition-colors duration-300 md:mt-0 dark:bg-dark-bg', {
         'mb-10': !!selectedCharacters.length,
       })}
     >

@@ -14,11 +14,19 @@ const Header: React.FC<HeaderProps> = ({ handleSearch, initialSearchQuery }) => 
     className="fixed top-0 left-0 z-50 w-full bg-custom-pink px-6 py-4 shadow-md dark:bg-dark-header"
     data-testid="header"
   >
-    <div className="mx-auto flex flex-wrap items-center justify-center gap-4 md:justify-between">
-      <Search handleSearch={handleSearch} initialSearchQuery={initialSearchQuery} />
-
-      <div className="flex items-center gap-4">
+    <div className="mx-auto flex flex-col flex-wrap items-center justify-between gap-4 md:flex-row">
+      <div className="flex items-center gap-4 md:order-1">
         <Navigation />
+        <div className="md:hidden">
+          <ThemeSwitch />
+        </div>
+      </div>
+
+      <div className="flex flex-1 justify-center md:order-2">
+        <Search handleSearch={handleSearch} initialSearchQuery={initialSearchQuery} />
+      </div>
+
+      <div className="hidden md:order-3 md:flex">
         <ThemeSwitch />
       </div>
     </div>
