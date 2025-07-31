@@ -6,7 +6,7 @@ exports[`NoResultsFound component > matches snapshot 1`] = `
     class="flex flex-col items-center justify-center space-y-6 p-6 text-center"
   >
     <p
-      class="max-w-md text-lg text-custom-dark-night"
+      class="max-w-md text-lg text-custom-dark-night dark:text-dark-text"
     >
       Nothing was found in this dimension.
       <br />

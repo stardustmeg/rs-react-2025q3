@@ -55,7 +55,7 @@ describe('AboutPage', () => {
 
   it('has a link to navigate back to home', () => {
     renderAboutPage();
-    const homeLink = screen.getByRole('link', { name: 'Back to Home' });
+    const homeLink = screen.getByRole('link', { name: 'Go back to Main' });
     expect(homeLink).toBeInTheDocument();
     expect(homeLink).toHaveAttribute('href', '/');
   });

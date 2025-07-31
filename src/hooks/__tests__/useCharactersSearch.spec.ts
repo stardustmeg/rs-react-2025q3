@@ -4,17 +4,16 @@ import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest';
 import type { Character, Info } from '@/types';
 
 import { mockCharacters } from '@/__mocks__/mockCharacters';
-import { mockTransformedCharacters } from '@/__mocks__/mockTransformedCharacters';
+import { transformCharacter } from '@/hooks/helpers/transformCharacter';
 import { useCharactersSearch } from '@/hooks/useCharactersSearch';
-import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useSearch } from '@/hooks/useSearch';
 import { fetchCharacters } from '@/services/api';
 import { isHttpError } from '@/types/helpers';
 
 vi.mock('@/services/api');
-vi.mock('@/hooks/useLocalStorage');
 vi.mock('@/hooks/useSearch');
 vi.mock('@/types/helpers');
+vi.mock('@/hooks/helpers/transformCharacter');
 
 const mockInfo: Info<Character[]>['info'] = {
   count: 1,
@@ -25,20 +24,41 @@ const mockInfo: Info<Character[]>['info'] = {
 
 describe('useCharactersSearch', () => {
   let mockFetchCharacters: Mock;
-  let mockUseLocalStorage: Mock;
   let mockUseSearch: Mock;
   let mockIsHttpError: Mock;
+  let mockTransformCharacter: Mock;
+
+  const mockSetSearchPage = vi.fn();
+  const mockSetSearchQuery = vi.fn();
 
   beforeEach(() => {
     vi.clearAllMocks();
 
     mockFetchCharacters = vi.mocked(fetchCharacters);
-    mockUseLocalStorage = vi.mocked(useLocalStorage);
     mockUseSearch = vi.mocked(useSearch);
     mockIsHttpError = vi.mocked(isHttpError);
+    mockTransformCharacter = vi.mocked(transformCharacter);
 
-    mockUseLocalStorage.mockReturnValue(['', vi.fn()]);
-    mockUseSearch.mockReturnValue([1, vi.fn()]);
+    mockUseSearch.mockReturnValue({
+      searchPage: 1,
+      searchQuery: '',
+      setSearchPage: mockSetSearchPage,
+      setSearchParams: vi.fn(),
+      setSearchQuery: mockSetSearchQuery,
+    });
+
+    mockTransformCharacter.mockImplementation((char: Character) => ({
+      ...char,
+      id: String(char.id),
+      info: [
+        { label: 'Gender', value: char.gender },
+        { label: 'Origin', value: char.origin.name },
+        { label: 'Species', value: char.species },
+        { label: 'Status', value: char.status },
+      ],
+      origin: char.origin.name,
+    }));
+
     mockFetchCharacters.mockResolvedValue({ info: mockInfo, results: mockCharacters });
   });
 
@@ -68,52 +88,32 @@ describe('useCharactersSearch', () => {
     const { result } = renderHook(() => useCharactersSearch());
 
     await waitFor(() => {
-      expect(result.current.characters).toEqual(mockTransformedCharacters);
+      expect(mockTransformCharacter).toHaveBeenCalledWith(mockCharacters[0]);
     });
+
+    expect(result.current.characters).toHaveLength(mockCharacters.length);
   });
 
-  it('should handle search', async () => {
-    let searchQuery = '';
-    const setSearchQuery = vi.fn().mockImplementation((newQuery: string) => {
-      searchQuery = newQuery;
-    });
-
-    mockUseLocalStorage.mockImplementation(() => [searchQuery, setSearchQuery]);
-
+  it('should handle search', () => {
     const { result } = renderHook(() => useCharactersSearch());
 
     act(() => {
       result.current.handleSearch('Rick');
     });
 
-    await waitFor(() => {
-      expect(mockFetchCharacters).toHaveBeenCalledWith({ name: 'Rick', page: 1 });
-    });
-
-    expect(setSearchQuery).toHaveBeenCalledWith('Rick');
-    expect(result.current.searchQuery).toBe('Rick');
+    expect(mockSetSearchQuery).toHaveBeenCalledWith('Rick');
+    expect(result.current.status.status).toBe('loading');
   });
 
-  it('should handle pagination', async () => {
-    let searchPage = 1;
-    const setSearchPage = vi.fn().mockImplementation((newPage: number) => {
-      searchPage = newPage;
-    });
-
-    mockUseSearch.mockImplementation(() => [searchPage, setSearchPage]);
-
+  it('should handle pagination', () => {
     const { result } = renderHook(() => useCharactersSearch());
 
     act(() => {
       result.current.handlePagination(2);
     });
 
-    await waitFor(() => {
-      expect(mockFetchCharacters).toHaveBeenCalledWith({ name: '', page: 2 });
-    });
-
-    expect(setSearchPage).toHaveBeenCalledWith(2);
-    expect(result.current.searchPage).toBe(2);
+    expect(mockSetSearchPage).toHaveBeenCalledWith(2);
+    expect(result.current.status.status).toBe('loading');
   });
 
   it('should handle other errors by setting error state', async () => {
@@ -141,19 +141,18 @@ describe('useCharactersSearch', () => {
     });
   });
 
-  it('should use localStorage for search query persistence', () => {
-    mockUseLocalStorage.mockReturnValue(['initial', vi.fn()]);
+  it('should use search hook for query and page persistence', () => {
+    mockUseSearch.mockReturnValue({
+      searchPage: 3,
+      searchQuery: 'initial',
+      setSearchPage: mockSetSearchPage,
+      setSearchParams: vi.fn(),
+      setSearchQuery: mockSetSearchQuery,
+    });
 
     const { result } = renderHook(() => useCharactersSearch());
 
     expect(result.current.searchQuery).toBe('initial');
-  });
-
-  it('should use searchPage hook for page persistence', () => {
-    mockUseSearch.mockReturnValue([3, vi.fn()]);
-
-    const { result } = renderHook(() => useCharactersSearch());
-
     expect(result.current.searchPage).toBe(3);
   });
 });

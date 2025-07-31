@@ -6,6 +6,7 @@ import type { Character, HttpError, TransformedCharacter } from '@/types';
 
 import { mockCharacters } from '@/__mocks__/mockCharacters';
 import { mockTransformedCharacters } from '@/__mocks__/mockTransformedCharacters';
+import { transformCharacter } from '@/hooks/helpers/transformCharacter';
 import { useCharacterById } from '@/hooks/useCharacterById';
 import { fetchCharacterById } from '@/services/api';
 import { isHttpError } from '@/types/helpers';
@@ -13,6 +14,7 @@ import { isHttpError } from '@/types/helpers';
 vi.mock('react-router');
 vi.mock('@/services/api');
 vi.mock('@/types/helpers');
+vi.mock('@/hooks/helpers/transformCharacter');
 
 const mockCharacter: Character = mockCharacters[0];
 
@@ -29,6 +31,7 @@ describe('useCharacterById', () => {
     mockUseParams = vi.mocked(useParams).mockReturnValue({ id: '1' });
     mockFetchCharacterById = vi.mocked(fetchCharacterById);
     mockIsHttpError = vi.mocked(isHttpError);
+    vi.mocked(transformCharacter).mockReturnValue(mockTransformedCharacter);
   });
 
   it('should return initial state', () => {
@@ -37,8 +40,7 @@ describe('useCharacterById', () => {
 
     expect(result.current).toEqual({
       character: null,
-      error: null,
-      setStatus: expect.any(Function) as (status: 'error' | 'loading' | 'ready') => void,
+      setStatus: expect.any(Function) as (status: { status: 'error' | 'loading' | 'ready' }) => void,
       status: { status: 'loading' },
     });
   });
