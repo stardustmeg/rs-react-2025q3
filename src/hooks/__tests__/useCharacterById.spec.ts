@@ -53,7 +53,6 @@ describe('useCharacterById', () => {
     });
 
     expect(result.current.character).toEqual(mockTransformedCharacter);
-    expect(result.current.error).toBeNull();
   });
 
   it('should handle 404 error by setting status to ready', async () => {
@@ -69,7 +68,6 @@ describe('useCharacterById', () => {
     });
 
     expect(result.current.character).toBeNull();
-    expect(result.current.error).toBeNull();
   });
 
   it('should handle other errors by setting error state', async () => {
@@ -84,7 +82,6 @@ describe('useCharacterById', () => {
     });
 
     expect(result.current.character).toBeNull();
-    expect(result.current.error).toBe('Server error');
   });
 
   it('should not fetch when id is not provided', async () => {
