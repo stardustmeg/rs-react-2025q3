@@ -29,8 +29,8 @@ export const PageButton: React.FC<PageButtonProps> = ({
   <button
     aria-label={ariaLabel}
     className={cn([
-      'flex h-8 w-8 items-center justify-center rounded-full hover:cursor-pointer hover:bg-gray-200 disabled:opacity-50',
-      isActive && 'bg-custom-pink text-white hover:bg-custom-pink',
+      'flex h-8 w-8 items-center justify-center rounded-full hover:cursor-pointer hover:bg-gray-200 disabled:opacity-50 dark:text-dark-text dark:hover:bg-dark-border',
+      isActive && 'bg-custom-pink text-white hover:bg-custom-pink dark:bg-custom-pink/80 dark:hover:bg-custom-pink',
     ])}
     disabled={disabled}
     onClick={() => {

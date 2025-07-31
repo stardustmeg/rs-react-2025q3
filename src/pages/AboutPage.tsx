@@ -9,7 +9,7 @@ const AboutPage: React.FC = () => {
       <h1 className="mb-4 text-3xl font-bold">About Me</h1>
       <img alt="Meg's Avatar" className="mb-4 h-32 w-32 rounded-full border-2 border-gray-300" src={myPhoto} />
       <a
-        className="text-xl text-custom-chocolate hover:underline"
+        className="text-xl font-bold text-custom-dark-night transition-all duration-300 hover:underline dark:text-custom-green dark:hover:text-custom-yellow"
         href="https://github.com/stardustmeg"
         rel="noopener noreferrer"
         target="_blank"
@@ -25,7 +25,7 @@ const AboutPage: React.FC = () => {
       </p>
 
       <a
-        className="text-xl text-custom-chocolate transition-all duration-300 hover:underline"
+        className="text-xl font-bold text-custom-chocolate transition-all duration-300 hover:underline dark:text-custom-yellow dark:hover:text-custom-green"
         href="https://rs.school/courses/reactjs"
         rel="noopener noreferrer"
         target="_blank"
@@ -33,8 +33,11 @@ const AboutPage: React.FC = () => {
         RS School React Course
       </a>
 
-      <Link className="text-chocolate text-xl font-bold transition-all duration-300 hover:underline" to="/">
-        Back to Home
+      <Link
+        className="text-xl font-bold text-custom-dark-night transition-all duration-300 hover:underline dark:text-custom-green dark:hover:text-custom-yellow"
+        to="/"
+      >
+        Go back to Main
       </Link>
     </div>
   );

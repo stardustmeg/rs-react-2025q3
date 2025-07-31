@@ -25,11 +25,11 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
 
   return (
     <article
-      className="mx-auto h-full w-full rounded-lg bg-white p-2 shadow-md transition-transform duration-300 hover:scale-101"
+      className="mx-auto h-full w-full rounded-lg bg-white p-2 shadow-md transition-all duration-300 hover:scale-101 dark:bg-dark-card dark:shadow-gray-800"
       data-testid="character-card"
     >
       <Link to={`${id}?${searchParams}`}>
-        <div className="flex flex-col items-center rounded-t-lg bg-custom-beige p-4">
+        <div className="flex flex-col items-center rounded-t-lg bg-custom-beige p-4 dark:bg-gray-700">
           <div className="flex place-content-center gap-2">
             <div className="relative flex place-content-center">
               <input
@@ -42,7 +42,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
                 type="checkbox"
               />
               <label
-                className="peer-checked:border-bg-custom-blue relative flex h-6 w-6 cursor-pointer items-center justify-center rounded-md border-2 border-gray-300 bg-white transition-all duration-200 peer-checked:bg-custom-blue peer-focus:ring-2 peer-focus:ring-custom-pistachio hover:border-custom-light-gray hover:shadow-md"
+                className="peer-checked:border-bg-custom-blue relative flex h-6 w-6 cursor-pointer items-center justify-center rounded-md border-2 border-gray-300 bg-white transition-all duration-200 peer-checked:bg-custom-blue peer-focus:ring-2 peer-focus:ring-custom-pistachio hover:border-custom-light-gray hover:shadow-md dark:border-gray-600 dark:bg-gray-800"
                 htmlFor={`checkbox-${id}`}
                 onClick={stopPropagation}
               >
@@ -59,11 +59,11 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
                 </svg>
               </label>
             </div>
-            <p className="mb-2 text-center text-lg font-semibold">{name}</p>
+            <p className="mb-2 text-center text-lg font-semibold text-custom-coal dark:text-dark-text">{name}</p>
           </div>
           <CharacterImage alt={name} src={image} />
         </div>
-        <div className="space-y-2 rounded-b-lg bg-white py-4 text-sm">
+        <div className="space-y-2 rounded-b-lg bg-white py-4 text-sm dark:bg-dark-card dark:text-dark-text">
           {info.map(({ label, value }) => (
             <div key={label}>
               <span className="font-semibold">{label}:</span> {value}

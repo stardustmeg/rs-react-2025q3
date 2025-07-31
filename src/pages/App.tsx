@@ -18,7 +18,11 @@ const App: React.FC = () => {
   const { selectedCharacters } = useStore();
 
   return (
-    <div className={cn('w-full p-10', { 'mb-10': !!selectedCharacters.length })}>
+    <div
+      className={cn('w-full bg-custom-pistachio p-10 transition-colors duration-300 dark:bg-dark-bg', {
+        'mb-10': !!selectedCharacters.length,
+      })}
+    >
       <Header handleSearch={handleSearch} initialSearchQuery={searchQuery} />
       {status.status === 'ready' ? (
         <>
