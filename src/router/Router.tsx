@@ -3,6 +3,7 @@ import { createBrowserRouter, createMemoryRouter, type LoaderFunction, redirect,
 
 import ErrorFallback from '@/components/ErrorFallback';
 import Loader from '@/components/Loader/Loader';
+import { ThemeProvider } from '@/contexts/ThemeContext';
 
 const App = lazy(() => import('@/pages/App'));
 const CharacterDetailedInfoPage = lazy(() => import('@/pages/CharacterDetailedInfoPage'));
@@ -49,7 +50,9 @@ export const createRouter = (initialEntries: string[]): ReturnType<typeof create
   createMemoryRouter(routerConfig, { initialEntries });
 
 export const Router: React.FC = () => (
-  <Suspense fallback={<Loader />}>
-    <RouterProvider router={createBrowserRouter(routerConfig)} />
-  </Suspense>
+  <ThemeProvider>
+    <Suspense fallback={<Loader />}>
+      <RouterProvider router={createBrowserRouter(routerConfig)} />
+    </Suspense>
+  </ThemeProvider>
 );
