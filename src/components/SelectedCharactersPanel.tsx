@@ -1,46 +1,24 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import type { TransformedCharacter } from '@/types';
 
+import { downloadCSV } from '@/components/helpers/downloadCsv';
 import useStore from '@/store';
 
 interface SelectedCharactersPanelProps {
   selectedCharacters: TransformedCharacter[];
 }
 
-const convertToCSV = (characters: TransformedCharacter[]): string => {
-  const headers = ['ID', 'Name', 'Status', 'Species', 'Gender', 'Origin'];
-  const rows = characters.map((char) => [char.id, char.name, char.status, char.species, char.gender, char.origin]);
-
-  const csvContent = [headers, ...rows].map((row) => row.map((field) => `"${field}"`).join(',')).join('\n');
-
-  return csvContent;
-};
-
-const downloadCSV = (characters: TransformedCharacter[]): void => {
-  const csv = convertToCSV(characters);
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-  const link = document.createElement('a');
-
-  const url = URL.createObjectURL(blob);
-  link.href = url;
-  link.download = `${characters.length}-characters.csv`;
-  link.style.visibility = 'hidden';
-  document.body.append(link);
-  link.click();
-  link.remove();
-  URL.revokeObjectURL(url);
-};
-
 const SelectedCharactersPanel: React.FC<SelectedCharactersPanelProps> = ({ selectedCharacters }) => {
   const { clearSelectedCharacters } = useStore();
+  const downloadLinkReference = useRef<HTMLAnchorElement>(null);
 
   const handleUnselectAll = (): void => {
     clearSelectedCharacters();
   };
 
   const handleDownloadCSV = (): void => {
-    downloadCSV(selectedCharacters);
+    downloadCSV(selectedCharacters, downloadLinkReference);
   };
 
   return (
@@ -74,6 +52,8 @@ const SelectedCharactersPanel: React.FC<SelectedCharactersPanelProps> = ({ selec
           </div>
         </div>
       </div>
+
+      <a ref={downloadLinkReference} style={{ display: 'none' }} />
     </div>
   );
 };
