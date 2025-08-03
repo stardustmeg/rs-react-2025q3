@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 
 import type { TransformedCharacter } from '@/types';
 
@@ -11,14 +11,13 @@ interface SelectedCharactersPanelProps {
 
 const SelectedCharactersPanel: React.FC<SelectedCharactersPanelProps> = ({ selectedCharacters }) => {
   const { clearSelectedCharacters } = useStore();
-  const downloadLinkReference = useRef<HTMLAnchorElement>(null);
 
   const handleUnselectAll = (): void => {
     clearSelectedCharacters();
   };
 
   const handleDownloadCSV = (): void => {
-    downloadCSV(selectedCharacters, downloadLinkReference);
+    downloadCSV(selectedCharacters);
   };
 
   return (
@@ -52,8 +51,6 @@ const SelectedCharactersPanel: React.FC<SelectedCharactersPanelProps> = ({ selec
           </div>
         </div>
       </div>
-
-      <a aria-label="Download CSV" ref={downloadLinkReference} style={{ display: 'none' }} />
     </div>
   );
 };

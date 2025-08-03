@@ -9,18 +9,17 @@ const convertToCSV = (characters: TransformedCharacter[]): string => {
   return csvContent;
 };
 
-export const downloadCSV = (
-  characters: TransformedCharacter[],
-  linkReference: React.RefObject<HTMLAnchorElement | null>,
-): void => {
+export const downloadCSV = (characters: TransformedCharacter[]): void => {
   const csv = convertToCSV(characters);
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
 
-  if (linkReference.current) {
-    const url = URL.createObjectURL(blob);
-    linkReference.current.href = url;
-    linkReference.current.download = `${characters.length}-characters.csv`;
-    linkReference.current.click();
-    URL.revokeObjectURL(url);
-  }
+  const url = URL.createObjectURL(blob);
+  link.href = url;
+  link.download = `${characters.length}-characters.csv`;
+  link.style.visibility = 'hidden';
+  document.body.append(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
 };
