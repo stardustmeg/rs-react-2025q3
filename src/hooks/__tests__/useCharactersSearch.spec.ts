@@ -30,6 +30,7 @@ describe('useCharactersSearch', () => {
 
   const mockSetSearchPage = vi.fn();
   const mockSetSearchQuery = vi.fn();
+  const mockSetSearchParams = vi.fn();
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -43,7 +44,7 @@ describe('useCharactersSearch', () => {
       searchPage: 1,
       searchQuery: '',
       setSearchPage: mockSetSearchPage,
-      setSearchParams: vi.fn(),
+      setSearchParams: mockSetSearchParams,
       setSearchQuery: mockSetSearchQuery,
     });
 
@@ -101,7 +102,7 @@ describe('useCharactersSearch', () => {
       result.current.handleSearch('Rick');
     });
 
-    expect(mockSetSearchQuery).toHaveBeenCalledWith('Rick');
+    expect(mockSetSearchParams).toHaveBeenCalledWith(1, 'Rick');
     expect(result.current.status.status).toBe('loading');
   });
 
@@ -146,7 +147,7 @@ describe('useCharactersSearch', () => {
       searchPage: 3,
       searchQuery: 'initial',
       setSearchPage: mockSetSearchPage,
-      setSearchParams: vi.fn(),
+      setSearchParams: mockSetSearchParams,
       setSearchQuery: mockSetSearchQuery,
     });
 

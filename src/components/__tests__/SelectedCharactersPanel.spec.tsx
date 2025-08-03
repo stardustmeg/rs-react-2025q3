@@ -86,32 +86,19 @@ describe('SelectedCharactersPanel', () => {
   });
 
   it('generates correct CSV filename based on character count', () => {
-    const mockLink = {
-      click: vi.fn(),
-      download: '',
-      href: '',
-      remove: vi.fn(),
-      style: { visibility: '' },
-    } as unknown as HTMLAnchorElement;
-
-    const originalCreateElement = document.createElement.bind(document);
-    const createElementSpy = vi.spyOn(document, 'createElement').mockImplementation((tagName) => {
-      if (tagName === 'a') {
-        return mockLink;
-      }
-      return originalCreateElement(tagName);
-    });
-
-    const appendSpy = vi.spyOn(document.body, 'append').mockImplementation(noop);
-
     render(<SelectedCharactersPanel selectedCharacters={selectedCharacters} />);
+
+    const downloadLink = screen.getByLabelText('Download CSV') as HTMLAnchorElement;
+    expect(downloadLink).toBeInTheDocument();
+
+    const clickSpy = vi.spyOn(downloadLink, 'click').mockImplementation(noop);
 
     const downloadButton = screen.getByRole('button', { name: /download csv/i });
     fireEvent.click(downloadButton);
 
-    expect(mockLink.download).toBe('2-characters.csv');
+    expect(downloadLink.download).toBe('2-characters.csv');
+    expect(clickSpy).toHaveBeenCalled();
 
-    createElementSpy.mockRestore();
-    appendSpy.mockRestore();
+    clickSpy.mockRestore();
   });
 });

@@ -53,7 +53,7 @@ const SelectedCharactersPanel: React.FC<SelectedCharactersPanelProps> = ({ selec
         </div>
       </div>
 
-      <a ref={downloadLinkReference} style={{ display: 'none' }} />
+      <a aria-label="Download CSV" ref={downloadLinkReference} style={{ display: 'none' }} />
     </div>
   );
 };
