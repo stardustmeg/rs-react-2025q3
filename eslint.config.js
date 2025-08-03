@@ -67,6 +67,7 @@ export default tseslint.config(
       '@typescript-eslint/no-unnecessary-type-assertion': 'off',
       '@typescript-eslint/consistent-type-assertions': 'off',
       '@typescript-eslint/no-magic-numbers': 'off',
+      '@typescript-eslint/no-deprecated': 'off',
     },
   },
   {

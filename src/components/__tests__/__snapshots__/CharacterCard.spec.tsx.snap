@@ -2,22 +2,53 @@
 
 exports[`CharacterCard component > matches snapshot 1`] = `
 <DocumentFragment>
-  <a
-    data-discover="true"
-    href="/1?filter=name"
+  <article
+    class="mx-auto h-full w-full rounded-lg bg-white p-2 shadow-md transition-all duration-300 hover:scale-101 dark:bg-dark-card dark:shadow-gray-800"
+    data-testid="character-card"
   >
-    <article
-      class="mx-auto h-full w-full rounded-lg bg-white p-2 shadow-md transition-transform duration-300 hover:scale-101"
-      data-testid="character-card"
+    <a
+      data-discover="true"
+      href="/1?filter=name"
     >
       <div
-        class="flex flex-col items-center rounded-t-lg bg-custom-beige p-4"
+        class="flex flex-col items-center rounded-t-lg bg-custom-beige p-4 dark:bg-gray-700"
       >
-        <p
-          class="mb-2 text-center text-lg font-semibold"
+        <div
+          class="flex place-content-center gap-2"
         >
-          Mock Rick Sanchez
-        </p>
+          <div
+            class="relative flex place-content-center"
+          >
+            <input
+              checked=""
+              class="peer sr-only"
+              data-testid="character-checkbox"
+              id="checkbox-1"
+              type="checkbox"
+            />
+            <label
+              class="peer-checked:border-bg-custom-blue relative flex h-6 w-6 cursor-pointer items-center justify-center rounded-md border-2 border-gray-300 bg-white transition-all duration-200 peer-checked:bg-custom-blue peer-focus:ring-2 peer-focus:ring-custom-pistachio hover:border-custom-light-gray hover:shadow-md dark:border-gray-600 dark:bg-gray-800"
+              for="checkbox-1"
+            >
+              <svg
+                class="h-4 w-4 text-white transition-opacity duration-200 opacity-100"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <polyline
+                  points="20,6 9,17 4,12"
+                />
+              </svg>
+            </label>
+          </div>
+          <p
+            class="mb-2 text-center text-lg font-semibold text-custom-coal dark:text-dark-text"
+          >
+            Mock Rick Sanchez
+          </p>
+        </div>
         <div
           class="relative h-full min-h-56 w-full min-w-56 overflow-hidden rounded"
         >
@@ -33,7 +64,7 @@ exports[`CharacterCard component > matches snapshot 1`] = `
         </div>
       </div>
       <div
-        class="space-y-2 rounded-b-lg bg-white py-4 text-sm"
+        class="space-y-2 rounded-b-lg bg-white py-4 text-sm dark:bg-dark-card dark:text-dark-text"
       >
         <div>
           <span
@@ -68,7 +99,7 @@ exports[`CharacterCard component > matches snapshot 1`] = `
            Alive
         </div>
       </div>
-    </article>
-  </a>
+    </a>
+  </article>
 </DocumentFragment>
 `;

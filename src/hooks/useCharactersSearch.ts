@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import type { Character, TransformedCharacter } from '@/types';
+import type { TransformedCharacter } from '@/types';
 
-import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { useSearchPage } from '@/hooks/useSearchPage';
+import { transformCharacter } from '@/hooks/helpers/transformCharacter';
+import { useSearch } from '@/hooks/useSearch';
 import { fetchCharacters } from '@/services/api';
 import { isHttpError } from '@/types/helpers';
 
@@ -24,63 +24,51 @@ interface UseCharactersReturn {
 }
 
 export const useCharactersSearch = (): UseCharactersReturn => {
-  const [searchQuery, setSearchQuery] = useLocalStorage();
-  const [searchPage, setSearchPage] = useSearchPage();
+  const { searchPage, searchQuery, setSearchPage, setSearchParams } = useSearch();
   const [characters, setCharacters] = useState<TransformedCharacter[]>([]);
   const [status, setStatus] = useState<FetchStatus>({ status: 'loading' });
   const [totalPages, setTotalPages] = useState(1);
 
-  const handleSearch = (currentSearch: string): void => {
-    setStatus({ status: 'loading' });
-    setSearchPage(1);
-    setSearchQuery(currentSearch);
-    loadCharacters(currentSearch, 1);
-  };
+  const handleSearch = useCallback(
+    (currentSearch: string): void => {
+      setStatus({ status: 'loading' });
+      setSearchParams(1, currentSearch);
+    },
+    [setSearchParams],
+  );
 
-  const handlePagination = (newPage: number): void => {
-    setStatus({ status: 'loading' });
-    setSearchPage(newPage);
-    loadCharacters(searchQuery, newPage);
-  };
+  const handlePagination = useCallback(
+    (newPage: number): void => {
+      setStatus({ status: 'loading' });
+      setSearchPage(newPage);
+    },
+    [setSearchPage],
+  );
 
-  const loadCharacters = (searchQuery: string, searchPage: number): void => {
-    fetchCharacters({ name: searchQuery, page: searchPage })
-      .then((data) => {
-        const transformed = (data.results ?? []).map((character: Character): TransformedCharacter => {
-          const { gender, id, image, name, origin, species, status } = character;
+  const loadCharacters = useCallback(async (query: string, page: number): Promise<void> => {
+    try {
+      setStatus({ status: 'loading' });
+      const data = await fetchCharacters({ name: query, page });
 
-          const info = [
-            { label: 'Gender', value: gender },
-            { label: 'Origin', value: origin.name },
-            { label: 'Species', value: species },
-            { label: 'Status', value: status },
-          ] as const;
+      const transformed = (data.results ?? []).map((c) => transformCharacter(c));
 
-          return { gender, id: String(id), image, info, name, origin: origin.name, species, status };
-        });
-
-        setCharacters(transformed);
-        setTotalPages(data.info?.pages ?? 1);
-      })
-      .catch((error: unknown) => {
-        if (isHttpError(error) && error.status === NOT_FOUND_ERROR_CODE) {
-          setCharacters([]);
-          setTotalPages(1);
-        } else {
-          throw error;
-        }
-      })
-      .then(() => {
+      setCharacters(transformed);
+      setTotalPages(data.info?.pages ?? 1);
+      setStatus({ status: 'ready' });
+    } catch (error: unknown) {
+      if (isHttpError(error) && error.status === NOT_FOUND_ERROR_CODE) {
+        setCharacters([]);
+        setTotalPages(1);
         setStatus({ status: 'ready' });
-      })
-      .catch(() => {
+      } else {
         setStatus({ status: 'error' });
-      });
-  };
+      }
+    }
+  }, []);
 
   useEffect(() => {
     loadCharacters(searchQuery, searchPage);
-  }, [searchQuery, searchPage]);
+  }, [loadCharacters, searchQuery, searchPage]);
 
   return { characters, handlePagination, handleSearch, searchPage, searchQuery, status, totalPages };
 };

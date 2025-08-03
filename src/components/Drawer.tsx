@@ -36,12 +36,12 @@ const Drawer: React.FC<DrawerProps> = ({ children, handleCloseDrawer, isDrawerOp
       ref={dialogReference}
     >
       <div
-        className="fixed top-0 right-0 h-full w-3/4 bg-white shadow-lg transition-transform duration-300 sm:w-1/2 md:w-1/3"
+        className="fixed top-0 right-0 h-full w-3/4 bg-white shadow-lg transition-transform duration-300 sm:w-1/2 md:w-1/3 dark:bg-dark-card"
         onClick={stopPropagation}
       >
         <button
           aria-label="Close drawer"
-          className="absolute top-4 right-4 z-50 text-2xl text-gray-500 hover:cursor-pointer hover:text-gray-700 focus:outline-none"
+          className="absolute top-4 right-4 z-50 text-2xl text-gray-500 hover:cursor-pointer hover:text-gray-700 focus:outline-none dark:text-gray-400 dark:hover:text-gray-200"
           onClick={handleCloseDrawer}
         >
           &times;

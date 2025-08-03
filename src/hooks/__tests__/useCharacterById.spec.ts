@@ -6,6 +6,7 @@ import type { Character, HttpError, TransformedCharacter } from '@/types';
 
 import { mockCharacters } from '@/__mocks__/mockCharacters';
 import { mockTransformedCharacters } from '@/__mocks__/mockTransformedCharacters';
+import { transformCharacter } from '@/hooks/helpers/transformCharacter';
 import { useCharacterById } from '@/hooks/useCharacterById';
 import { fetchCharacterById } from '@/services/api';
 import { isHttpError } from '@/types/helpers';
@@ -13,6 +14,7 @@ import { isHttpError } from '@/types/helpers';
 vi.mock('react-router');
 vi.mock('@/services/api');
 vi.mock('@/types/helpers');
+vi.mock('@/hooks/helpers/transformCharacter');
 
 const mockCharacter: Character = mockCharacters[0];
 
@@ -29,6 +31,7 @@ describe('useCharacterById', () => {
     mockUseParams = vi.mocked(useParams).mockReturnValue({ id: '1' });
     mockFetchCharacterById = vi.mocked(fetchCharacterById);
     mockIsHttpError = vi.mocked(isHttpError);
+    vi.mocked(transformCharacter).mockReturnValue(mockTransformedCharacter);
   });
 
   it('should return initial state', () => {
@@ -37,8 +40,7 @@ describe('useCharacterById', () => {
 
     expect(result.current).toEqual({
       character: null,
-      error: null,
-      setStatus: expect.any(Function) as (status: 'error' | 'loading' | 'ready') => void,
+      setStatus: expect.any(Function) as (status: { status: 'error' | 'loading' | 'ready' }) => void,
       status: { status: 'loading' },
     });
   });
@@ -53,7 +55,6 @@ describe('useCharacterById', () => {
     });
 
     expect(result.current.character).toEqual(mockTransformedCharacter);
-    expect(result.current.error).toBeNull();
   });
 
   it('should handle 404 error by setting status to ready', async () => {
@@ -69,7 +70,6 @@ describe('useCharacterById', () => {
     });
 
     expect(result.current.character).toBeNull();
-    expect(result.current.error).toBeNull();
   });
 
   it('should handle other errors by setting error state', async () => {
@@ -84,7 +84,6 @@ describe('useCharacterById', () => {
     });
 
     expect(result.current.character).toBeNull();
-    expect(result.current.error).toBe('Server error');
   });
 
   it('should not fetch when id is not provided', async () => {

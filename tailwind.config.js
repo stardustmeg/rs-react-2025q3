@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 const config = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -17,6 +18,12 @@ const config = {
         'custom-pink': '#e89ac7',
         'custom-dark-night': '#0f091e',
         'custom-red': '#ec0000',
+
+        'dark-bg': '#1a1a1a',
+        'dark-card': '#2d2d2d',
+        'dark-border': '#404040',
+        'dark-text': '#e5e5e5',
+        'dark-header': '#1f2937',
       },
     },
   },

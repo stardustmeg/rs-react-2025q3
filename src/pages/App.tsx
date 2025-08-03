@@ -6,14 +6,23 @@ import ErrorFallback from '@/components/ErrorFallback';
 import Header from '@/components/Header';
 import Loader from '@/components/Loader/Loader';
 import Pagination from '@/components/Pagination';
+import SelectedCharactersPanel from '@/components/SelectedCharactersPanel';
 import { useCharactersSearch } from '@/hooks/useCharactersSearch';
+import useStore from '@/store';
+import { cn } from '@/utils';
 
 const App: React.FC = () => {
   const { characters, handlePagination, handleSearch, searchPage, searchQuery, status, totalPages } =
     useCharactersSearch();
 
+  const { selectedCharacters } = useStore();
+
   return (
-    <div className="w-full p-10">
+    <div
+      className={cn('mt-10 w-full bg-custom-pistachio p-5 transition-colors duration-300 md:mt-0 dark:bg-dark-bg', {
+        'mb-10': !!selectedCharacters.length,
+      })}
+    >
       <Header handleSearch={handleSearch} initialSearchQuery={searchQuery} />
       {status.status === 'ready' ? (
         <>
@@ -27,6 +36,8 @@ const App: React.FC = () => {
         <ErrorFallback />
       )}
       <Outlet />
+
+      {!!selectedCharacters.length && <SelectedCharactersPanel selectedCharacters={selectedCharacters} />}
     </div>
   );
 };
