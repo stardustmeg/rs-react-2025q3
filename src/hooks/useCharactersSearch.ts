@@ -24,7 +24,7 @@ interface UseCharactersReturn {
 }
 
 export const useCharactersSearch = (): UseCharactersReturn => {
-  const { searchPage, searchQuery, setSearchPage, setSearchQuery } = useSearch();
+  const { searchPage, searchQuery, setSearchPage, setSearchParams } = useSearch();
   const [characters, setCharacters] = useState<TransformedCharacter[]>([]);
   const [status, setStatus] = useState<FetchStatus>({ status: 'loading' });
   const [totalPages, setTotalPages] = useState(1);
@@ -32,9 +32,9 @@ export const useCharactersSearch = (): UseCharactersReturn => {
   const handleSearch = useCallback(
     (currentSearch: string): void => {
       setStatus({ status: 'loading' });
-      setSearchQuery(currentSearch);
+      setSearchParams(1, currentSearch);
     },
-    [setSearchQuery],
+    [setSearchParams],
   );
 
   const handlePagination = useCallback(
