@@ -15,7 +15,7 @@ const CharacterDetailedInfoPage: React.FC = () => {
 
   const isDrawerOpen = useMemo(() => !!id, [id]);
 
-  const { character, status } = useCharacterById();
+  const { character, refetch, status } = useCharacterById();
 
   const handleCloseDrawer = (): void => {
     navigate(`/?${searchParams}`);
@@ -37,6 +37,17 @@ const CharacterDetailedInfoPage: React.FC = () => {
 
   return (
     <Drawer data-testid="character-details" handleCloseDrawer={handleCloseDrawer} isDrawerOpen={isDrawerOpen}>
+      <div className="mb-4 flex justify-start">
+        <button
+          aria-label="Refresh character"
+          className="button rounded bg-custom-green px-3 py-2 text-custom-coal shadow-sm dark:bg-custom-green dark:text-white"
+          data-testid="refresh-character-button"
+          onClick={refetch}
+          type="button"
+        >
+          Refresh
+        </button>
+      </div>
       {renderContent()}
     </Drawer>
   );

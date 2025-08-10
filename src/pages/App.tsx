@@ -12,7 +12,7 @@ import useStore from '@/store';
 import { cn } from '@/utils';
 
 const App: React.FC = () => {
-  const { characters, handlePagination, handleSearch, searchPage, searchQuery, status, totalPages } =
+  const { characters, handlePagination, handleSearch, refresh, searchPage, searchQuery, status, totalPages } =
     useCharactersSearch();
 
   const { selectedCharacters } = useStore();
@@ -23,7 +23,7 @@ const App: React.FC = () => {
         'mb-10': !!selectedCharacters.length,
       })}
     >
-      <Header handleSearch={handleSearch} initialSearchQuery={searchQuery} />
+      <Header handleSearch={handleSearch} initialSearchQuery={searchQuery} onRefresh={refresh} />
       {status.status === 'ready' ? (
         <>
           <Pagination currentPage={searchPage} onPageChange={handlePagination} totalPages={totalPages} />

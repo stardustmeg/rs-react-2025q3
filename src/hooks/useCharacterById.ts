@@ -1,10 +1,8 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 
-import type { Character, TransformedCharacter } from '@/types';
+import type { TransformedCharacter } from '@/types';
 
-import { transformCharacter } from '@/hooks/helpers/transformCharacter';
-import { fetchCharacterById } from '@/services/api';
+import { useCharacterQuery } from '@/hooks/queries/useCharacterQuery';
 import { isHttpError } from '@/types/helpers';
 
 const NOT_FOUND_ERROR_CODE = 404;
@@ -15,42 +13,29 @@ interface FetchStatus {
 
 interface UseCharacterByIdReturn {
   character: null | TransformedCharacter;
-  setStatus: (status: FetchStatus) => void;
+  refetch: () => void;
   status: FetchStatus;
 }
 
 export const useCharacterById = (): UseCharacterByIdReturn => {
   const { id } = useParams<{ id: string }>();
 
-  const [character, setCharacter] = useState<null | TransformedCharacter>(null);
-  const [status, setStatus] = useState<FetchStatus>({ status: 'loading' });
+  const { character, error, isError, isLoading, refetch } = useCharacterQuery(id ?? '');
 
-  const loadCharacter = (characterId: string): void => {
-    setStatus({ status: 'loading' });
-    setCharacter(null);
-
-    fetchCharacterById(characterId)
-      .then((character: Character) => {
-        const transformed = transformCharacter(character);
-
-        setCharacter(transformed);
-        setStatus({ status: 'ready' });
-      })
-      .catch((error: unknown) => {
-        if (isHttpError(error) && error.status === NOT_FOUND_ERROR_CODE) {
-          setCharacter(null);
-          setStatus({ status: 'ready' });
-        } else {
-          setStatus({ status: 'error' });
-        }
-      });
-  };
-
-  useEffect(() => {
-    if (id) {
-      loadCharacter(id);
+  const status: FetchStatus = ((): FetchStatus => {
+    if (isLoading) {
+      return { status: 'loading' };
     }
-  }, [id]);
+    if (isError) {
+      if (isHttpError(error) && error.status === NOT_FOUND_ERROR_CODE) {
+        return { status: 'ready' };
+      }
+      return { status: 'error' };
+    }
+    return { status: 'ready' };
+  })();
 
-  return { character, setStatus, status };
+  const finalCharacter = isError && isHttpError(error) && error.status === NOT_FOUND_ERROR_CODE ? null : character;
+
+  return { character: finalCharacter, refetch, status };
 };

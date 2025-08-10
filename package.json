@@ -20,6 +20,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.84.1",
     "modern-normalize": "^3.0.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

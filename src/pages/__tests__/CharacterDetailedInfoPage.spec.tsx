@@ -4,6 +4,7 @@ import { afterEach, beforeAll, describe, expect, it, type Mock, vi } from 'vites
 
 import { useCharacterById } from '@/hooks/useCharacterById';
 import CharacterDetailedInfoPage from '@/pages/CharacterDetailedInfoPage';
+import { QueryProvider } from '@/providers/QueryProvider';
 
 vi.mock('react-router', async () => {
   const actual = await vi.importActual('react-router');
@@ -48,7 +49,11 @@ describe('CharacterDetailedInfo component', () => {
     (useNavigate as Mock).mockReturnValue(vi.fn());
     (useCharacterById as Mock).mockReturnValue({ character: null, status: { status: 'loading' } });
 
-    render(<CharacterDetailedInfoPage />);
+    render(
+      <QueryProvider>
+        <CharacterDetailedInfoPage />
+      </QueryProvider>,
+    );
     expect(screen.getByTestId('loader-spinner')).toBeInTheDocument();
   });
 
@@ -61,7 +66,11 @@ describe('CharacterDetailedInfo component', () => {
       status: { status: 'ready' },
     });
 
-    render(<CharacterDetailedInfoPage />);
+    render(
+      <QueryProvider>
+        <CharacterDetailedInfoPage />
+      </QueryProvider>,
+    );
     expect(screen.getByText(/rick sanchez/i)).toBeInTheDocument();
   });
 
@@ -71,7 +80,11 @@ describe('CharacterDetailedInfo component', () => {
     (useNavigate as Mock).mockReturnValue(vi.fn());
     (useCharacterById as Mock).mockReturnValue({ character: null, status: { status: 'ready' } });
 
-    render(<CharacterDetailedInfoPage />);
+    render(
+      <QueryProvider>
+        <CharacterDetailedInfoPage />
+      </QueryProvider>,
+    );
     expect(screen.getByText(/nothing was found/i)).toBeInTheDocument();
   });
 
@@ -81,7 +94,11 @@ describe('CharacterDetailedInfo component', () => {
     (useNavigate as Mock).mockReturnValue(vi.fn());
     (useCharacterById as Mock).mockReturnValue({ character: null, status: { status: 'error' } });
 
-    render(<CharacterDetailedInfoPage />);
+    render(
+      <QueryProvider>
+        <CharacterDetailedInfoPage />
+      </QueryProvider>,
+    );
     expect(screen.getByText(/something went wrong/i)).toBeInTheDocument();
   });
 
@@ -92,7 +109,11 @@ describe('CharacterDetailedInfo component', () => {
     (useNavigate as Mock).mockReturnValue(mockNavigate);
     (useCharacterById as Mock).mockReturnValue({ character: null, status: { status: 'ready' } });
 
-    render(<CharacterDetailedInfoPage />);
+    render(
+      <QueryProvider>
+        <CharacterDetailedInfoPage />
+      </QueryProvider>,
+    );
     fireEvent.click(screen.getByTestId('drawer-panel'));
     expect(mockNavigate).toHaveBeenCalledWith('/?q=test');
   });

@@ -1,10 +1,12 @@
-import { act, renderHook, waitFor } from '@testing-library/react';
+import { act, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest';
 
 import type { Character, Info } from '@/types';
 
 import { mockCharacters } from '@/__mocks__/mockCharacters';
+import { renderHookWithQuery } from '@/__tests__/utils';
 import { transformCharacter } from '@/hooks/helpers/transformCharacter';
+import * as queryHook from '@/hooks/queries/useCharactersQuery';
 import { useCharactersSearch } from '@/hooks/useCharactersSearch';
 import { useSearch } from '@/hooks/useSearch';
 import { fetchCharacters } from '@/services/api';
@@ -64,12 +66,13 @@ describe('useCharactersSearch', () => {
   });
 
   it('should return initial state', () => {
-    const { result } = renderHook(() => useCharactersSearch());
+    const { result } = renderHookWithQuery(() => useCharactersSearch());
 
     expect(result.current).toEqual({
       characters: [],
       handlePagination: expect.any(Function) as (...arguments_: unknown[]) => void,
       handleSearch: expect.any(Function) as (...arguments_: unknown[]) => void,
+      refresh: expect.any(Function) as (...arguments_: unknown[]) => void,
       searchPage: 1,
       searchQuery: '',
       status: { status: 'loading' },
@@ -78,7 +81,7 @@ describe('useCharactersSearch', () => {
   });
 
   it('should fetch characters on mount', async () => {
-    renderHook(() => useCharactersSearch());
+    renderHookWithQuery(() => useCharactersSearch());
 
     await waitFor(() => {
       expect(mockFetchCharacters).toHaveBeenCalledWith({ name: '', page: 1 });
@@ -86,7 +89,7 @@ describe('useCharactersSearch', () => {
   });
 
   it('should transform characters data correctly', async () => {
-    const { result } = renderHook(() => useCharactersSearch());
+    const { result } = renderHookWithQuery(() => useCharactersSearch());
 
     await waitFor(() => {
       expect(mockTransformCharacter).toHaveBeenCalledWith(mockCharacters[0]);
@@ -96,7 +99,7 @@ describe('useCharactersSearch', () => {
   });
 
   it('should handle search', () => {
-    const { result } = renderHook(() => useCharactersSearch());
+    const { result } = renderHookWithQuery(() => useCharactersSearch());
 
     act(() => {
       result.current.handleSearch('Rick');
@@ -107,7 +110,7 @@ describe('useCharactersSearch', () => {
   });
 
   it('should handle pagination', () => {
-    const { result } = renderHook(() => useCharactersSearch());
+    const { result } = renderHookWithQuery(() => useCharactersSearch());
 
     act(() => {
       result.current.handlePagination(2);
@@ -122,7 +125,7 @@ describe('useCharactersSearch', () => {
     mockFetchCharacters.mockRejectedValue(error);
     mockIsHttpError.mockReturnValue(false);
 
-    const { result } = renderHook(() => useCharactersSearch());
+    const { result } = renderHookWithQuery(() => useCharactersSearch());
 
     await waitFor(() => {
       expect(result.current.status.status).toBe('error');
@@ -135,7 +138,7 @@ describe('useCharactersSearch', () => {
       results: mockCharacters,
     });
 
-    const { result } = renderHook(() => useCharactersSearch());
+    const { result } = renderHookWithQuery(() => useCharactersSearch());
 
     await waitFor(() => {
       expect(result.current.totalPages).toBe(5);
@@ -151,9 +154,29 @@ describe('useCharactersSearch', () => {
       setSearchQuery: mockSetSearchQuery,
     });
 
-    const { result } = renderHook(() => useCharactersSearch());
+    const { result } = renderHookWithQuery(() => useCharactersSearch());
 
     expect(result.current.searchQuery).toBe('initial');
     expect(result.current.searchPage).toBe(3);
+  });
+
+  it('should expose refresh that calls underlying refetch', () => {
+    const refetchMock = vi.fn();
+    vi.spyOn(queryHook, 'useCharactersQuery').mockReturnValue({
+      characters: [],
+      error: null,
+      isError: false,
+      isLoading: false,
+      refetch: refetchMock,
+      totalPages: 1,
+    });
+
+    const { result } = renderHookWithQuery(() => useCharactersSearch());
+
+    act(() => {
+      result.current.refresh();
+    });
+
+    expect(refetchMock).toHaveBeenCalledTimes(1);
   });
 });

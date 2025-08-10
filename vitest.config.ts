@@ -9,7 +9,7 @@ export default defineConfig({
     exclude: ['node_modules', 'dist', '**/e2e/**'],
     globals: true,
     environment: 'jsdom',
-    setupFiles: ['./src/__tests__/setupTests.ts'],
+    setupFiles: ['./src/__tests__/setupTests.tsx'],
     maxConcurrency: 8,
     coverage: {
       provider: 'v8',
