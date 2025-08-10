@@ -1,4 +1,5 @@
-import React from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import React, { useCallback } from 'react';
 import { Outlet } from 'react-router';
 
 import CardList from '@/components/CardList';
@@ -7,15 +8,26 @@ import Header from '@/components/Header';
 import Loader from '@/components/Loader/Loader';
 import Pagination from '@/components/Pagination';
 import SelectedCharactersPanel from '@/components/SelectedCharactersPanel';
+import { queryKeys } from '@/hooks/queries';
 import { useCharactersSearch } from '@/hooks/useCharactersSearch';
 import useStore from '@/store';
 import { cn } from '@/utils';
 
 const App: React.FC = () => {
-  const { characters, handlePagination, handleSearch, searchPage, searchQuery, status, totalPages } =
+  const { characters, handlePagination, handleSearch, refresh, searchPage, searchQuery, status, totalPages } =
     useCharactersSearch();
 
   const { selectedCharacters } = useStore();
+  const queryClient = useQueryClient();
+
+  const handleRefresh = useCallback(() => {
+    refresh();
+    void queryClient.invalidateQueries({
+      exact: true,
+      queryKey: queryKeys.characters.list({ name: searchQuery, page: searchPage }),
+      refetchType: 'active',
+    });
+  }, [queryClient, refresh, searchPage, searchQuery]);
 
   return (
     <div
@@ -23,7 +35,7 @@ const App: React.FC = () => {
         'mb-10': !!selectedCharacters.length,
       })}
     >
-      <Header handleSearch={handleSearch} initialSearchQuery={searchQuery} />
+      <Header handleSearch={handleSearch} initialSearchQuery={searchQuery} onRefresh={handleRefresh} />
       {status.status === 'ready' ? (
         <>
           <Pagination currentPage={searchPage} onPageChange={handlePagination} totalPages={totalPages} />

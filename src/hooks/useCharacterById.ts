@@ -13,13 +13,14 @@ interface FetchStatus {
 
 interface UseCharacterByIdReturn {
   character: null | TransformedCharacter;
+  refetch: () => void;
   status: FetchStatus;
 }
 
 export const useCharacterById = (): UseCharacterByIdReturn => {
   const { id } = useParams<{ id: string }>();
 
-  const { character, error, isError, isLoading } = useCharacterQuery(id ?? '');
+  const { character, error, isError, isLoading, refetch } = useCharacterQuery(id ?? '');
 
   const status: FetchStatus = ((): FetchStatus => {
     if (isLoading) {
@@ -36,5 +37,5 @@ export const useCharacterById = (): UseCharacterByIdReturn => {
 
   const finalCharacter = isError && isHttpError(error) && error.status === NOT_FOUND_ERROR_CODE ? null : character;
 
-  return { character: finalCharacter, status };
+  return { character: finalCharacter, refetch, status };
 };
