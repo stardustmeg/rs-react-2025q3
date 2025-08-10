@@ -65,4 +65,12 @@ describe('Header component', () => {
     const { asFragment } = renderWithProviders(<Header handleSearch={noop} initialSearchQuery="" />);
     expect(asFragment()).toMatchSnapshot();
   });
+
+  it('renders refresh button when onRefresh provided and calls it on click', () => {
+    const onRefresh = vi.fn();
+    renderWithProviders(<Header handleSearch={noop} initialSearchQuery="" onRefresh={onRefresh} />);
+    const button = screen.getByTestId('refresh-button');
+    fireEvent.click(button);
+    expect(onRefresh).toHaveBeenCalledTimes(1);
+  });
 });

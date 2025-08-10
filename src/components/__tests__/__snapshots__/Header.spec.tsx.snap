@@ -133,7 +133,7 @@ exports[`Header component > matches snapshot 1`] = `
         />
       </div>
       <div
-        class="hidden md:order-3 md:flex"
+        class="hidden items-center gap-2 md:order-3 md:flex"
       >
         <div
           class="sc-bRKDuR fmZuiX"

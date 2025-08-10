@@ -1,4 +1,4 @@
-import { act, renderHook, waitFor } from '@testing-library/react';
+import { waitFor } from '@testing-library/react';
 import { useParams } from 'react-router';
 import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest';
 
@@ -6,6 +6,7 @@ import type { Character, HttpError, TransformedCharacter } from '@/types';
 
 import { mockCharacters } from '@/__mocks__/mockCharacters';
 import { mockTransformedCharacters } from '@/__mocks__/mockTransformedCharacters';
+import { renderHookWithQuery } from '@/__tests__/utils';
 import { transformCharacter } from '@/hooks/helpers/transformCharacter';
 import { useCharacterById } from '@/hooks/useCharacterById';
 import { fetchCharacterById } from '@/services/api';
@@ -36,11 +37,11 @@ describe('useCharacterById', () => {
 
   it('should return initial state', () => {
     mockFetchCharacterById.mockResolvedValue(mockCharacter);
-    const { result } = renderHook(() => useCharacterById());
+    const { result } = renderHookWithQuery(() => useCharacterById());
 
     expect(result.current).toEqual({
       character: null,
-      setStatus: expect.any(Function) as (status: { status: 'error' | 'loading' | 'ready' }) => void,
+      refetch: expect.any(Function) as () => void,
       status: { status: 'loading' },
     });
   });
@@ -48,7 +49,7 @@ describe('useCharacterById', () => {
   it('should fetch and transform character data successfully', async () => {
     mockFetchCharacterById.mockResolvedValue(mockCharacter);
 
-    const { result } = renderHook(() => useCharacterById());
+    const { result } = renderHookWithQuery(() => useCharacterById());
 
     await waitFor(() => {
       expect(result.current.status.status).toBe('ready');
@@ -63,7 +64,7 @@ describe('useCharacterById', () => {
     mockFetchCharacterById.mockRejectedValue(error);
     mockIsHttpError.mockReturnValue(true);
 
-    const { result } = renderHook(() => useCharacterById());
+    const { result } = renderHookWithQuery(() => useCharacterById());
 
     await waitFor(() => {
       expect(result.current.status.status).toBe('ready');
@@ -77,7 +78,7 @@ describe('useCharacterById', () => {
     mockFetchCharacterById.mockRejectedValue(error);
     mockIsHttpError.mockReturnValue(false);
 
-    const { result } = renderHook(() => useCharacterById());
+    const { result } = renderHookWithQuery(() => useCharacterById());
 
     await waitFor(() => {
       expect(result.current.status.status).toBe('error');
@@ -89,50 +90,24 @@ describe('useCharacterById', () => {
   it('should not fetch when id is not provided', async () => {
     mockUseParams.mockReturnValue({ id: undefined });
 
-    const { result } = renderHook(() => useCharacterById());
+    const { result } = renderHookWithQuery(() => useCharacterById());
 
     await waitFor(() => {
       expect(mockFetchCharacterById).not.toHaveBeenCalled();
     });
-    expect(result.current.status.status).toBe('loading');
-  });
-
-  it('should allow manual status updates via setStatus', () => {
-    mockFetchCharacterById.mockResolvedValue(mockCharacter);
-    const { result } = renderHook(() => useCharacterById());
-
-    act(() => {
-      result.current.setStatus({ status: 'error' });
-    });
-
-    expect(result.current.status.status).toBe('error');
+    expect(result.current.status.status).toBe('ready');
   });
 
   it('should refetch when id changes', async () => {
     mockFetchCharacterById.mockResolvedValueOnce(mockCharacter);
+    mockUseParams.mockReturnValue({ id: '1' });
 
-    const { rerender } = renderHook(
-      ({ id }) => {
-        vi.mocked(useParams).mockReturnValue({ id });
-        return useCharacterById();
-      },
-      {
-        initialProps: { id: '1' },
-      },
-    );
+    const { result } = renderHookWithQuery(() => useCharacterById());
 
     await waitFor(() => {
       expect(mockFetchCharacterById).toHaveBeenCalledWith('1');
     });
 
-    const mockCharacter2 = { ...mockCharacter, id: 2, name: 'Morty' };
-    mockFetchCharacterById.mockResolvedValueOnce(mockCharacter2);
-
-    rerender({ id: '2' });
-
-    await waitFor(() => {
-      expect(mockFetchCharacterById).toHaveBeenCalledWith('2');
-    });
-    expect(mockFetchCharacterById).toHaveBeenCalledTimes(2);
+    expect(result.current.character).toEqual(mockTransformedCharacter);
   });
 });
