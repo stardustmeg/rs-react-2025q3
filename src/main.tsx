@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 
 import '@/styles/main.css';
+import { QueryProvider } from '@/providers/QueryProvider';
 import { Router } from '@/router/Router';
 
 const ERROR_MESSAGE = 'Root element not found';
@@ -13,6 +14,8 @@ if (!rootElement) {
 
 ReactDOM.createRoot(rootElement).render(
   <StrictMode>
-    <Router />
+    <QueryProvider>
+      <Router />
+    </QueryProvider>
   </StrictMode>,
 );
