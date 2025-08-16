@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@config "../../tailwind.config.js";
+@config '../tailwind.config.js';
 
 @utility button {
   transition:
@@ -25,12 +25,17 @@
 body {
   display: flex;
   place-items: center;
+  place-content: center;
+
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
   scrollbar-gutter: stable;
-  padding-right: 13px;
   box-sizing: border-box;
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 #root {
