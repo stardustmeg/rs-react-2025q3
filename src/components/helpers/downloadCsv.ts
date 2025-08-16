@@ -1,4 +1,4 @@
-import type { TransformedCharacter } from '@/types';
+import type { TransformedCharacter } from '@/types/index';
 
 const convertToCSV = (characters: TransformedCharacter[]): string => {
   const headers = ['ID', 'Name', 'Status', 'Species', 'Gender', 'Origin'];

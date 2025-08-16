@@ -1,4 +1,4 @@
-import type { Character, TransformedCharacter } from '@/types';
+import type { Character, TransformedCharacter } from '@/types/index';
 
 export const transformCharacter = (character: Character): TransformedCharacter => {
   const { gender, id, image, name, origin, species, status } = character;
