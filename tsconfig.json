@@ -5,26 +5,20 @@
     "allowJs": true,
     "module": "ESNext",
     "skipLibCheck": true,
-
     /* Bundler mode */
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "importHelpers": true,
     "moduleDetection": "force",
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "noEmit": true,
     "isolatedModules": true,
+    "noEmit": true,
     "jsx": "preserve",
     "incremental": true,
-
     "plugins": [
       {
         "name": "next"
       }
     ],
-
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
@@ -39,7 +33,6 @@
       "@/types/*": ["./src/types/*"],
       "@/utils/*": ["./src/utils/*"]
     },
-
     /* Linting */
     "strict": true,
     "forceConsistentCasingInFileNames": true,
