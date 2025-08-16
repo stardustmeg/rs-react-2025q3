@@ -43,11 +43,6 @@ export interface TransformedCharacter {
   status: string;
 }
 
-export interface TransformedCharacterInfo {
-  label: string;
-  value: string;
-}
-
 type CharacterGender = 'Female' | 'Genderless' | 'Male' | 'unknown';
 
 interface CharacterLocation {
@@ -62,4 +57,9 @@ interface ResourceBase {
   id: number;
   name: string;
   url: string;
+}
+
+interface TransformedCharacterInfo {
+  label: string;
+  value: string;
 }

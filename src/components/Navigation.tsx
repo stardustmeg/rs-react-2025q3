@@ -1,13 +1,27 @@
-import type React from 'react';
+'use client';
 
-import { Link } from 'react-router';
+import { useTranslations } from 'next-intl';
 
-const Header: React.FC = () => (
-  <nav className="flex space-x-4">
-    <Link className="text-white transition hover:text-white/80 dark:text-gray-200 dark:hover:text-white" to="about">
-      About
-    </Link>
-  </nav>
-);
+import { Link } from '@/i18n/routing';
 
-export default Header;
+const Navigation: React.FC = () => {
+  const t = useTranslations('nav');
+
+  return (
+    <nav className="flex items-center gap-2">
+      <div className="flex space-x-4">
+        <Link className="text-white transition hover:text-white/80 dark:text-gray-200 dark:hover:text-white" href="/">
+          {t('home')}
+        </Link>
+        <Link
+          className="text-white transition hover:text-white/80 dark:text-gray-200 dark:hover:text-white"
+          href="/about"
+        >
+          {t('about')}
+        </Link>
+      </div>
+    </nav>
+  );
+};
+
+export default Navigation;
