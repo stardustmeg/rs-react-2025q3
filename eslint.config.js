@@ -2,7 +2,6 @@ import globals from 'globals';
 import reactHooks from 'eslint-plugin-react-hooks';
 import react from 'eslint-plugin-react';
 import tseslint from 'typescript-eslint';
-import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 import perfectionist from 'eslint-plugin-perfectionist';
 import eslintPluginImport from 'eslint-plugin-import';
 import eslint from '@eslint/js';
@@ -32,7 +31,7 @@ export default tseslint.config(
       ...tseslint.configs.stylisticTypeChecked,
       ...tseslint.configs.strictTypeChecked,
       unicorn.configs.recommended,
-      eslintConfigPrettier,
+      eslintConfigPrettier
     ],
     languageOptions: { ecmaVersion: 'latest', globals: globals.browser },
     plugins: {
@@ -48,6 +47,7 @@ export default tseslint.config(
       ...react.configs['jsx-runtime'].rules,
       ...eslintPluginNext.configs.recommended.rules,
       ...eslintPluginNext.configs['core-web-vitals'].rules,
+      ...eslintConfigPrettier.rules,
       ...myEslintRules,
     },
     settings: { react: { version: 'detect' }, 'import/resolver': { typescript: { project: './tsconfig.json' } } },
