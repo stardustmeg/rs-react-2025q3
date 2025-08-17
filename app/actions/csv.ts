@@ -1,8 +1,8 @@
 'use server';
 
-import type { TransformedCharacter } from '@/types/index';
+import type { Character } from '@/types/index';
 
-export async function downloadCSVAction(characters: TransformedCharacter[]): Promise<{
+export async function downloadCSVAction(characters: Character[]): Promise<{
   csv: string;
   filename: string;
   mimeType: string;
@@ -13,9 +13,9 @@ export async function downloadCSVAction(characters: TransformedCharacter[]): Pro
   return { csv, filename, mimeType: 'text/csv;charset=utf-8;' };
 }
 
-export async function generateCSV(characters: TransformedCharacter[]): Promise<string> {
+export async function generateCSV(characters: Character[]): Promise<string> {
   const headers = ['ID', 'Name', 'Status', 'Species', 'Gender', 'Origin'];
-  const rows = characters.map((char) => [char.id, char.name, char.status, char.species, char.gender, char.origin]);
+  const rows = characters.map((char) => [char.id, char.name, char.status, char.species, char.gender, char.origin.name]);
 
   const csvContent = [headers.join(','), ...rows.map((row) => row.map((field) => `"${field}"`).join(','))].join('\n');
 

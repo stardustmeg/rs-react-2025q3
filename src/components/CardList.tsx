@@ -1,12 +1,12 @@
-import type { TransformedCharacter } from '@/types/index';
+import type { Character } from '@/types/index';
 
 import CharacterCard from '@/components/CharacterCard';
 import NoResultsFound from '@/components/NoResultsFound';
 
 interface CardListProps {
-  characters: TransformedCharacter[];
-  isCharacterSelected: (character: TransformedCharacter) => boolean;
-  onToggleCharacter: (character: TransformedCharacter) => void;
+  characters: Character[];
+  isCharacterSelected: (character: Character) => boolean;
+  onToggleCharacter: (character: Character) => void;
   priorityCount?: number;
 }
 

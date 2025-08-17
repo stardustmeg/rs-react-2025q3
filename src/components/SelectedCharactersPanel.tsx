@@ -3,13 +3,13 @@
 import { useTranslations } from 'next-intl';
 import React from 'react';
 
-import type { TransformedCharacter } from '@/types/index';
+import type { Character } from '@/types/index';
 
 import { downloadCSVAction } from '@/app/actions/csv';
 
 interface SelectedCharactersPanelProps {
   onClearSelected: () => void;
-  selectedCharacters: TransformedCharacter[];
+  selectedCharacters: Character[];
 }
 
 const SelectedCharactersPanel: React.FC<SelectedCharactersPanelProps> = ({ onClearSelected, selectedCharacters }) => {

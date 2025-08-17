@@ -1,24 +1,34 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import React from 'react';
 
-import type { TransformedCharacter } from '@/types/index';
+import type { Character } from '@/types/index';
 
 import CharacterImage from '@/components/CharacterImage';
 import { Link } from '@/i18n/routing';
 import { stopPropagation } from '@/utils/index';
 
 interface CharacterCardProps {
-  character: TransformedCharacter;
+  character: Character;
   isSelected: boolean;
   onToggle: () => void;
   priority?: boolean;
 }
 
 const CharacterCard: React.FC<CharacterCardProps> = ({ character, isSelected, onToggle, priority = false }) => {
-  const { id, image, info, name } = character;
+  const t = useTranslations('character');
+  const { gender, id, image, name, origin, species, status } = character;
+
   const searchParams = useSearchParams();
+
+  const info = [
+    { label: t('gender'), value: gender },
+    { label: t('origin'), value: origin.name },
+    { label: t('species'), value: species },
+    { label: t('status'), value: status },
+  ];
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     stopPropagation(event);

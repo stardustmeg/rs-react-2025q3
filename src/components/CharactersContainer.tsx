@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import useSWR from 'swr';
 
-import type { TransformedCharacter } from '@/types/index';
+import type { Character } from '@/types/index';
 
 import CardList from '@/components/CardList';
 import ErrorFallback from '@/components/ErrorFallback';
@@ -12,7 +12,6 @@ import Loader from '@/components/Loader/Loader';
 import NoResultsFound from '@/components/NoResultsFound';
 import Pagination from '@/components/Pagination';
 import SelectedCharactersPanel from '@/components/SelectedCharactersPanel';
-import { transformCharacter } from '@/hooks/helpers/transformCharacter';
 import { usePathname, useRouter } from '@/i18n/routing';
 import { fetchCharacters } from '@/services/api';
 import { isHttpError } from '@/types/helpers';
@@ -33,7 +32,7 @@ const CharactersContainer: React.FC<CharactersContainerProps> = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [selectedCharacters, setSelectedCharacters] = useState<TransformedCharacter[]>([]);
+  const [selectedCharacters, setSelectedCharacters] = useState<Character[]>([]);
 
   const searchQuery = searchParams.get('search') ?? initialSearch;
   const currentPage = Number.parseInt(searchParams.get('page') ?? initialPage.toString(), 10);
@@ -47,7 +46,7 @@ const CharactersContainer: React.FC<CharactersContainerProps> = ({
     },
   );
 
-  const characters = data?.results?.map(transformCharacter) ?? [];
+  const characters = data?.results ?? [];
   const totalPages = data?.info?.pages ?? 1;
 
   const handlePagination = useCallback(
@@ -60,7 +59,7 @@ const CharactersContainer: React.FC<CharactersContainerProps> = ({
     [router, pathname, searchParams],
   );
 
-  const toggleSelectedCharacter = useCallback((character: TransformedCharacter) => {
+  const toggleSelectedCharacter = useCallback((character: Character) => {
     setSelectedCharacters((previous) => {
       const isSelected = previous.some((c) => c.id === character.id);
       return isSelected ? previous.filter((c) => c.id !== character.id) : [...previous, character];
@@ -72,7 +71,7 @@ const CharactersContainer: React.FC<CharactersContainerProps> = ({
   }, []);
 
   const isCharacterSelected = useCallback(
-    (character: TransformedCharacter) => {
+    (character: Character) => {
       return selectedCharacters.some((c) => c.id === character.id);
     },
     [selectedCharacters],
