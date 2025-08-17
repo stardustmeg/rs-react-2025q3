@@ -8,5 +8,5 @@ export default createMiddleware({
 
 export const config = {
   // matcher: String.raw`/((?!api|trpc|_next|_vercel|.*\..*).*)`
-  matcher: '/((?!api|trpc|_next|_vercel|.*\\..*).*)'
+  matcher: '/((?!api|trpc|_next|_vercel|.*\\..*).*)',
 };

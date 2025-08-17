@@ -11,7 +11,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ handleSearch, initialSearchQuery }) => (
   <header
-    className="dark:bg-dark-header fixed left-0 top-0 z-50 w-full bg-custom-pink px-6 py-4 shadow-md"
+    className="fixed top-0 left-0 z-50 w-full bg-custom-pink px-6 py-4 shadow-md dark:bg-dark-header"
     data-testid="header"
   >
     <div className="mx-auto flex flex-col flex-wrap items-center justify-between gap-4 md:flex-row">

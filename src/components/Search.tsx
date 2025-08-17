@@ -30,10 +30,10 @@ const Search: React.FC<SearchProps> = ({ handleSearch, initialSearchQuery }) => 
   };
 
   return (
-    <form className="md:max-w-2/3 lg:max-w-1/3 flex w-full place-items-center gap-2" onSubmit={handleSubmit}>
+    <form className="flex w-full place-items-center gap-2 md:max-w-2/3 lg:max-w-1/3" onSubmit={handleSubmit}>
       <div className="relative w-full">
         <input
-          className="w-full rounded border border-custom-green bg-custom-blue p-2 pr-7 text-sm text-custom-dark-night shadow-sm focus:border-custom-green focus:outline-none focus:ring-2 focus:ring-custom-green dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-custom-green"
+          className="w-full rounded border border-custom-green bg-custom-blue p-2 pr-7 text-sm text-custom-dark-night shadow-sm focus:border-custom-green focus:ring-2 focus:ring-custom-green focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-custom-green"
           onChange={handleChange}
           placeholder={t('placeholder')}
           ref={inputReference}

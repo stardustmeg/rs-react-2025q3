@@ -16,7 +16,7 @@ export default function NotFound(): JSX.Element {
       <div className="flex max-w-[80%] flex-col place-items-center gap-4 transition-all duration-300">
         <Image
           alt="Error illustration"
-          className="max-w-2/3 h-auto"
+          className="h-auto max-w-2/3"
           height={400}
           priority
           src={errorImage}

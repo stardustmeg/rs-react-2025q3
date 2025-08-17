@@ -23,7 +23,9 @@ const LanguageSwitch: React.FC = () => {
         className={`rounded px-2 py-1 text-sm transition ${
           locale === 'en' ? 'bg-custom-blue text-white' : 'text-white hover:bg-white/10 dark:text-gray-200'
         }`}
-        onClick={() => { handleLanguageChange('en'); }}
+        onClick={() => {
+          handleLanguageChange('en');
+        }}
       >
         EN
       </button>
@@ -31,7 +33,9 @@ const LanguageSwitch: React.FC = () => {
         className={`rounded px-2 py-1 text-sm transition ${
           locale === 'ru' ? 'bg-custom-blue text-white' : 'text-white hover:bg-white/10 dark:text-gray-200'
         }`}
-        onClick={() => { handleLanguageChange('ru'); }}
+        onClick={() => {
+          handleLanguageChange('ru');
+        }}
       >
         RU
       </button>

@@ -30,8 +30,12 @@ const CharacterImage: React.FC<CharacterImageProps> = ({ alt, priority = false, 
           { 'opacity-0': !loaded && !error, 'opacity-100': loaded || error },
         ])}
         height={300}
-        onError={() => { setError(true); }}
-        onLoad={() => { setLoaded(true); }}
+        onError={() => {
+          setError(true);
+        }}
+        onLoad={() => {
+          setLoaded(true);
+        }}
         priority={priority}
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         src={error ? fallbackImage : src}

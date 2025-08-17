@@ -41,7 +41,7 @@ const SelectedCharactersPanel: React.FC<SelectedCharactersPanelProps> = ({ onCle
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-50 rounded-t-3xl border-t-2 border-gray-200 bg-white shadow-lg dark:border-dark-border dark:bg-dark-card"
+      className="fixed right-0 bottom-0 left-0 z-50 rounded-t-3xl border-t-2 border-gray-200 bg-white shadow-lg dark:border-dark-border dark:bg-dark-card"
       data-scroll-behavior="manual"
     >
       <div className="mx-auto max-w-7xl px-6 py-4">

@@ -25,7 +25,9 @@ const CardList: React.FC<CardListProps> = ({
               character={char}
               isSelected={isCharacterSelected(char)}
               key={char.id}
-              onToggle={() => { onToggleCharacter(char); }}
+              onToggle={() => {
+                onToggleCharacter(char);
+              }}
               priority={index < priorityCount}
             />
           ))}

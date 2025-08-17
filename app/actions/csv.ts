@@ -10,7 +10,7 @@ export async function downloadCSVAction(characters: TransformedCharacter[]): Pro
   const csv = await generateCSV(characters);
   const filename = `${characters.length}-characters.csv`;
 
-  return { csv,filename,mimeType: 'text/csv;charset=utf-8;' };
+  return { csv, filename, mimeType: 'text/csv;charset=utf-8;' };
 }
 
 export async function generateCSV(characters: TransformedCharacter[]): Promise<string> {
