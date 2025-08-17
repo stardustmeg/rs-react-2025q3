@@ -30,11 +30,10 @@ const Drawer: React.FC<DrawerProps> = ({ children }) => {
     dialogReference.current?.close();
 
     const pathSegments = pathname.split('/');
-    const basePathSegments = pathSegments.slice(0, -1);
-    const basePath = basePathSegments.join('/');
+    const localeSegment = pathSegments.slice(0, 2).join('/'); // /ru
 
     const queryString = searchParams.toString();
-    const newUrl = queryString ? `${basePath}?${queryString}` : basePath;
+    const newUrl = queryString ? `${localeSegment}?${queryString}` : localeSegment;
 
     router.replace(newUrl, { scroll: false });
   };

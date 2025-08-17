@@ -30,7 +30,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character, isSelected, on
       className="mx-auto h-full w-full rounded-lg bg-white p-2 shadow-md transition-all duration-300 hover:scale-101 dark:bg-dark-card dark:shadow-gray-800"
       data-testid="character-card"
     >
-      <Link href={`/${id}?${searchParams.toString()}`} scroll={false}>
+      <Link href={`/detailed/${id}?${searchParams.toString()}`} scroll={false}>
         <div className="flex flex-col items-center rounded-t-lg bg-custom-beige p-4 dark:bg-gray-700">
           <div className="flex place-content-center gap-2">
             <div className="relative flex place-content-center">
@@ -44,7 +44,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character, isSelected, on
                 type="checkbox"
               />
               <label
-                className="peer-checked:border-bg-custom-blue relative flex h-6 w-6 cursor-pointer items-center justify-center rounded-md border-2 border-gray-300 bg-white transition-all duration-200 hover:border-custom-light-gray hover:shadow-md peer-checked:bg-custom-blue peer-focus:ring-2 peer-focus:ring-custom-pistachio dark:border-gray-600 dark:bg-gray-800"
+                className="peer-checked:border-bg-custom-blue relative flex h-6 w-6 cursor-pointer items-center justify-center rounded-md border-2 border-gray-300 bg-white transition-all duration-200 peer-checked:bg-custom-blue peer-focus:ring-2 peer-focus:ring-custom-pistachio hover:border-custom-light-gray hover:shadow-md dark:border-gray-600 dark:bg-gray-800"
                 htmlFor={`checkbox-${id}`}
                 onClick={stopPropagation}
               >
