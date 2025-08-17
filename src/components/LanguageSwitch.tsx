@@ -3,15 +3,17 @@
 import { useLocale } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 
-import { usePathname, useRouter } from '@/i18n/routing';
+import LanguageSwitchButton from '@/components/LanguageSwitchButton';
+import { routing, usePathname, useRouter } from '@/i18n/routing';
 
 const LanguageSwitch: React.FC = () => {
   const locale = useLocale();
   const router = useRouter();
+  const locales = routing.locales;
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const handleLanguageChange = (newLocale: 'en' | 'ru'): void => {
+  const handleLanguageChange = (newLocale: typeof locale): void => {
     const params = searchParams.toString();
     const url = params ? `${pathname}?${params}` : pathname;
     router.push(url, { locale: newLocale });
@@ -19,26 +21,9 @@ const LanguageSwitch: React.FC = () => {
 
   return (
     <div className="flex space-x-2">
-      <button
-        className={`rounded px-2 py-1 text-sm transition ${
-          locale === 'en' ? 'bg-custom-blue text-white' : 'text-white hover:bg-white/10 dark:text-gray-200'
-        }`}
-        onClick={() => {
-          handleLanguageChange('en');
-        }}
-      >
-        EN
-      </button>
-      <button
-        className={`rounded px-2 py-1 text-sm transition ${
-          locale === 'ru' ? 'bg-custom-blue text-white' : 'text-white hover:bg-white/10 dark:text-gray-200'
-        }`}
-        onClick={() => {
-          handleLanguageChange('ru');
-        }}
-      >
-        RU
-      </button>
+      {locales.map((l) => (
+        <LanguageSwitchButton handleLanguageChange={handleLanguageChange} key={l} label={l} locale={locale} />
+      ))}
     </div>
   );
 };
