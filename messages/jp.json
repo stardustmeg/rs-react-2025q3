@@ -1,0 +1,38 @@
+{
+  "nav": {
+    "about": "私について",
+    "home": "ホーム"
+  },
+  "search": {
+    "placeholder": "キャラクターを検索...",
+    "button": "検索",
+    "noResults": "キャラクターが見つかりません",
+    "loading": "読み込み中...",
+    "error": "何かがうまくいきませんでした。もう一度お試しください。"
+  },
+  "character": {
+    "status": "ステータス",
+    "species": "種族",
+    "gender": "性別",
+    "origin": "出身地",
+    "location": "場所",
+    "episodes": "エピソード",
+    "imageNotAvailable": "キャラクターの画像が利用できません"
+  },
+  "selected": {
+    "count": "{count} 選択中",
+    "unselectAll": "選択解除",
+    "downloadCsv": "CSV をダウンロード"
+  },
+  "about": {
+    "description": "こんにちは！私はメグです。私はフロントエンド開発が大好きです。これは私が何も知らないときに始まった趣味でしたが、すぐに私の生活に欠かせないものになりました。このコースは、私が持っている最も良い経験の一つであり、ここにいる人たち、それぞれの課題、そしてそれぞれの挑戦は、私の記憶に残るものです。私はこれからもっと多くのスキルを身につけ、革新的なデジタルソリューションの創造に貢献したいと思っています。",
+    "backHome": "ホームに戻る",
+    "githubProfile": "私の GitHub プロフィール",
+    "rsSchoolCourse": "RS School の React コース"
+  },
+  "notFound": {
+    "title": "404 - ページが見つかりません",
+    "description": "お探しのページは存在しません。",
+    "backHome": "ホームに戻る"
+  }
+}
