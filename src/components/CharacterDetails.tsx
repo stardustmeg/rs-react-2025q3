@@ -1,9 +1,8 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
-
 import type { Character } from '@/types/index';
 
+import CharacterDetailedInfo from '@/components/CharacterDetailedInfo';
 import CharacterImage from '@/components/CharacterImage';
 
 interface CharacterDetailsProps {
@@ -11,15 +10,7 @@ interface CharacterDetailsProps {
 }
 
 const CharacterDetails: React.FC<CharacterDetailsProps> = ({ character }: CharacterDetailsProps) => {
-  const t = useTranslations('character');
-  const { gender, image, name, origin, species, status } = character;
-
-  const info = [
-    { label: t('gender'), value: gender },
-    { label: t('origin'), value: origin.name },
-    { label: t('species'), value: species },
-    { label: t('status'), value: status },
-  ];
+  const { image, name } = character;
 
   return (
     <>
@@ -28,14 +19,7 @@ const CharacterDetails: React.FC<CharacterDetailsProps> = ({ character }: Charac
         <CharacterImage alt={name} priority src={image} />
       </div>
 
-      <div className="flex-1 space-y-4 overflow-auto bg-white p-6 dark:bg-dark-card">
-        {info.map(({ label, value }) => (
-          <div className="flex justify-between border-b border-gray-200 pb-2 dark:border-dark-border" key={label}>
-            <span className="font-medium text-gray-700 dark:text-gray-300">{label}</span>
-            <span className="text-gray-900 dark:text-dark-text">{value}</span>
-          </div>
-        ))}
-      </div>
+      <CharacterDetailedInfo character={character} size="lg" />
     </>
   );
 };

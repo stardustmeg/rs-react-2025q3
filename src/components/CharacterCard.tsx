@@ -1,11 +1,11 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import React from 'react';
 
 import type { Character } from '@/types/index';
 
+import CharacterDetailedInfo from '@/components/CharacterDetailedInfo';
 import CharacterImage from '@/components/CharacterImage';
 import { Link } from '@/i18n/routing';
 import { stopPropagation } from '@/utils/index';
@@ -18,17 +18,9 @@ interface CharacterCardProps {
 }
 
 const CharacterCard: React.FC<CharacterCardProps> = ({ character, isSelected, onToggle, priority = false }) => {
-  const t = useTranslations('character');
-  const { gender, id, image, name, origin, species, status } = character;
+  const { id, image, name } = character;
 
   const searchParams = useSearchParams();
-
-  const info = [
-    { label: t('gender'), value: gender },
-    { label: t('origin'), value: origin.name },
-    { label: t('species'), value: species },
-    { label: t('status'), value: status },
-  ];
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     stopPropagation(event);
@@ -75,13 +67,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character, isSelected, on
           </div>
           <CharacterImage alt={name} priority={priority} src={image} />
         </div>
-        <div className="space-y-2 rounded-b-lg bg-white py-4 text-sm dark:bg-dark-card dark:text-dark-text">
-          {info.map(({ label, value }) => (
-            <div key={label}>
-              <span className="font-semibold">{label}:</span> {value}
-            </div>
-          ))}
-        </div>
+        <CharacterDetailedInfo character={character} size="sm" />
       </Link>
     </article>
   );
