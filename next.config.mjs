@@ -16,6 +16,7 @@ const nextConfig = {
         pathname: '/api/character/avatar/**',
       },
     ],
+    localPatterns: [{ pathname: '/src/assets/**' }],
   },
 };
 
