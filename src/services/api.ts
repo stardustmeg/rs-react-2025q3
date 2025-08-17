@@ -1,4 +1,4 @@
-import type { Character, CharacterFilter, Info } from '@/types';
+import type { Character, CharacterFilter, Info } from '@/types/index';
 
 import createHttpError from '@/services/utils/httpError';
 import { isCharacter, isCharacterInfo } from '@/types/helpers';

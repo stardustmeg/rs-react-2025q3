@@ -1,0 +1,38 @@
+{
+  "nav": {
+    "about": "About",
+    "home": "Home"
+  },
+  "search": {
+    "placeholder": "Search characters...",
+    "button": "Search",
+    "noResults": "Nothing was found in this dimension. Try a different one.",
+    "loading": "Loading...",
+    "error": "Oops! Something went wrong. Please try again."
+  },
+  "character": {
+    "status": "Status",
+    "species": "Species",
+    "gender": "Gender",
+    "origin": "Origin",
+    "location": "Location",
+    "episodes": "Episodes",
+    "imageNotAvailable": "Character image not available"
+  },
+  "selected": {
+    "count": "{count} selected",
+    "unselectAll": "Unselect All",
+    "downloadCsv": "Download CSV"
+  },
+  "about": {
+    "description": "Hi! I'm Meg and I'm obsessed with front-end development. It started off as a hobby I didn't know squat about but soon became the thing I can't imagine a single day without. Though challenging, this course, the people here, each task, and every challenge are going to be imbedded in my memory as some of the best experiences I've ever had. Looking ahead, I am eager to further explore and expand my skill set, and contribute meaningfully to creating innovative digital solutions.",
+    "backHome": "Back to Home",
+    "githubProfile": "My GitHub Profile",
+    "rsSchoolCourse": "RS School React Course"
+  },
+  "notFound": {
+    "title": "404 - Page Not Found",
+    "description": "The page you are looking for does not exist.",
+    "backHome": "Back to Home"
+  }
+}

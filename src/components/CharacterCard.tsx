@@ -1,34 +1,36 @@
+import { useSearchParams } from 'next/navigation';
 import React from 'react';
-import { Link, useSearchParams } from 'react-router';
 
-import type { TransformedCharacter } from '@/types';
+import type { Character } from '@/types/index';
 
+import CharacterDetailedInfo from '@/components/CharacterDetailedInfo';
 import CharacterImage from '@/components/CharacterImage';
-import useStore from '@/store';
-import { stopPropagation } from '@/utils';
+import { Link } from '@/i18n/routing';
+import { stopPropagation } from '@/utils/index';
 
 interface CharacterCardProps {
-  character: TransformedCharacter;
+  character: Character;
+  isSelected: boolean;
+  onToggle: () => void;
+  priority?: boolean;
 }
 
-const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
-  const { id, image, info, name } = character;
-  const [searchParams] = useSearchParams();
+const CharacterCard: React.FC<CharacterCardProps> = ({ character, isSelected, onToggle, priority = false }) => {
+  const { id, image, name } = character;
 
-  const { isCharacterSelected, toggleSelectedCharacter } = useStore();
-  const isSelected = isCharacterSelected(character);
+  const searchParams = useSearchParams();
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     stopPropagation(event);
-    toggleSelectedCharacter(character);
+    onToggle();
   };
 
   return (
     <article
-      className="mx-auto h-full w-full rounded-lg bg-white p-2 shadow-md transition-all duration-300 hover:scale-101 dark:bg-dark-card dark:shadow-gray-800"
+      className="mx-auto h-full w-full rounded-lg bg-white p-2 shadow-md transition-all duration-300 hover:light-shadow dark:bg-dark-card dark:shadow-gray-800 hover:dark:dark-shadow"
       data-testid="character-card"
     >
-      <Link to={`${id}?${searchParams}`}>
+      <Link href={`/detailed/${id}?${searchParams.toString()}`} scroll={false}>
         <div className="flex flex-col items-center rounded-t-lg bg-custom-beige p-4 dark:bg-gray-700">
           <div className="flex place-content-center gap-2">
             <div className="relative flex place-content-center">
@@ -61,15 +63,9 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
             </div>
             <p className="mb-2 text-center text-lg font-semibold text-custom-coal dark:text-dark-text">{name}</p>
           </div>
-          <CharacterImage alt={name} src={image} />
+          <CharacterImage alt={name} priority={priority} src={image} />
         </div>
-        <div className="space-y-2 rounded-b-lg bg-white py-4 text-sm dark:bg-dark-card dark:text-dark-text">
-          {info.map(({ label, value }) => (
-            <div key={label}>
-              <span className="font-semibold">{label}:</span> {value}
-            </div>
-          ))}
-        </div>
+        <CharacterDetailedInfo character={character} size="sm" />
       </Link>
     </article>
   );

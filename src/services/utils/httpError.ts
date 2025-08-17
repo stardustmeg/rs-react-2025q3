@@ -1,4 +1,4 @@
-import type { HttpError } from '@/types';
+import type { HttpError } from '@/types/index';
 
 const createHttpError = (status: number, statusText: string): HttpError => {
   const error = new Error(`Error ${status}: ${statusText}`);

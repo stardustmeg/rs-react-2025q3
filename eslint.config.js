@@ -1,10 +1,7 @@
 import globals from 'globals';
 import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
 import react from 'eslint-plugin-react';
 import tseslint from 'typescript-eslint';
-import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
-import reactCompiler from 'eslint-plugin-react-compiler';
 import perfectionist from 'eslint-plugin-perfectionist';
 import eslintPluginImport from 'eslint-plugin-import';
 import eslint from '@eslint/js';
@@ -12,9 +9,8 @@ import eslintPluginNoRelativeImportPaths from 'eslint-plugin-no-relative-import-
 import unusedImports from 'eslint-plugin-unused-imports';
 import { myEslintRules } from './eslint-rules/my-eslint-rules.js';
 import unicorn from 'eslint-plugin-unicorn';
-import jestDom from 'eslint-plugin-jest-dom';
-import testingLibrary from 'eslint-plugin-testing-library';
-import playwright from 'eslint-plugin-playwright';
+import eslintPluginNext from '@next/eslint-plugin-next';
+import eslintConfigPrettier from 'eslint-config-prettier/flat';
 
 export default tseslint.config(
   {
@@ -23,7 +19,7 @@ export default tseslint.config(
       parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname },
     },
   },
-  { ignores: ['dist', '**/*.js', '**/*.d.ts', '**/*.config.[jt]s?(x)'] },
+  { ignores: ['dist', '.next', '**/*.js', '**/*.d.ts', '**/*.config.[jt]s?(x)'] },
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -35,47 +31,24 @@ export default tseslint.config(
       ...tseslint.configs.stylisticTypeChecked,
       ...tseslint.configs.strictTypeChecked,
       unicorn.configs.recommended,
-      eslintPluginPrettier,
+      eslintConfigPrettier,
     ],
     languageOptions: { ecmaVersion: 'latest', globals: globals.browser },
     plugins: {
       react,
       'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
-      'react-compiler': reactCompiler,
       'unused-imports': unusedImports,
       'no-relative-import-paths': eslintPluginNoRelativeImportPaths,
+      '@next/next': eslintPluginNext,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-      'react-compiler/react-compiler': 'error',
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
+      ...eslintPluginNext.configs.recommended.rules,
+      ...eslintPluginNext.configs['core-web-vitals'].rules,
       ...myEslintRules,
     },
     settings: { react: { version: 'detect' }, 'import/resolver': { typescript: { project: './tsconfig.json' } } },
-  },
-  {
-    files: ['**/__tests__/**/*.[jt]s?(x)', '**/*.spec.[jt]s?(x)'],
-    plugins: { 'jest-dom': jestDom, 'testing-library': testingLibrary },
-    rules: {
-      ...jestDom.configs.recommended.rules,
-      ...testingLibrary.configs.react.rules,
-      'unicorn/no-useless-undefined': 'off',
-      'max-lines-per-function': 'off',
-      '@typescript-eslint/no-unnecessary-type-assertion': 'off',
-      '@typescript-eslint/consistent-type-assertions': 'off',
-      '@typescript-eslint/no-magic-numbers': 'off',
-      '@typescript-eslint/no-deprecated': 'off',
-    },
-  },
-  {
-    files: ['**/__tests__/e2e/**/*.spec.[jt]s?(x)'],
-    extends: [playwright.configs['flat/recommended']],
-    rules: {
-      'testing-library/prefer-screen-queries': 'off',
-      'testing-library/no-node-access': 'off',
-    },
   },
 );

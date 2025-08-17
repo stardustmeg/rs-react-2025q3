@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { type ErrorInfo, PureComponent, type ReactNode } from 'react';
 
 import errorImage from '@/assets/png/rick_and_morty.png';
@@ -25,7 +26,7 @@ class ErrorBoundary extends PureComponent<ErrorBoundaryProps, ErrorBoundaryState
     if (this.state.hasError) {
       return (
         <div className="flex flex-wrap-reverse items-center justify-center gap-4 text-center">
-          <img alt="Error illustration" className="mb-4 w-80" src={errorImage} />
+          <Image alt="Error illustration" className="mb-4 w-80" height={320} priority src={errorImage} width={320} />
           <div className="flex flex-col gap-4">
             <div className="text-custom-chocolate">Congrats! It was successfully handled</div>
           </div>
