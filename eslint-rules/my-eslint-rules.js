@@ -80,6 +80,4 @@ export const myEslintRules = {
   '@typescript-eslint/require-await': 'off',
   '@typescript-eslint/consistent-type-assertions': 'off',
   'unicorn/no-await-expression-member': 'off',
-  '@typescript-eslint/no-unsafe-member-access': 'off',
-  '@typescript-eslint/no-unsafe-assignment': 'off',
 };

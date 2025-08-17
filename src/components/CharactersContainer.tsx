@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import useSWR from 'swr';
 
-import type { Character } from '@/types/index';
+import type { Character, HttpError, Info } from '@/types/index';
 
 import CardList from '@/components/CardList';
 import ErrorFallback from '@/components/ErrorFallback';
@@ -37,7 +37,7 @@ const CharactersContainer: React.FC<CharactersContainerProps> = ({
   const searchQuery = searchParams.get('search') ?? initialSearch;
   const currentPage = Number.parseInt(searchParams.get('page') ?? initialPage.toString(), 10);
 
-  const { data, error, isLoading } = useSWR(
+  const { data, error, isLoading } = useSWR<Info<Character[]>, HttpError>(
     [`characters`, searchQuery, currentPage],
     () => fetchCharacters({ name: searchQuery, page: currentPage }),
     {
