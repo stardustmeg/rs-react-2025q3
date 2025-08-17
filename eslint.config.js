@@ -31,7 +31,7 @@ export default tseslint.config(
       ...tseslint.configs.stylisticTypeChecked,
       ...tseslint.configs.strictTypeChecked,
       unicorn.configs.recommended,
-      eslintConfigPrettier
+      eslintConfigPrettier,
     ],
     languageOptions: { ecmaVersion: 'latest', globals: globals.browser },
     plugins: {
@@ -47,7 +47,6 @@ export default tseslint.config(
       ...react.configs['jsx-runtime'].rules,
       ...eslintPluginNext.configs.recommended.rules,
       ...eslintPluginNext.configs['core-web-vitals'].rules,
-      ...eslintConfigPrettier.rules,
       ...myEslintRules,
     },
     settings: { react: { version: 'detect' }, 'import/resolver': { typescript: { project: './tsconfig.json' } } },
