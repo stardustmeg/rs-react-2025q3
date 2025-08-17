@@ -1,5 +1,3 @@
-'use client';
-
 import type { JSX } from 'react';
 
 import { useTranslations } from 'next-intl';
@@ -16,7 +14,7 @@ export default function AboutPage(): JSX.Element {
       <div className="flex max-w-[80%] flex-col place-items-center gap-4 transition-all duration-300">
         <Image
           alt="Meg's Avatar"
-          className="mb-4 h-32 w-32 rounded-full border-2 border-custom-pink"
+          className="mb-4 rounded-full border-2 border-custom-pink"
           height={128}
           priority
           src={myPhoto}

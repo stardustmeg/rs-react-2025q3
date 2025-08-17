@@ -1,5 +1,3 @@
-'use client';
-
 import type { Character } from '@/types/index';
 
 import CharacterDetailedInfo from '@/components/CharacterDetailedInfo';
