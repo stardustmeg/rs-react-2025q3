@@ -62,7 +62,7 @@ const SelectedCharactersPanel: React.FC<SelectedCharactersPanelProps> = ({ onCle
 
             <div>
               <button
-                className="button rounded bg-custom-pink px-4 py-2 font-medium text-white shadow-sm dark:bg-custom-pink"
+                className="button rounded bg-custom-pink px-4 py-2 font-medium text-white shadow-sm dark:bg-custom-pink hover:dark:dark-shadow"
                 onClick={handleDownloadClick}
               >
                 {t('downloadCsv')}

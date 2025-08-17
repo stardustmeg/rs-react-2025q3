@@ -27,7 +27,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character, isSelected, on
 
   return (
     <article
-      className="mx-auto h-full w-full rounded-lg bg-white p-2 shadow-md transition-all duration-300 hover:scale-101 dark:bg-dark-card dark:shadow-gray-800"
+      className="mx-auto h-full w-full rounded-lg bg-white p-2 shadow-md transition-all duration-300 hover:light-shadow dark:bg-dark-card dark:shadow-gray-800 hover:dark:dark-shadow"
       data-testid="character-card"
     >
       <Link href={`/detailed/${id}?${searchParams.toString()}`} scroll={false}>

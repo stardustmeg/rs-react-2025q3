@@ -43,7 +43,7 @@ const Search: React.FC<SearchProps> = ({ handleSearch, initialSearchQuery }) => 
         <ClearButton onClick={handleClear} visible={!!query} />
       </div>
       <button
-        className="w-1/3 button rounded bg-custom-yellow px-4 py-2 text-custom-coal shadow-sm dark:bg-custom-green dark:text-white"
+        className="w-1/3 button rounded bg-custom-yellow px-4 py-2 text-custom-coal shadow-sm dark:bg-custom-green dark:text-white hover:dark:dark-shadow"
         type="submit"
       >
         {t('button')}

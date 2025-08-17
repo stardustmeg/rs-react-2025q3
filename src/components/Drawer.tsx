@@ -46,7 +46,7 @@ const Drawer: React.FC<DrawerProps> = ({ children }) => {
       ref={dialogReference}
     >
       <div
-        className="fixed top-0 right-0 h-full w-3/4 bg-white shadow-lg transition-transform duration-300 sm:w-1/2 md:w-1/3 dark:bg-dark-card"
+        className="fixed top-0 right-0 h-full w-3/4 bg-white shadow-lg transition-transform duration-300 sm:w-1/2 md:w-1/3 dark:bg-dark-card dark:dark-shadow"
         onClick={stopPropagation}
       >
         <button
