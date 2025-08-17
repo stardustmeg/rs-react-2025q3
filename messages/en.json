@@ -6,7 +6,7 @@
   "search": {
     "placeholder": "Search characters...",
     "button": "Search",
-    "noResults": "No characters found",
+    "noResults": "Nothing was found in this dimension. Try a different one.",
     "loading": "Loading...",
     "error": "Oops! Something went wrong. Please try again."
   },
