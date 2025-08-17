@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 
 import styles from '@/components/ThemeSwitch/ThemeSwitch.module.css';
 
-// eslint-disable-next-line max-lines-per-function
 const ThemeSwitch: React.FC = () => {
   const { setTheme, theme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -52,7 +51,7 @@ const ThemeSwitch: React.FC = () => {
               </div>
             </div>
           </div>
-            <div className={styles['theme-switch__shooting-star']} />
+          <div className={styles['theme-switch__shooting-star']} />
           <div className={styles['theme-switch__shooting-star-2']} />
           <div className={styles['theme-switch__meteor']} />
           <div className={styles['theme-switch__stars-cluster']}>

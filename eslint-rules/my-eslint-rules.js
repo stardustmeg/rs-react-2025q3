@@ -1,6 +1,5 @@
 /** @type {import('eslint').Linter.RulesRecord} */
 export const myEslintRules = {
-  '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
   '@typescript-eslint/explicit-function-return-type': 'error',
   '@typescript-eslint/explicit-member-accessibility': [
     'error',
@@ -46,7 +45,6 @@ export const myEslintRules = {
       ],
     },
   ],
-  'max-lines-per-function': ['error', { max: 60, skipBlankLines: true, skipComments: true }],
   'no-console': ['error', { allow: ['warn'] }],
   'no-empty-function': 'error',
   'no-relative-import-paths/no-relative-import-paths': [
@@ -79,4 +77,9 @@ export const myEslintRules = {
   'react-hooks/exhaustive-deps': 'off',
   'react-refresh/only-export-components': 'off',
   'unicorn/prefer-string-raw': 'off',
+  '@typescript-eslint/require-await': 'off',
+  '@typescript-eslint/consistent-type-assertions': 'off',
+  'unicorn/no-await-expression-member': 'off',
+  '@typescript-eslint/no-unsafe-member-access': 'off',
+  '@typescript-eslint/no-unsafe-assignment': 'off',
 };

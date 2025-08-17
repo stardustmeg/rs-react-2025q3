@@ -25,8 +25,10 @@ interface CharactersContainerProps {
   initialSearch: string;
 }
 
-// eslint-disable-next-line max-lines-per-function
-const CharactersContainer: React.FC<CharactersContainerProps> = ({ initialPage, initialSearch }: CharactersContainerProps) => {
+const CharactersContainer: React.FC<CharactersContainerProps> = ({
+  initialPage,
+  initialSearch,
+}: CharactersContainerProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

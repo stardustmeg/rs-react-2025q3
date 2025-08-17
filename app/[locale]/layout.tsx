@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { NextIntlClientProvider } from 'next-intl';
+import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { type JSX } from 'react';
 
@@ -22,15 +22,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function LocaleLayout({ children, detailed, params }: LocaleLayoutProps): Promise<JSX.Element> {
   const { locale } = await params;
-
-  if (!routing.locales.includes(locale as 'en' | 'ru')) {
+  if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
 
-  const messages = (await import(`../../messages/${locale}.json`)).default as Record<string, string>;
-
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
+    <NextIntlClientProvider>
       <div className="min-h-screen bg-custom-pistachio transition-colors duration-300 dark:bg-dark-bg">
         <Header />
         <main>{children}</main>

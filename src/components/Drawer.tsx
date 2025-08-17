@@ -30,7 +30,7 @@ const Drawer: React.FC<DrawerProps> = ({ children }) => {
     dialogReference.current?.close();
 
     const pathSegments = pathname.split('/');
-    const localeSegment = pathSegments.slice(0, 2).join('/'); // /ru
+    const localeSegment = pathSegments.slice(0, 2).join('/');
 
     const queryString = searchParams.toString();
     const newUrl = queryString ? `${localeSegment}?${queryString}` : localeSegment;
