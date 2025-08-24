@@ -47,17 +47,20 @@ export function PasswordStrengthBar({ score, strength }: PasswordStrengthBarProp
   const percentage = (score / 4) * 100;
 
   return (
-    <div className={styles.strengthContainer}>
-      <div className={styles.strengthBar}>
+    <div className={styles.strengthContainer} data-testid="password-strength-container">
+      <div className={styles.strengthBar} data-testid="password-strength-bar">
         <div
           className={styles.strengthFill}
+          data-testid="password-strength-fill"
           style={{
             backgroundColor: getStrengthColor(strength),
             width: `${percentage}%`,
           }}
         />
       </div>
-      <span className={styles.strengthText}>{getStrengthLabel(strength)}</span>
+      <span className={styles.strengthText} data-testid="password-strength-text">
+        {getStrengthLabel(strength)}
+      </span>
     </div>
   );
 }
