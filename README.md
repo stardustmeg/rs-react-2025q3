@@ -31,7 +31,7 @@ A React app with two types of forms (uncontrolled and React Hook Form) using por
 [![Redux Toolkit][Redux]][Redux-url]
 [![React Hook Form][ReactHookForm]][ReactHookForm-url]
 [![Zod][Zod]][Zod-url]
-[![ESLint][ESLint]][ESLint-url]
+[![Eslint][Eslint]][Eslint-url]
 [![Prettier][Prettier]][Prettier-url]
 [![Husky][Husky]][Husky-url]
 [![Vitest][Vitest]][Vitest-url]
@@ -80,17 +80,17 @@ npm run test:coverage    # run tests with coverage report
 [Vite-url]: https://vitejs.dev/
 [Redux]: https://img.shields.io/badge/redux_toolkit-764ABC.svg?style=for-the-badge&logo=redux&logoColor=white
 [Redux-url]: https://redux-toolkit.js.org/
-[ReactHookForm]: https://img.shields.io/badge/react_hook_form-EC5990.svg?style=for-the-badge&logo=react&logoColor=white
+[ReactHookForm]: https://img.shields.io/badge/react_hook_form-EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white
 [ReactHookForm-url]: https://react-hook-form.com/
-[Zod]: https://img.shields.io/badge/zod-3E67B1.svg?style=for-the-badge&logo=typescript&logoColor=white
+[Zod]: https://img.shields.io/badge/-Zod-3E67B1?style=for-the-badge&logo=zod&logoColor=white
 [Zod-url]: https://zod.dev/
-[ESLint]: https://img.shields.io/badge/eslint-4B32C3.svg?style=for-the-badge&logo=eslint&logoColor=white
-[ESLint-url]: https://eslint.org/
+[Eslint]: https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white
+[Eslint-url]: https://eslint.org/
 [Prettier]: https://img.shields.io/badge/prettier-F7B93E.svg?style=for-the-badge&logo=prettier&logoColor=black
 [Prettier-url]: https://prettier.io/
-[Husky]: https://img.shields.io/badge/husky-FF4088.svg?style=for-the-badge&logo=npm&logoColor=white
+[Husky]: https://img.shields.io/badge/Husky-F05032?style=for-the-badge&logo=furrynetwork&logoColor=white
 [Husky-url]: https://typicode.github.io/husky/
-[Vitest]: https://img.shields.io/badge/vitest-6E9F18.svg?style=for-the-badge&logo=vite&logoColor=white
+[Vitest]: https://img.shields.io/badge/vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=white
 [Vitest-url]: https://vitest.dev/
 [RTL]: https://img.shields.io/badge/react_testing_library-E33332.svg?style=for-the-badge&logo=testinglibrary&logoColor=white
 [RTL-url]: https://testing-library.com/docs/react-testing-library/intro/
