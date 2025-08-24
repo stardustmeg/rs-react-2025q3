@@ -40,9 +40,12 @@ export const formSchema = z
     password: passwordStrength,
     picture: pictureBase64Schema,
   })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
+  .refine(({ confirmPassword, password }) => password === confirmPassword, {
+    error: "Passwords don't match",
     path: ['confirmPassword'],
+    when(payload) {
+      return formSchema.pick({ confirmPassword: true, password: true }).safeParse(payload.value).success;
+    },
   });
 
 export type FormSchema = z.infer<typeof formSchema>;
