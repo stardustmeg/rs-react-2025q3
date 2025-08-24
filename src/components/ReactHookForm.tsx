@@ -6,9 +6,9 @@ import { useForm } from 'react-hook-form';
 import type { FormData } from '@/types/form';
 import type { FormSchema } from '@/validation/schemas';
 
-import { FormFooter } from '@/components/FormFooter';
-import { PasswordStrengthBar } from '@/components/PasswordStrengthBar';
-import { TogglePasswordVisibilityButton } from '@/components/TogglePasswordVisibilityButton';
+import { FormFooter } from '@/components/form/FormFooter';
+import { PasswordStrengthBar } from '@/components/form/password/PasswordStrengthBar';
+import { TogglePasswordVisibilityButton } from '@/components/form/password/TogglePasswordVisibilityButton';
 import { genders } from '@/constants';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { addSubmission } from '@/store/slices/formSlice';

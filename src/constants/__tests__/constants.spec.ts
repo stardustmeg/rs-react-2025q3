@@ -6,7 +6,7 @@ describe('Constants', () => {
   describe('genders', () => {
     it('is an array with correct length', () => {
       expect(Array.isArray(genders)).toBe(true);
-      expect(genders).toHaveLength(5);
+      expect(genders).toHaveLength(6);
     });
 
     it('contains all expected gender options', () => {
@@ -15,6 +15,7 @@ describe('Constants', () => {
       expect(genders).toContain('other');
       expect(genders).toContain('prefer not to say');
       expect(genders).toContain('prefer to self-describe');
+      expect(genders).toContain('identify as bread');
     });
 
     it('has correct order of gender options', () => {
@@ -23,6 +24,7 @@ describe('Constants', () => {
       expect(genders[2]).toBe('other');
       expect(genders[3]).toBe('prefer not to say');
       expect(genders[4]).toBe('prefer to self-describe');
+      expect(genders[5]).toBe('identify as bread');
     });
 
     it('all gender options are strings', () => {

@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { PasswordStrength } from '@/utils/checkPasswordStrength';
 
-import { PasswordStrengthBar } from '@/components/PasswordStrengthBar';
+import { PasswordStrengthBar } from '@/components/form/password/PasswordStrengthBar';
 
 describe('PasswordStrengthBar Component', () => {
   describe('Component Rendering', () => {

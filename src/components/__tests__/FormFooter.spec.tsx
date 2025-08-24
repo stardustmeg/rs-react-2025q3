@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { FormFooter } from '@/components/FormFooter';
+import { FormFooter } from '@/components/form/FormFooter';
 
 describe('FormFooter Component', () => {
   describe('Component Rendering', () => {

@@ -3,7 +3,7 @@ import type { JSX } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { TogglePasswordVisibilityButton } from '@/components/TogglePasswordVisibilityButton';
+import { TogglePasswordVisibilityButton } from '@/components/form/password/TogglePasswordVisibilityButton';
 
 describe('TogglePasswordVisibilityButton Component', () => {
   describe('Component Rendering', () => {

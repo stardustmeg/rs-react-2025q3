@@ -1,4 +1,8 @@
+import type React from 'react';
+import type { FieldErrors } from 'react-hook-form';
+
 import type { genders } from '@/constants';
+import type { FormSchema } from '@/validation/schemas';
 
 export interface Country {
   code: string;
@@ -19,6 +23,12 @@ export interface FormData {
   picture: string;
   timestamp: number;
 }
+
+export type FormErrors = Partial<Record<keyof FormSchema, string>>;
+
+export type HTMLInputType = React.HTMLInputTypeAttribute;
+
+export type UniversalErrors = FieldErrors<FormSchema> | FormErrors;
 
 type FormType = 'react-hook-form' | 'uncontrolled';
 
