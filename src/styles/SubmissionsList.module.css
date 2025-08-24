@@ -1,0 +1,35 @@
+.submissions {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.submissions h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: #1f2937;
+  text-align: center;
+}
+
+.noSubmissions {
+  padding: 3rem;
+  border: 2px dashed #d1d5db;
+  border-radius: 12px;
+
+  font-size: 1.1rem;
+  color: #6b7280;
+  text-align: center;
+
+  background: #f9fafb;
+}
+
+.submissionsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (width <= 768px) {
+  .submissionsGrid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
