@@ -38,17 +38,37 @@ A React app with two types of forms (uncontrolled and React Hook Form) using por
 [![React Testing Library][RTL]][RTL-url]
 [![jsdom][jsdom]][jsdom-url]
 
-⚙️ Scripts:
+⚙️ Scripts (if using bun 🥟):
 
-- `npm run dev` — start dev server
-- `npm run build` — build app
-- `npm run preview` — preview build
-- `npm run lint` — run ESLint
-- `npm run lint:fix` — fix lint issues
-- `npm run format:fix` — run Prettier formatter
-- `npm run test` — run unit tests
-- `npm run test:watch` — run tests in watch mode
-- `npm run test:coverage` — run tests with coverage report
+### Bun 🥟
+
+```bash
+bun run dev              # start dev server
+bun run build            # build app
+bun run preview          # preview build
+bun run lint             # run ESLint
+bun run lint:fix         # fix lint issues
+bun run format:fix       # run Prettier formatter
+bun run test             # run unit tests
+bun run test:watch       # run tests in watch mode
+bun run test:coverage    # run tests with coverage report
+```
+
+⚙️ Scripts (if using npm):
+
+### npm
+
+```bash
+npm run dev              # start dev server
+npm run build            # build app
+npm run preview          # preview build
+npm run lint             # run ESLint
+npm run lint:fix         # fix lint issues
+npm run format:fix       # run Prettier formatter
+npm run test             # run unit tests
+npm run test:watch       # run tests in watch mode
+npm run test:coverage    # run tests with coverage report
+```
 
 <!-- Tech Stack Badges -->
 
