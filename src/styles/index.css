@@ -1,35 +1,42 @@
 :root {
+  --color-primary: #ddfff7;
+  --color-secondary: #6c969d;
+  --color-tertiary: #645e9d;
+  --color-quaternary: #392b58;
+  --color-quinary: #282b28;
+  --color-senary: #f1f7ed;
+}
+
+body {
+  scrollbar-gutter: stable;
+
+  display: flex;
+  place-items: center;
+
+  min-width: 320px;
+  min-height: 100dvh;
+
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
-  color: rgb(255 255 255 / 87%);
+  color: var(--color-quaternary);
   text-rendering: optimizelegibility;
 
   color-scheme: light dark;
-  background-color: #242424;
+  background-color: var(--color-primary);
 
   font-synthesis: none;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: #535bf2;
-}
-
-body {
+#root {
   display: flex;
-  place-items: center;
+  flex-direction: column;
 
-  min-width: 320px;
-  min-height: 100vh;
-  margin: 0;
+  max-width: 1440px;
+  min-height: 100dvh;
+  margin: 0 auto;
 }
 
 h1 {
@@ -37,24 +44,38 @@ h1 {
   line-height: 1.1;
 }
 
+a {
+  font-weight: 500;
+  color: var(--color-quaternary);
+  text-decoration: inherit;
+}
+
+a:hover {
+  filter: brightness(1.2);
+}
+
 button {
   cursor: pointer;
 
-  padding: 0.6em 1.2em;
-  border: 1px solid transparent;
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.75rem 1.5rem;
+  border: none;
   border-radius: 8px;
 
-  font-family: inherit;
-  font-size: 1em;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
 
-  background-color: #1a1a1a;
-
-  transition: border-color 0.25s;
+  transition: all 0.2s ease;
 }
 
-button:hover {
-  border-color: #646cff;
+button:disabled {
+  cursor: default;
+  opacity: 0.6;
 }
 
 button:focus,
@@ -62,17 +83,32 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #fff;
-  }
+button:hover:not(:disabled) {
+  filter: brightness(1.2);
+}
 
-  a:hover {
-    color: #747bff;
-  }
+.buttonPrimary {
+  color: white;
+  background: #4f46e5;
+}
 
-  button {
-    background-color: #f9f9f9;
-  }
+.buttonPrimary:hover:not(:disabled) {
+  background: #4338ca;
+  box-shadow: 0 4px 12px rgb(79 70 229 / 30%);
+}
+
+.buttonSecondary {
+  color: white;
+  background: #6b7280;
+}
+
+.buttonSecondary:hover:not(:disabled) {
+  background: #4b5563;
+  box-shadow: 0 4px 12px rgb(107 114 128 / 30%);
+}
+
+.buttonLarge {
+  min-width: 200px;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
 }

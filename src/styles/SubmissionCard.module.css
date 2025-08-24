@@ -1,0 +1,118 @@
+.submissionCard {
+  position: relative;
+
+  min-width: 26rem;
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+
+  background: white;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+
+  transition: all 0.2s ease;
+}
+
+.submissionCard:hover {
+  box-shadow: 0 4px 16px rgb(0 0 0 / 15%);
+}
+
+.submissionCard.highlighted {
+  border: 2px solid #10b981;
+  box-shadow: 0 0 20px rgb(16 185 129 / 30%);
+  animation: highlight-pulse 0.6s ease-in-out;
+}
+
+@keyframes highlight-pulse {
+  0%,
+  100% {
+    border-color: #10b981;
+    box-shadow: 0 0 20px rgb(16 185 129 / 30%);
+  }
+
+  50% {
+    border-color: #34d399;
+    box-shadow: 0 0 30px rgb(16 185 129 / 50%);
+  }
+}
+
+.submissionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.submissionHeader h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #1f2937;
+}
+
+.formTypeBadge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.formTypeBadge.uncontrolled {
+  color: #92400e;
+  background: #fef3c7;
+}
+
+.formTypeBadge.reactHookForm {
+  color: #1e40af;
+  background: #dbeafe;
+}
+
+.submissionContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.submissionField {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.25rem 0;
+}
+
+.submissionField strong {
+  min-width: 120px;
+  margin-right: 1rem;
+  color: #374151;
+}
+
+.submissionPicture {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #e5e7eb;
+  border-radius: 50%;
+
+  object-fit: cover;
+}
+
+@media (width <= 768px) {
+  .submissionHeader {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .submissionField {
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: flex-start;
+  }
+
+  .submissionField strong {
+    min-width: auto;
+  }
+}
