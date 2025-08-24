@@ -110,7 +110,7 @@ export function ReactHookForm({ onClose }: ReactHookFormProps): JSX.Element {
   };
 
   return (
-    <form className={styles.form} noValidate onSubmit={handleSubmit(onSubmit)}>
+    <form className={styles.form} data-testid="rhf-form" noValidate onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.formGroup}>
         <label htmlFor="rhf-name">Name *</label>
         <input id="rhf-name" type="text" {...register('name')} className={clsx(errors.name && styles.error)} />
@@ -120,6 +120,7 @@ export function ReactHookForm({ onClose }: ReactHookFormProps): JSX.Element {
       <div className={styles.formGroup}>
         <label htmlFor="rhf-age">Age *</label>
         <input
+          autoComplete="age"
           id="rhf-age"
           type="number"
           {...register('age', { valueAsNumber: true })}
@@ -138,6 +139,7 @@ export function ReactHookForm({ onClose }: ReactHookFormProps): JSX.Element {
         <label htmlFor="rhf-password">Password *</label>
         <div className={styles.passwordInputContainer}>
           <input
+            autoComplete="new-password"
             id="rhf-password"
             type={showPassword ? 'text' : 'password'}
             {...register('password')}
@@ -158,7 +160,9 @@ export function ReactHookForm({ onClose }: ReactHookFormProps): JSX.Element {
         <label htmlFor="rhf-confirmPassword">Confirm Password *</label>
         <div className={styles.passwordInputContainer}>
           <input
-            id="rhf-confirmPassword"
+            autoComplete="new-password"
+            data-testid="rhf-confirm-password"
+            id="confirmPassword"
             type={showConfirmPassword ? 'text' : 'password'}
             {...register('confirmPassword')}
             className={clsx(errors.confirmPassword && styles.error)}
@@ -186,13 +190,14 @@ export function ReactHookForm({ onClose }: ReactHookFormProps): JSX.Element {
       <div className={styles.formGroup}>
         <label htmlFor="rhf-country">Country *</label>
         <input
+          autoComplete="country"
           id="rhf-country"
           type="text"
           {...register('country')}
           className={clsx(errors.country && styles.error)}
           list="rhf-countries-list"
         />
-        <datalist id="rhf-countries-list">
+        <datalist data-testid="rhf-countries-list" id="rhf-countries-list">
           {countries.map((country) => (
             <option key={country.code} value={country.name} />
           ))}

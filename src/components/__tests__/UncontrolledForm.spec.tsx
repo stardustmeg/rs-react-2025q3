@@ -15,11 +15,7 @@ Object.defineProperty(mockPdfFile, 'size', { value: 1024 * 1024 });
 const mockPngFile = new File(['test'], 'test.png', { type: 'image/png' });
 Object.defineProperty(mockPngFile, 'size', { value: 1024 * 1024 });
 
-Object.defineProperty(global, 'crypto', {
-  value: {
-    randomUUID: () => 'test-uuid-456',
-  },
-});
+Object.defineProperty(global, 'crypto', { value: { randomUUID: () => 'test-uuid-456' } });
 
 beforeAll(() => {
   const modalRoot = document.createElement('div');
