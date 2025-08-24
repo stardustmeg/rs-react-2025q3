@@ -1,0 +1,98 @@
+.modalBackdrop {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 1rem;
+
+  background: rgb(0 0 0 / 50%);
+}
+
+.modal {
+  width: 100%;
+  max-width: 700px;
+  max-height: 90vh;
+  border-radius: 12px;
+
+  background: white;
+  box-shadow: 0 20px 40px rgb(0 0 0 / 30%);
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modalHeader h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #1f2937;
+}
+
+.modalCloseButton {
+  cursor: pointer;
+
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+
+  font-size: 1.5rem;
+  color: #6b7280;
+
+  background: none;
+
+  transition: all 0.2s ease;
+}
+
+.modalCloseButton:hover {
+  color: #374151;
+  background: #f3f4f6;
+}
+
+.modalContent {
+  scrollbar-color: #d1d5db #f9fafb;
+  scrollbar-width: thin;
+
+  overflow-y: auto;
+
+  max-height: calc(90vh - 120px);
+  padding: 1.5rem;
+}
+
+.modalContent::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modalContent::-webkit-scrollbar-track {
+  background: #f9fafb;
+}
+
+.modalContent::-webkit-scrollbar-thumb {
+  border: 2px solid #f9fafb;
+  border-radius: 4px;
+  background: #d1d5db;
+}
+
+.modalContent::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+.modalFooter {
+  padding: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+@media (width <= 768px) {
+  .modal {
+    max-height: calc(100vh - 2rem);
+    margin: 1rem;
+  }
+}
