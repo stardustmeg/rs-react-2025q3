@@ -13,11 +13,12 @@ interface ModalProps {
 export function Modal({ children, isOpen, onClose, title }: ModalProps): JSX.Element | null {
   const modalReference = useRef<HTMLDivElement>(null);
   const previousFocusReference = useRef<HTMLElement | null>(null);
+  const originalOverflowReference = useRef<string>('');
 
   useEffect(() => {
     if (isOpen) {
+      originalOverflowReference.current = document.body.style.overflow || '';
       previousFocusReference.current = document.activeElement as HTMLElement;
-
       modalReference.current?.focus();
 
       document.body.style.overflow = 'hidden';
@@ -34,13 +35,19 @@ export function Modal({ children, isOpen, onClose, title }: ModalProps): JSX.Ele
         document.removeEventListener('keydown', handleEscape);
       };
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = originalOverflowReference.current;
 
       if (previousFocusReference.current) {
         previousFocusReference.current.focus();
       }
     }
   }, [isOpen, onClose]);
+
+  useEffect(() => {
+    return (): void => {
+      document.body.style.overflow = originalOverflowReference.current;
+    };
+  }, []);
 
   const handleBackdropClick = (event: React.MouseEvent): void => {
     if (event.target === event.currentTarget) {
