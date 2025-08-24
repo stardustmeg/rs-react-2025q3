@@ -9,7 +9,7 @@ export default defineConfig({
     exclude: ['node_modules', 'dist'],
     globals: true,
     environment: 'jsdom',
-    setupFiles: ['./src/__tests__/setup.ts'],
+    setupFiles: ['vitest-setup.ts'],
     maxConcurrency: 8,
     coverage: {
       provider: 'v8',
