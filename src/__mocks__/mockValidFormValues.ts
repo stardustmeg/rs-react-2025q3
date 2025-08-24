@@ -1,4 +1,4 @@
-export const validFormData = {
+export const mockValidFormValues = {
   acceptTerms: true,
   age: 25,
   confirmPassword: 'StrongP@ss123',
