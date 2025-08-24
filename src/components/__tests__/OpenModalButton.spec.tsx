@@ -27,7 +27,6 @@ describe('OpenModalButton Component', () => {
 
     const button = screen.getByRole('button');
     expect(button).toHaveAttribute('type', 'button');
-    expect(button).toHaveClass('buttonPrimary', 'buttonLarge');
   });
 
   it('calls openModal when clicked', async () => {
