@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { validFormData } from '@/__mocks__/validFormData';
+import { mockValidFormValues } from '@/__mocks__/mockValidFormValues';
 import { age, image, name, password } from '@/validation/constants';
 import { fileSchema, formSchema } from '@/validation/schemas';
 
@@ -53,27 +53,27 @@ describe('Form Validation Schemas', () => {
 
   describe('formSchema', () => {
     it('should validate complete valid form data', () => {
-      const result = formSchema.safeParse(validFormData);
+      const result = formSchema.safeParse(mockValidFormValues);
       expect(result.success).toBe(true);
     });
 
     it('should validate individual field constraints', () => {
-      expect(() => formSchema.parse({ ...validFormData, name: 'J' })).toThrow();
-      expect(() => formSchema.parse({ ...validFormData, name: 'A'.repeat(101) })).toThrow();
-      expect(() => formSchema.parse({ ...validFormData, name: 'john doe' })).toThrow();
+      expect(() => formSchema.parse({ ...mockValidFormValues, name: 'J' })).toThrow();
+      expect(() => formSchema.parse({ ...mockValidFormValues, name: 'A'.repeat(101) })).toThrow();
+      expect(() => formSchema.parse({ ...mockValidFormValues, name: 'john doe' })).toThrow();
 
-      expect(() => formSchema.parse({ ...validFormData, age: 0 })).toThrow();
-      expect(() => formSchema.parse({ ...validFormData, age: 121 })).toThrow();
+      expect(() => formSchema.parse({ ...mockValidFormValues, age: 0 })).toThrow();
+      expect(() => formSchema.parse({ ...mockValidFormValues, age: 121 })).toThrow();
 
-      expect(() => formSchema.parse({ ...validFormData, email: 'invalid-email' })).toThrow();
+      expect(() => formSchema.parse({ ...mockValidFormValues, email: 'invalid-email' })).toThrow();
 
-      expect(() => formSchema.parse({ ...validFormData, password: 'weak' })).toThrow();
-      expect(() => formSchema.parse({ ...validFormData, password: 'NoSpecial123' })).toThrow();
+      expect(() => formSchema.parse({ ...mockValidFormValues, password: 'weak' })).toThrow();
+      expect(() => formSchema.parse({ ...mockValidFormValues, password: 'NoSpecial123' })).toThrow();
     });
 
     it('should validate password confirmation matching', () => {
       const dataWithMismatchedPasswords = {
-        ...validFormData,
+        ...mockValidFormValues,
         confirmPassword: 'DifferentP@ss123',
         password: 'StrongP@ss123',
       };
@@ -85,7 +85,7 @@ describe('Form Validation Schemas', () => {
 
     it('should require terms acceptance', () => {
       const dataWithoutTerms = {
-        ...validFormData,
+        ...mockValidFormValues,
         acceptTerms: false,
       };
 
@@ -96,7 +96,7 @@ describe('Form Validation Schemas', () => {
 
     it('should validate picture format', () => {
       const dataWithInvalidPicture = {
-        ...validFormData,
+        ...mockValidFormValues,
         picture: 'invalid-base64',
       };
 
@@ -107,7 +107,7 @@ describe('Form Validation Schemas', () => {
 
     it('should validate gender enum', () => {
       const dataWithInvalidGender = {
-        ...validFormData,
+        ...mockValidFormValues,
         gender: 'invalid-gender',
       };
 

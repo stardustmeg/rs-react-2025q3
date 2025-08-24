@@ -14,12 +14,16 @@ interface SubmissionCardProps {
 
 export function SubmissionCard({ highlightedId, submission }: SubmissionCardProps): JSX.Element {
   return (
-    <div className={clsx(styles.submissionCard, highlightedId === submission.id && styles.highlighted)}>
+    <div
+      className={clsx(styles.submissionCard, highlightedId === submission.id && styles.highlighted)}
+      data-testid={`submission-card-${submission.id}`}
+    >
       <span
         className={clsx(styles.formTypeBadge, submission.formType, {
           [styles.reactHookForm]: submission.formType === 'react-hook-form',
           [styles.uncontrolled]: submission.formType === 'uncontrolled',
         })}
+        data-testid="form-type-badge"
       >
         {submission.formType === 'uncontrolled' ? 'Uncontrolled' : 'React Hook Form'}
       </span>
