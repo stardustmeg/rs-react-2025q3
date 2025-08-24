@@ -12,6 +12,8 @@ import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 import unusedImports from 'eslint-plugin-unused-imports';
 import { myEslintRules } from './eslint-rules/my-eslint-rules.js';
 import eslintPluginNoRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
+import jestDom from 'eslint-plugin-jest-dom';
+import testingLibrary from 'eslint-plugin-testing-library';
 
 export default tseslint.config([
   globalIgnores(['dist', '**/*.js', '**/*.d.ts', '**/*.config.[jt]s?(x)']),
@@ -57,17 +59,17 @@ export default tseslint.config([
       'import/resolver': { typescript: { project: './tsconfig.json' } },
     },
   },
-  // {
-  //   files: ['**/__tests__/**/*.[jt]s?(x)', '**/*.spec.[jt]s?(x)'],
-  //   plugins: { 'jest-dom': jestDom, 'testing-library': testingLibrary },
-  //   rules: {
-  //     ...jestDom.configs.recommended.rules,
-  //     ...testingLibrary.configs.react.rules,
-  //     'unicorn/no-useless-undefined': 'off',
-  //     'max-lines-per-function': 'off',
-  //     '@typescript-eslint/no-unnecessary-type-assertion': 'off',
-  //     '@typescript-eslint/consistent-type-assertions': 'off',
-  //     '@typescript-eslint/no-magic-numbers': 'off',
-  //   },
-  // },
+  {
+    files: ['**/__tests__/**/*.[jt]s?(x)', '**/*.spec.[jt]s?(x)'],
+    plugins: { 'jest-dom': jestDom, 'testing-library': testingLibrary },
+    rules: {
+      ...jestDom.configs.recommended.rules,
+      ...testingLibrary.configs.react.rules,
+      'unicorn/no-useless-undefined': 'off',
+      'max-lines-per-function': 'off',
+      '@typescript-eslint/no-unnecessary-type-assertion': 'off',
+      '@typescript-eslint/consistent-type-assertions': 'off',
+      '@typescript-eslint/no-magic-numbers': 'off',
+    },
+  },
 ]);
