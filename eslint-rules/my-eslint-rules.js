@@ -45,7 +45,6 @@ export const myEslintRules = {
       ],
     },
   ],
-  'max-lines-per-function': ['error', { max: 40, skipBlankLines: true, skipComments: true }],
   'no-console': ['error', { allow: ['warn'] }],
   'no-empty-function': 'error',
   'no-relative-import-paths/no-relative-import-paths': [
@@ -54,24 +53,26 @@ export const myEslintRules = {
   ],
   'object-curly-newline': 'off',
   'unused-imports/no-unused-imports': 'error',
-  '@typescript-eslint/no-magic-numbers': [
-    'error',
-    {
-      ignore: [0, 1, -1, 2],
-      ignoreArrayIndexes: true,
-      ignoreClassFieldInitialValues: true,
-      ignoreReadonlyClassProperties: true,
-      enforceConst: true,
-      ignoreDefaultValues: true,
-    },
-  ],
   '@typescript-eslint/restrict-template-expressions': 'off',
+  '@typescript-eslint/require-await': 'off',
+  '@typescript-eslint/no-misused-promises': 'off',
   'unicorn/no-null': 'off',
   'unicorn/prefer-global-this': 'off',
   'unicorn/prefer-query-selector': 'off',
   'unicorn/filename-case': 'off',
   'unicorn/prevent-abbreviations': [
     'error',
-    { allowList: { props: true, Props: true, idx: true, Index: true, params: true, Params: true } },
+    {
+      allowList: {
+        props: true,
+        Props: true,
+        idx: true,
+        Index: true,
+        params: true,
+        Params: true,
+        utils: true,
+        Utils: true,
+      },
+    },
   ],
 };
