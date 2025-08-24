@@ -117,7 +117,13 @@ export function UncontrolledForm({ onClose }: UncontrolledFormProps): JSX.Elemen
   };
 
   return (
-    <form className={styles.form} noValidate onSubmit={handleSubmit} ref={formReference}>
+    <form
+      className={styles.form}
+      data-testid="uncontrolled-form"
+      noValidate
+      onSubmit={handleSubmit}
+      ref={formReference}
+    >
       <div className={styles.formGroup}>
         <label htmlFor="uncontrolled-name">Name *</label>
         <input className={clsx(errors.name && styles.error)} id="uncontrolled-name" name="name" type="text" />
@@ -147,6 +153,7 @@ export function UncontrolledForm({ onClose }: UncontrolledFormProps): JSX.Elemen
         <label htmlFor="uncontrolled-password">Password *</label>
         <div className={styles.passwordInputContainer}>
           <input
+            autoComplete="new-password"
             className={clsx(errors.password && styles.error)}
             id="uncontrolled-password"
             name="password"
@@ -168,6 +175,7 @@ export function UncontrolledForm({ onClose }: UncontrolledFormProps): JSX.Elemen
         <label htmlFor="uncontrolled-confirmPassword">Confirm Password *</label>
         <div className={styles.passwordInputContainer}>
           <input
+            autoComplete="new-password"
             className={clsx(errors.confirmPassword && styles.error)}
             id="uncontrolled-confirmPassword"
             name="confirmPassword"
@@ -202,7 +210,7 @@ export function UncontrolledForm({ onClose }: UncontrolledFormProps): JSX.Elemen
           name="country"
           type="text"
         />
-        <datalist id="countries-list">
+        <datalist data-testid="countries-list" id="countries-list">
           {countries.map((country) => (
             <option key={country.code} value={country.name} />
           ))}
